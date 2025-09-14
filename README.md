@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-# Mac Files only for now
 =======
 <img style="width: 128px; height: 128px" src="site/static/favicon.svg" /><h1 style="font-size: 48px"><a href="https://gurted.com">Gurted</a> - the new ecosystem similar to World Wide Web.</h1>
 
