@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /dashboard.html
+Allow: /domain.html
+Allow: /index.html
+Allow: /register.html
+Allow: /signup.html

@@ -1,0 +1,88 @@
+[gd_scene load_steps=8 format=3 uid="uid://bxtm0d4q1w8vy"]
+
+[ext_resource type="Script" uid="uid://cp3geyxt0f8tn" path="res://Scripts/Browser/DownloadsStore.gd" id="1_w8vy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_main"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+bg_color = Color(0.105882, 0.105882, 0.105882, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_search"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_search"]
+bg_color = Color(0.168627, 0.168627, 0.168627, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+expand_margin_left = 40.0
+
+[sub_resource type="Theme" id="Theme_search"]
+LineEdit/styles/focus = SubResource("StyleBoxEmpty_search")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_search")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_search_bg"]
+content_margin_left = 10.0
+bg_color = Color(0.219501, 0.219501, 0.219501, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_container"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 5.0
+bg_color = Color(0.154876, 0.154876, 0.154876, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[node name="PopupPanel" type="PopupPanel"]
+initial_position = 1
+size = Vector2i(770, 710)
+visible = true
+max_size = Vector2i(770, 710)
+theme_override_styles/panel = SubResource("StyleBoxFlat_main")
+script = ExtResource("1_w8vy")
+
+[node name="Main" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(710, 0)
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 755.0
+offset_bottom = 695.0
+size_flags_horizontal = 4
+theme_override_constants/separation = 15
+
+[node name="LineEdit" type="LineEdit" parent="Main"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_search")
+theme_override_styles/normal = SubResource("StyleBoxFlat_search_bg")
+placeholder_text = "Search downloads..."
+caret_blink = true
+
+[node name="PanelContainer2" type="PanelContainer" parent="Main"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_container")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Main/PanelContainer2"]
+custom_minimum_size = Vector2(710, 500)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="DownloadEntryContainer" type="VBoxContainer" parent="Main/PanelContainer2/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3

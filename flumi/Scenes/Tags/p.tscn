@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://fr6lovy4ikok"]
+
+[ext_resource type="Script" uid="uid://cg6kjvlx3an1j" path="res://Scripts/Tags/p.gd" id="1_pnbfg"]
+
+[node name="p" type="HBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 19.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+script = ExtResource("1_pnbfg")

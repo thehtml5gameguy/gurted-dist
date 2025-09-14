@@ -1,0 +1,68 @@
+<head></head>
+	<title>Sign Up</title>
+	<icon src="https://cdn-icons-png.flaticon.com/512/295/295128.png">
+	<meta name="theme-color" content="#1b1b1b">
+	<meta name="description" content="Create a new account">
+
+	<font name="roboto" src="https://fonts.gstatic.com/s/roboto/v48/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3KUBGEe.woff2" />
+
+	<style>
+		body {
+			bg-[#171616] font-sans text-white
+		}
+
+		.signup-card {
+			bg-[#262626] p-8 rounded-lg shadow-lg max-w-md mx-auto my-auto h-full
+		}
+
+		h1 {
+			text-3xl font-bold text-center mb-6
+		}
+
+		input {
+			w-full p-3 border border-gray-600 rounded-md bg-[#374151] text-white mb-4 placeholder:text-[#999999] outline-none active:border-red-500
+		}
+
+		button {
+			bg-[#dc2626] text-white font-medium p-3 rounded-lg w-full cursor-pointer transition-colors hover:bg-[#b91c1c] active:bg-[#991b1b]
+		}
+
+		a {
+			text-[#ef4444] hover:text-[#dc2626] cursor-pointer
+		}
+
+		#log-output {
+			text-[#fca5a5] p-4 rounded-md mt-4 font-mono max-h-40
+		}
+
+		.info-box {
+			bg-[#1f2937] p-4 rounded-md mb-4 border border-[#374151]
+		}
+
+		.info-text {
+			text-[#d1d5db] text-sm
+		}
+	</style>
+	
+	<script src="signup.lua" />
+</head>
+
+<body>
+	<div style="signup-card">
+		<h1>Sign Up</h1>
+		
+		<div style="info-box">
+			<p style="info-text">New users get 3 free domain registrations to get started!</p>
+		</div>
+
+		<form id="signup-form" style="mx-auto">
+			<input id="username" type="text" placeholder="Username" required="true" />
+			<input id="password" type="password" placeholder="Password" required="true" />
+			<input id="confirm-password" type="password" placeholder="Confirm Password" required="true" />
+			<button type="submit" id="submit">Create Account</button>
+		</form>
+		<p style="text-center mt-4 text-[#999999] text-sm">Already have an account? <a href="index.html">Login here</a></p>
+		
+		<p id="log-output" style="min-h-24"></p>
+	</div>
+</body>

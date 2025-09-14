@@ -1,0 +1,195 @@
+<head>
+	<title>Signal API Demo</title>
+	<icon src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Lua-Logo.svg/256px-Lua-Logo.svg.png">
+	<meta name="theme-color" content="#8b5cf6">
+	<meta name="description" content="Demonstrating the new Signal API with custom events">
+
+	<style>
+		body { bg-[#f8fafc] p-6 }
+		h1 { text-[#8b5cf6] text-3xl font-bold text-center }
+		h2 { text-[#6d28d9] text-xl font-semibold }
+		.container { bg-[#ffffff] p-6 rounded-lg shadow-lg max-w-4xl mx-auto }
+		.button-group { flex gap-3 justify-center items-center flex-wrap }
+		.signal-button { px-4 py-2 rounded-lg font-medium cursor-pointer transition-colors }
+		.fire-btn { bg-[#10b981] text-white hover:bg-[#059669] }
+		.connect-btn { bg-[#3b82f6] text-white hover:bg-[#2563eb] }
+		.disconnect-btn { bg-[#ef4444] text-white hover:bg-[#dc2626] }
+		.log-area { bg-[#f1f5f9] p-4 rounded-lg min-h-32 font-mono text-sm }
+		.status-display { bg-[#ddd6fe] p-3 rounded-md text-[#5b21b6] font-mono }
+		.info-box { bg-[#fef3c7] border border-[#f59e0b] p-4 rounded-lg }
+	</style>
+
+	<script>
+		-- Create custom signals
+		local mySignal = Signal.new()
+		local dataSignal = Signal.new()
+		local userActionSignal = Signal.new()
+		print(".container > div: ", gurt.selectAll('.container > div'))
+		print(".container div: ", gurt.selectAll('.container div'))
+		print("button[disabled]: ", gurt.selectAll('button[disabled]'))
+		print(".container: ", gurt.selectAll('.container'))
+		print("#log-area: ", gurt.selectAll('#log-area'))
+		-- Get UI elements
+		local logArea = gurt.select('#log-area')
+		local statusDisplay = gurt.select('#status-display')
+		local connectBtn = gurt.select('#connect-btn')
+		local disconnectBtn = gurt.select('#disconnect-btn')
+		local fireBtn = gurt.select('#fire-btn')
+		local fireDataBtn = gurt.select('#fire-data-btn')
+		local clearLogBtn = gurt.select('#clear-log-btn')
+
+		trace.log('Signal API demo script started.')
+
+		local logMessages = {}
+		local connectionCount = 0
+		local activeConnections = {}
+
+		-- Function to add message to log
+		local function addLog(message)
+			table.insert(logMessages, Time.format(Time.now(), '%H:%M:%S') .. ' - ' .. message)
+			if #logMessages > 20 then
+				table.remove(logMessages, 1)
+			end
+			logArea.text = table.concat(logMessages, '\n')
+		end
+
+		-- Function to update status
+		local function updateStatus()
+			statusDisplay.text = 'Active Connections: ' .. #activeConnections .. '\\nTotal Events Fired: ' .. connectionCount
+		end
+
+		-- Signal handlers
+		local function onMySignal(arg1, arg2)
+			addLog('mySignal fired with args: ' .. (arg1 or 'nil') .. ', ' .. (arg2 or 'nil'))
+		end
+
+		local function onDataSignal(data)
+			addLog('dataSignal received: ' .. table.tostring(data))
+		end
+
+		local function onUserAction(action, timestamp)
+			addLog('userActionSignal: ' .. action .. ' at ' .. timestamp)
+		end
+
+		-- Connect button
+		connectBtn:on('click', function()
+			-- Connect multiple handlers to demonstrate multiple connections
+			local conn1 = mySignal:connect(onMySignal)
+			local conn2 = dataSignal:connect(onDataSignal)
+			local conn3 = userActionSignal:connect(onUserAction)
+			
+			table.insert(activeConnections, conn1)
+			table.insert(activeConnections, conn2)
+			table.insert(activeConnections, conn3)
+			
+			addLog('Connected 3 signal handlers')
+			updateStatus()
+		end)
+
+		-- Disconnect button
+		disconnectBtn:on('click', function()
+			for i = 1, #activeConnections do
+				activeConnections[i]:disconnect()
+			end
+			activeConnections = {}
+			addLog('Disconnected all signal handlers')
+			updateStatus()
+		end)
+
+		-- Fire simple signal
+		fireBtn:on('click', function()
+			mySignal:fire('Hello', 123)
+			connectionCount = connectionCount + 1
+			addLog('Fired mySignal with two arguments')
+			updateStatus()
+		end)
+
+		-- Fire data signal
+		fireDataBtn:on('click', function()
+			local sampleData = {
+				user = 'Alice',
+				score = math.random(100, 999),
+				items = {'sword', 'shield', 'potion'}
+			}
+			dataSignal:fire(sampleData)
+			connectionCount = connectionCount + 1
+			addLog('Fired dataSignal with complex data')
+			updateStatus()
+		end)
+
+		-- Fire user action signal
+		gurt.body:on('keypress', function(keyInfo)
+			if #activeConnections > 0 then
+				userActionSignal:fire('keypress: ' .. keyInfo.key, Time.format(Time.now(), '%H:%M:%S'))
+				connectionCount = connectionCount + 1
+				updateStatus()
+			end
+		end)
+
+		-- Clear log button  
+		clearLogBtn:on('click', function()
+			logMessages = {}
+			logArea.text = 'Log cleared.'
+			addLog('Log area cleared')
+		end)
+
+		-- Initialize with some sample connections
+		local initialConn = mySignal:connect(function(a, b)
+			addLog('Initial handler triggered with: ' .. (a or 'nil') .. ', ' .. (b or 'nil'))
+		end)
+		table.insert(activeConnections, initialConn)
+		
+		addLog('Signal API demo initialized')
+		addLog('Try connecting handlers and firing signals!')
+		addLog('Press any key to trigger userActionSignal (when connected)')
+		updateStatus()
+	</script>
+</head>
+
+<body>
+	<h1>🔔 Signal API Demo</h1>
+	
+	<div style="container mt-6">
+		<div style="info-box mb-6">
+			<p><strong>Signal API Usage Example:</strong></p>
+			<p><code>local mySignal = Signal.new()</code></p>
+			<p><code>mySignal:connect(function(arg1, arg2) print("Event fired with: ", arg1, arg2) end)</code></p>
+			<p><code>mySignal:fire("Hello", 123)</code></p>
+			<p><code>connection:disconnect()</code></p>
+		</div>
+
+		<h2>Controls</h2>
+		<div style="button-group mb-6">
+			<button id="connect-btn" style="signal-button connect-btn">🔗 Connect Handlers</button>
+			<button id="disconnect-btn" style="signal-button disconnect-btn">❌ Disconnect All</button>
+			<button id="fire-btn" style="signal-button fire-btn">🔔 Fire Simple Signal</button>
+			<button id="fire-data-btn" style="signal-button fire-btn">📊 Fire Data Signal</button>
+			<button id="clear-log-btn" style="signal-button">🧹 Clear Log</button>
+		</div>
+
+		<h2>Status</h2>
+		<div style="status-display mb-6">
+			<pre id="status-display">Loading status...</pre>
+		</div>
+
+		<h2>Event Log</h2>
+		<div style="log-area mb-6">
+			<pre id="log-area">Initializing...</pre>
+		</div>
+
+		<div style="bg-[#e0f2fe] p-4 rounded-lg">
+			<h3 style="text-[#0277bd] font-semibold mb-2">Signal API Features:</h3>
+			<ul style="text-[#01579b] space-y-1">
+				<li><strong>Signal.new():</strong> Creates a new signal object</li>
+				<li><strong>signal:connect(callback):</strong> Connects a callback function and returns a connection object</li>
+				<li><strong>signal:fire(...):</strong> Fires the signal with optional arguments</li>
+				<li><strong>connection:disconnect():</strong> Disconnects a specific connection</li>
+				<li><strong>signal:disconnect():</strong> Disconnects all connections from the signal</li>
+				<li><strong>Multiple Connections:</strong> One signal can have multiple connected callbacks</li>
+				<li><strong>Argument Passing:</strong> Signals can pass multiple arguments to connected callbacks</li>
+			</ul>
+		</div>
+	<button disabled="true">Test</button>
+	<button disabled="true">Test2</button>
+	</div>
+</body>

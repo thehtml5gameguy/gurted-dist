@@ -1,0 +1,363 @@
+<head>
+    <title>Complete Canvas API Test - GURT Browser</title>
+    <icon src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Lua-Logo.svg/256px-Lua-Logo.svg.png">
+    <meta name="theme-color" content="#8b5cf6">
+    <meta name="description" content="Comprehensive test of all Canvas 2D API functions">
+
+    <style>
+        body { bg-[#f8fafc] p-6 }
+        h1 { text-[#8b5cf6] text-3xl font-bold text-center }
+        h2 { text-[#7c3aed] text-xl font-semibold mb-3 }
+        h3 { text-[#6d28d9] text-lg font-medium mb-2 }
+        .container { bg-[#ffffff] p-6 rounded-lg shadow-lg max-w-6xl mx-auto }
+        .canvas-grid { display-grid grid-cols-2 gap-6 }
+        .test-section { bg-[#f8fafc] p-4 rounded-lg border border-[#e2e8f0] mb-4 }
+        .canvas-item { text-center p-4 }
+        .description { text-[#64748b] text-sm mb-2 }
+        canvas { border border-[#cbd5e1] rounded-lg bg-white }
+    </style>
+
+    <script>
+        trace.log('Starting comprehensive Canvas API test...')
+        
+        -- Test 1: Basic Rectangle and Circle Drawing
+        local basicCanvas = gurt.select("#basic-canvas")
+        local basicCtx = basicCanvas:withContext("2d")
+        
+        -- Background
+        basicCtx:fillRect(0, 0, 400, 300, "#f1f5f9")
+        
+        -- Basic rectangles
+        basicCtx:fillRect(20, 20, 60, 40, "#ef4444")
+        basicCtx:strokeRect(100, 20, 60, 40, "#22c55e", 3)
+        basicCtx:clearRect(30, 30, 20, 20)
+        
+        -- Circles
+        basicCtx:drawCircle(200, 50, 25, "#3b82f6", true)
+        basicCtx:drawCircle(280, 50, 25, "#f59e0b", false)
+        
+        -- Text
+        basicCtx:drawText(20, 100, "Basic Drawing Functions", "#1f2937")
+        basicCtx:drawText(20, 120, "fillRect, strokeRect, clearRect, drawCircle, drawText", "#6b7280")
+        
+        -- Test 2: Path-Based Drawing
+        local pathCanvas = gurt.select("#path-canvas")
+        local pathCtx = pathCanvas:withContext("2d")
+        
+        pathCtx:fillRect(0, 0, 400, 300, "#f1f5f9")
+        pathCtx:setStrokeStyle("#dc2626")
+        pathCtx:setFillStyle("#fecaca")
+        pathCtx:setLineWidth(3)
+        
+        -- Simple test - draw two straight lines first
+        pathCtx:setStrokeStyle("#ff0000")
+        pathCtx:setLineWidth(5)
+        pathCtx:beginPath()
+        pathCtx:moveTo(50, 50)
+        pathCtx:lineTo(150, 50)
+        pathCtx:stroke()
+        
+        -- Triangle
+        pathCtx:beginPath()
+        pathCtx:moveTo(50, 100)
+        pathCtx:lineTo(100, 100)
+        pathCtx:lineTo(75, 150)
+        pathCtx:closePath()
+        pathCtx:fill()
+        pathCtx:stroke()
+        
+        -- Complex path
+        pathCtx:setStrokeStyle("#2563eb")
+        pathCtx:beginPath()
+        pathCtx:moveTo(150, 50)
+        pathCtx:lineTo(200, 70)
+        pathCtx:lineTo(180, 120)
+        pathCtx:lineTo(150, 100)
+        pathCtx:stroke()
+        
+        -- Arc/Circle path
+        pathCtx:setFillStyle("#10b981")
+        pathCtx:beginPath()
+        pathCtx:arc(300, 75, 30, 0, 2 * math.pi, false)
+        pathCtx:fill()
+        
+        -- Half circle
+        pathCtx:setStrokeStyle("#f59e0b")
+        pathCtx:setLineWidth(4)
+        pathCtx:beginPath()
+        pathCtx:arc(350, 75, 25, 0, math.pi, false)
+        pathCtx:stroke()
+        
+        pathCtx:drawText(20, 200, "Path-Based Drawing", "#1f2937")
+        pathCtx:drawText(20, 220, "beginPath, moveTo, lineTo, closePath, arc, stroke, fill", "#6b7280")
+        
+        -- Test 3: Transformations
+        local transformCanvas = gurt.select("#transform-canvas")
+        local transformCtx = transformCanvas:withContext("2d")
+        
+        -- Background
+        transformCtx:setFillStyle("#f1f5f9")
+        transformCtx:fillRect(0, 0, 400, 300)
+        
+        -- Original square (no transform)
+        transformCtx:setFillStyle("#e2e8f0")
+        transformCtx:fillRect(50, 50, 40, 40)
+        
+        -- Simple translation test
+        transformCtx:save()
+        transformCtx:translate(100, 0)
+        transformCtx:setFillStyle("#ef4444")
+        transformCtx:fillRect(50, 50, 40, 40)  -- Should appear at (150, 50)
+        transformCtx:restore()
+        
+        -- Simple rotation test 
+        transformCtx:save()
+        transformCtx:translate(200, 70)  -- Move origin to (200,70)
+        transformCtx:rotate(math.pi / 4)  -- Rotate 45 degrees
+        transformCtx:setFillStyle("#22c55e")
+        transformCtx:fillRect(-20, -20, 40, 40)  -- Draw centered on new origin
+        transformCtx:restore()
+        
+        -- Simple scaling test
+        transformCtx:save()
+        transformCtx:translate(300, 70)
+        transformCtx:scale(1.5, 0.8)
+        transformCtx:setFillStyle("#3b82f6")
+        transformCtx:fillRect(-20, -20, 40, 40)
+        transformCtx:restore()
+        
+        -- Combined test
+        transformCtx:save()
+        transformCtx:translate(150, 180)
+        transformCtx:rotate(math.pi / 6)
+        transformCtx:scale(1.2, 1.2)
+        transformCtx:setFillStyle("#f59e0b")
+        transformCtx:fillRect(-25, -25, 50, 50)
+        transformCtx:restore()
+        
+        transformCtx:drawText(20, 250, "Transformations", "#1f2937")
+        transformCtx:drawText(20, 270, "translate, rotate, scale, save, restore", "#6b7280")
+        
+        -- Test 4: Curves and Advanced Paths
+        local curveCanvas = gurt.select("#curve-canvas")
+        local curveCtx = curveCanvas:withContext("2d")
+        
+        curveCtx:fillRect(0, 0, 400, 300, "#f1f5f9")
+        curveCtx:setStrokeStyle("#8b5cf6")
+        curveCtx:setLineWidth(3)
+        
+        -- Quadratic curve
+        curveCtx:beginPath()
+        curveCtx:moveTo(50, 50)
+        curveCtx:quadraticCurveTo(100, 20, 150, 50)
+        curveCtx:stroke()
+        
+        -- Bezier curve
+        curveCtx:setStrokeStyle("#dc2626")
+        curveCtx:beginPath()
+        curveCtx:moveTo(200, 50)
+        curveCtx:bezierCurveTo(220, 20, 280, 20, 300, 50)
+        curveCtx:stroke()
+        
+        -- Complex curved shape
+        curveCtx:setStrokeStyle("#10b981")
+        curveCtx:setFillStyle("#bbf7d0")
+        curveCtx:beginPath()
+        curveCtx:moveTo(100, 120)
+        curveCtx:quadraticCurveTo(150, 90, 200, 120)
+        curveCtx:quadraticCurveTo(230, 150, 200, 180)
+        curveCtx:quadraticCurveTo(150, 210, 100, 180)
+        curveCtx:quadraticCurveTo(70, 150, 100, 120)
+        curveCtx:fill()
+        curveCtx:stroke()
+        
+        curveCtx:drawText(20, 250, "Curves and Advanced Paths", "#1f2937")
+        curveCtx:drawText(20, 270, "quadraticCurveTo, bezierCurveTo", "#6b7280")
+        
+        -- Test 5: Style Properties and Text
+        local styleCanvas = gurt.select("#style-canvas")
+        local styleCtx = styleCanvas:withContext("2d")
+        
+        styleCtx:fillRect(0, 0, 400, 300, "#f1f5f9")
+        
+        -- Different line widths
+        for i = 1, 5 do
+            styleCtx:setLineWidth(i * 2)
+            styleCtx:setStrokeStyle("#" .. string.format("%02x", i * 40) .. "4040")
+            styleCtx:beginPath()
+            styleCtx:moveTo(20, 20 + i * 15)
+            styleCtx:lineTo(120, 20 + i * 15)
+            styleCtx:stroke()
+        end
+        
+        -- Different colors
+        local colors = {"#ef4444", "#f97316", "#eab308", "#22c55e", "#06b6d4", "#3b82f6", "#8b5cf6", "#ec4899"}
+        for i, color in ipairs(colors) do
+            styleCtx:setFillStyle(color)
+            styleCtx:fillRect(140 + (i-1) * 25, 30, 20, 60)
+        end
+        
+        -- Text with different properties
+        styleCtx:setFont("20px sans-serif")
+        styleCtx:drawText(20, 140, "Font Size Test", "#1f2937")
+        
+        styleCtx:setFont("16px sans-serif")
+        styleCtx:drawText(20, 170, "Medium Size Text", "#374151")
+        
+        styleCtx:setFont("14px sans-serif")
+        styleCtx:drawText(20, 190, "Small Size Text", "#4b5563")
+        
+        -- Text measurement demo
+        local testText = "Measured Text"
+        local metrics = styleCtx:measureText(testText)
+        styleCtx:drawText(200, 170, testText, "#dc2626")
+        styleCtx:setStrokeStyle("#dc2626")
+        styleCtx:strokeRect(200, 155, metrics.width, 20, "#dc2626", 1)
+        
+        styleCtx:drawText(20, 250, "Styles and Text", "#1f2937")
+        styleCtx:drawText(20, 270, "setStrokeStyle, setFillStyle, setLineWidth, setFont, measureText", "#6b7280")
+        
+        -- Test 6: Complex Composition
+        local complexCanvas = gurt.select("#complex-canvas")
+        local complexCtx = complexCanvas:withContext("2d")
+        
+        complexCtx:fillRect(0, 0, 400, 300, "#1e293b")
+        
+        -- Create a complex scene with multiple techniques
+        -- Background gradient effect (simulated with rectangles)
+        for i = 0, 50 do
+            local alpha = i / 50
+            local gray = math.floor(30 + alpha * 40)
+            local grayHex = string.format("#%02x%02x%02x", gray, gray, gray + 20)
+            complexCtx:fillRect(0, i * 6, 400, 6, grayHex)
+        end
+        
+        -- Animated-looking shapes
+        complexCtx:save()
+        complexCtx:translate(200, 150)
+        
+        for i = 1, 8 do
+            complexCtx:save()
+            complexCtx:rotate((i-1) * math.pi / 4)
+            
+            -- Gradient-like effect with multiple rectangles
+            for j = 1, 10 do
+                local size = 60 - j * 5
+                local alpha = j / 10
+                local red = math.floor(139 + alpha * 100)
+                local green = math.floor(69 + alpha * 150)
+                local blue = math.floor(19 + alpha * 200)
+                local colorHex = string.format("#%02x%02x%02x", red, green, blue)
+                complexCtx:fillRect(-size/2, 80 - size/2, size, size, colorHex)
+            end
+            
+            complexCtx:restore()
+        end
+        
+        complexCtx:restore()
+        
+        -- Central circle with path
+        complexCtx:setFillStyle("#fbbf24")
+        complexCtx:beginPath()
+        complexCtx:arc(200, 150, 25, 0, 2 * math.pi)
+        complexCtx:fill()
+        
+        -- Overlay text
+        complexCtx:setFont("24px sans-serif")
+        complexCtx:drawText(150, 280, "Complex Scene", "#ffffff")
+        
+        -- Shader Canvas Test
+        local shaderCanvas = gurt.select("#shader-canvas")
+        local shaderCtx = shaderCanvas:withContext("shader")
+        
+        shaderCtx:source([[
+            shader_type canvas_item;
+            
+            uniform float time : hint_range(0.0, 10.0) = 1.0;
+            
+            void fragment() {
+                vec2 uv = UV;
+                vec3 color = vec3(0.5 + 0.5 * cos(time + uv.xyx + vec3(0, 2, 4)));
+                COLOR = vec4(color, 1.0);
+            }
+        ]])
+        
+        trace.log('Canvas API test completed successfully!')
+    </script>
+</head>
+
+<body>
+    <h1>🎨 Complete Canvas API Test Suite</h1>
+    
+    <div style="container">
+        <div style="test-section">
+            <h2>📋 API Coverage Test</h2>
+            <p style="description">This page tests every single Canvas 2D API function implemented in GURT:</p>
+            <ul style="text-[#4b5563] text-sm space-y-1 mb-4">
+                <li><strong>Basic Drawing:</strong> fillRect, strokeRect, clearRect, drawCircle, drawText</li>
+                <li><strong>Path Drawing:</strong> beginPath, closePath, moveTo, lineTo, arc, stroke, fill</li>
+                <li><strong>Transformations:</strong> save, restore, translate, rotate, scale</li>
+                <li><strong>Advanced Paths:</strong> quadraticCurveTo, bezierCurveTo</li>
+                <li><strong>Styling:</strong> setStrokeStyle, setFillStyle, setLineWidth, setFont</li>
+                <li><strong>Text Measurement:</strong> measureText</li>
+                <li><strong>Shader Support:</strong> withContext("shader"), source</li>
+            </ul>
+        </div>
+        
+        <div style="canvas-grid">
+            <!-- Row 1 -->
+            <div style="canvas-item">
+                <h3>Basic Drawing Functions</h3>
+                <p style="description">Rectangle and circle primitives</p>
+                <canvas id="basic-canvas" width="400" height="300"></canvas>
+            </div>
+            
+            <div style="canvas-item">
+                <h3>Path-Based Drawing</h3>
+                <p style="description">Paths, lines, arcs, and shapes</p>
+                <canvas id="path-canvas" width="400" height="300"></canvas>
+            </div>
+            
+            <!-- Row 2 -->
+            <div style="canvas-item">
+                <h3>Transformations</h3>
+                <p style="description">Translate, rotate, scale, save/restore</p>
+                <canvas id="transform-canvas" width="400" height="300"></canvas>
+            </div>
+            
+            <div style="canvas-item">
+                <h3>Curves & Advanced Paths</h3>
+                <p style="description">Quadratic and Bezier curves</p>
+                <canvas id="curve-canvas" width="400" height="300"></canvas>
+            </div>
+            
+            <!-- Row 3 -->
+            <div style="canvas-item">
+                <h3>Styles & Text</h3>
+                <p style="description">Colors, line widths, fonts, text measurement</p>
+                <canvas id="style-canvas" width="400" height="300"></canvas>
+            </div>
+            
+            <div style="canvas-item">
+                <h3>Complex Composition</h3>
+                <p style="description">Multiple techniques combined</p>
+                <canvas id="complex-canvas" width="400" height="300"></canvas>
+            </div>
+        </div>
+        
+        <!-- Shader Test -->
+        <div style="test-section">
+            <h3>Shader Canvas Support</h3>
+            <p style="description">Custom fragment shader with animated colors</p>
+            <div style="text-center">
+                <canvas id="shader-canvas" width="400" height="300"></canvas>
+            </div>
+        </div>
+        
+        <div style="bg-[#f0f9ff] border border-[#0ea5e9] p-4 rounded-lg mt-6">
+            <h3 style="text-[#0c4a6e] font-semibold mb-2">✅ Test Results</h3>
+            <p style="text-[#0c4a6e] text-sm">All canvas functions should render correctly above. Check the browser console for any errors.</p>
+            <p style="text-[#0c4a6e] text-sm mt-2">This test demonstrates compatibility with HTML5 Canvas API standards.</p>
+        </div>
+    </div>
+</body>

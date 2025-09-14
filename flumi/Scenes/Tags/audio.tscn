@@ -1,0 +1,148 @@
+[gd_scene load_steps=14 format=3 uid="uid://b7w3dqcvof88f"]
+
+[ext_resource type="Script" uid="uid://c5h4iko0ej4d" path="res://Scripts/Tags/audio.gd" id="1_naep2"]
+[ext_resource type="Texture2D" uid="uid://1nlucidh6wx4" path="res://Assets/Icons/play.svg" id="1_upxy8"]
+[ext_resource type="Theme" uid="uid://bn6rbmdy60lhr" path="res://Scenes/Styles/BrowserText.tres" id="2_1hbfy"]
+[ext_resource type="Texture2D" uid="uid://bhyaa5h8x43qg" path="res://Assets/Icons/grabber_16x16.svg" id="3_gfofq"]
+[ext_resource type="Texture2D" uid="uid://dmktpcmm6klre" path="res://Assets/Icons/volume-2.svg" id="4_5j8mp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xqesv"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.105882, 0.105882, 0.105882, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1hbfy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gfofq"]
+bg_color = Color(0.168627, 0.168627, 0.168627, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5j8mp"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1hbfy"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_naep2"]
+bg_color = Color(0.247059, 0.466667, 0.807843, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ccpdr"]
+bg_color = Color(0.309804, 0.517647, 0.839216, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mnij3"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+bg_color = Color(0.105882, 0.105882, 0.105882, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[node name="Audio" type="VBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 0
+script = ExtResource("1_naep2")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xqesv")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Play" type="Button" parent="PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_1hbfy")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gfofq")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_5j8mp")
+theme_override_styles/normal = SubResource("StyleBoxFlat_5j8mp")
+icon = ExtResource("1_upxy8")
+icon_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+text = "00:00/00:00"
+fit_content = true
+vertical_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("2_1hbfy")
+theme_override_icons/grabber_disabled = ExtResource("3_gfofq")
+theme_override_styles/slider = SubResource("StyleBoxFlat_1hbfy")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_naep2")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_ccpdr")
+
+[node name="Volume" type="Button" parent="PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_1hbfy")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gfofq")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_5j8mp")
+theme_override_styles/normal = SubResource("StyleBoxFlat_5j8mp")
+icon = ExtResource("4_5j8mp")
+icon_alignment = 1
+
+[node name="PopupPanel" type="PopupPanel" parent="."]
+position = Vector2i(375, 75)
+size = Vector2i(46, 100)
+visible = true
+theme_override_styles/panel = SubResource("StyleBoxFlat_mnij3")
+
+[node name="VSlider" type="VSlider" parent="PopupPanel"]
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 31.0
+offset_bottom = 85.0
+theme_override_icons/grabber = ExtResource("3_gfofq")
+theme_override_styles/slider = SubResource("StyleBoxFlat_1hbfy")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_naep2")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_ccpdr")
+value = 50.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[connection signal="pressed" from="PanelContainer/HBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="value_changed" from="PanelContainer/HBoxContainer/HSlider" to="." method="_on_progress_slider_value_changed"]
+[connection signal="mouse_entered" from="PanelContainer/HBoxContainer/Volume" to="." method="_on_volume_mouse_entered"]
+[connection signal="mouse_exited" from="PanelContainer/HBoxContainer/Volume" to="." method="_on_volume_mouse_exited"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/Volume" to="." method="_on_volume_pressed"]
+[connection signal="focus_exited" from="PopupPanel" to="." method="_on_popup_panel_focus_exited"]
+[connection signal="value_changed" from="PopupPanel/VSlider" to="." method="_on_volume_slider_value_changed"]

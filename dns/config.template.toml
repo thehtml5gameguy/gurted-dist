@@ -1,0 +1,57 @@
+# Copy this file to config.toml and update the values as needed
+
+[server]
+address = "127.0.0.1"
+port = 8080
+
+[server.database]
+url = "postgresql://username:password@localhost:5432/domains"
+
+# Maximum number of database connections
+max_connections = 10
+
+[settings]
+# Available top-level domains
+tld_list = [
+    "shit", "based", "delulu", "aura", "pmo", "sucks", "emo", "twin",
+    "zorp", "clank", "web", "fent", "yeah", "slop", "job", "goat",
+    "buss", "dawg", "opium", "gang", "ok", "wtf", "lol", "scam", "cat",
+    "edge", "miku", "dumb", "balls", "yap", "attic", "ayo", "dev",
+
+    # Country code TLDs
+    "ac", "ad", "ae", "af", "ag", "ai", "al", "am", "ao", "aq", "ar", "as",
+    "at", "au", "aw", "ax", "az", "ba", "bb", "bd", "be", "bf", "bg", "bh",
+    "bi", "bj", "bl", "bm", "bn", "bo", "bq", "br", "bs", "bt", "bv", "bw",
+    "by", "bz", "ca", "cc", "cd", "cf", "cg", "ch", "ci", "ck", "cl", "cm",
+    "cn", "co", "cr", "cu", "cv", "cw", "cx", "cy", "cz", "de", "dj", "dk",
+    "dm", "do", "dz", "ec", "ee", "eg", "eh", "er", "es", "et", "eu", "fi",
+    "fj", "fk", "fm", "fo", "fr", "ga", "gb", "gd", "ge", "gf", "gg", "gh",
+    "gi", "gl", "gm", "gn", "gp", "gq", "gr", "gs", "gt", "gu", "gw", "gy",
+    "hk", "hm", "hn", "hr", "ht", "hu", "id", "ie", "il", "im", "in", "io",
+    "iq", "ir", "is", "it", "je", "jm", "jo", "jp", "ke", "kg", "kh", "ki",
+    "km", "kn", "kp", "kr", "kw", "ky", "kz", "la", "lb", "lc", "li", "lk",
+    "lr", "ls", "lt", "lu", "lv", "ly", "ma", "mc", "md", "me", "mg", "mh",
+    "mk", "ml", "mm", "mn", "mo", "mp", "mq", "mr", "ms", "mt", "mu", "mv",
+    "mw", "mx", "my", "mz", "na", "nc", "ne", "nf", "ng", "ni", "nl", "no",
+    "np", "nr", "nu", "nz", "om", "pa", "pe", "pf", "pg", "ph", "pk", "pl",
+    "pm", "pn", "pr", "ps", "pt", "pw", "py", "qa", "re", "ro", "rs", "ru",
+    "rw", "sa", "sb", "sc", "sd", "se", "sg", "sh", "si", "sj", "sk", "sl",
+    "sm", "sn", "so", "sr", "ss", "st", "su", "sv", "sx", "sy", "sz", "tc",
+    "td", "tf", "tg", "th", "tj", "tk", "tl", "tm", "tn", "to", "tr", "tt",
+    "tv", "tw", "tz", "ua", "ug", "uk", "us", "uy", "uz", "va", "vc", "ve",
+    "vg", "vi", "vn", "vu", "wf", "ws", "ye", "yt", "za", "zm", "zw"
+]
+
+# Words that are not allowed in domain names
+offensive_words = []
+
+[discord]
+# Discord bot token for domain approval notifications
+bot_token = "your-discord-bot-token-here"
+
+# Channel ID where domain approval messages will be sent
+channel_id = 0
+
+[auth]
+# JWT secret key for authentication (change this!)
+jwt_secret = "your-very-secure-secret-key-here"

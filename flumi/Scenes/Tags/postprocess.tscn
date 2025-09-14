@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpn7d4x5qr8vw"]
+
+[ext_resource type="Script" path="res://Scripts/Tags/postprocess.gd" id="1_postprocess"]
+
+[node name="postprocess" type="Control"]
+script = ExtResource("1_postprocess")

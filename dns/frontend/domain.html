@@ -1,0 +1,137 @@
+<head>
+    <title>Domain Management</title>
+    <icon src="https://cdn-icons-png.flaticon.com/512/295/295128.png">
+        <meta name="theme-color" content="#0891b2">
+        <meta name="description" content="Manage DNS records for your domain">
+
+        <style>
+            body {
+                bg-[#171616] font-sans text-white
+            }
+
+            h1 {
+                text-[#ef4444] text-3xl font-bold text-center
+            }
+
+            h2 {
+                text-[#dc2626] text-xl font-semibold
+            }
+
+            h3 {
+                text-[#fca5a5] text-lg font-medium
+            }
+
+            .container {
+                bg-[#262626] p-6 rounded-lg shadow-lg max-w-6xl
+            }
+
+            .primary-btn {
+                p-3 rounded-lg font-medium cursor-pointer transition-colors bg-[#dc2626] text-white
+            }
+
+            .success-btn {
+                p-3 rounded-lg font-medium cursor-pointer transition-colors bg-[#ef4444] text-white
+            }
+
+            .danger-btn {
+                p-3 rounded-lg font-medium cursor-pointer transition-colors bg-[#b91c1c] text-white
+            }
+
+            .secondary-btn {
+                p-3 rounded-lg font-medium cursor-pointer transition-colors bg-[#525252] text-white
+            }
+
+            .form-group {
+                flex flex-col gap-2 mb-4 w-full
+            }
+
+            .form-input {
+                w-full p-3 border border-gray-600 rounded-md bg-[#374151] text-white active:border-red-500
+            }
+
+            .form-select {
+                w-full p-3 border border-gray-600 rounded-md bg-[#374151] text-white active:border-red-500 active:text-white
+            }
+
+            .card {
+                bg-[#262626] p-6 rounded-lg shadow border border-gray-700
+            }
+
+            .stats-card {
+                bg-[#1f1f1f] p-4 rounded-lg border border-[#dc2626]
+            }
+
+            .record-item {
+                bg-[#374151] p-4 rounded-lg border border-gray-700 mb-2 flex justify-between items-center
+            }
+
+            .error-text {
+                text-[#fca5a5] text-sm
+            }
+
+            .record-table {
+                w-full border
+            }
+
+            .record-table th {
+                p-3 text-left border-b border-gray-600 text-[#dc2626]
+            }
+
+            .record-table td {
+                p-3 border-b border-gray-700
+            }
+        </style>
+
+        <script src="domain.lua" />
+</head>
+
+<body>
+    <div style="container mt-6">
+        <div style="stats-card mb-6">
+            <div style="flex justify-between items-center w-full">
+                <div>
+                    <h1 id="domain-title">Loading...</h1>
+                    <p id="domain-status" style="text-[#6b7280]">Status: Loading...</p>
+                </div>
+                <div style="flex gap-2">
+                    <button id="back-btn" style="secondary-btn">Back</button>
+                    <button id="logout-btn" style="secondary-btn">Logout</button>
+                </div>
+            </div>
+        </div>
+
+        <div style="card mb-6">
+            <h2 style="mb-4">Records</h2>
+            <div id="records-list">
+                <p id="records-loading">Loading DNS records...</p>
+            </div>
+        </div>
+
+        <div style="card">
+            <h2 style="mb-4">New Record</h2>
+            <div style="form-group">
+                <p>Type:</p>
+                <select id="record-type" style="form-select">
+                    <option value="A">A</option>
+                    <option value="AAAA">AAAA</option>
+                    <option value="CNAME">CNAME</option>
+                    <option value="TXT">TXT</option>
+                </select>
+            </div>
+            <div style="form-group">
+                <p>Name:</p>
+                <input id="record-name" type="text" style="form-input" placeholder="@, www, *" />
+            </div>
+            <div style="form-group">
+                <p>Value:</p>
+                <input id="record-value" type="text" style="form-input" placeholder="192.168.1.1, example.com" />
+            </div>
+            <div style="form-group">
+                <p>TTL:</p>
+                <input id="record-ttl" type="text" style="form-input" placeholder="3600" pattern="^[0-9]+$" />
+            </div>
+        </div>
+        <div id="record-error" style="error-text hidden mb-2"></div>
+        <button id="add-record-btn" style="success-btn">Add Record</button>
+    </div>
+</body>

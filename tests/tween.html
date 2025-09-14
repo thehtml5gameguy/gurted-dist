@@ -1,0 +1,264 @@
+<head>
+	<title>Tween Animation Demo</title>
+	<icon src="https://cdn-icons-png.flaticon.com/512/1828/1828774.png">
+	<meta name="theme-color" content="#1a202c">
+	<meta name="description" content="Demonstrating Lua Tween animations">
+
+	<style>
+		body { bg-[#0f1629] text-[#ffffff] p-6 font-sans }
+		h1 { text-[#60a5fa] text-4xl font-bold text-center mb-6 }
+		h2 { text-[#a78bfa] text-2xl font-bold mt-8 mb-4 }
+		.container { bg-[#1e293b] p-6 rounded-lg shadow-lg mb-6 }
+		.demo-box { 
+			bg-[#3b82f6] 
+			w-[100px] 
+			h-[100px] 
+			rounded-lg 
+			flex 
+			items-center 
+			justify-center 
+			text-[#ffffff] 
+			font-bold 
+			cursor-pointer 
+			mb-4
+		}
+		.control-panel { 
+			flex 
+			flex-row 
+			gap-2 
+			flex-wrap 
+			justify-center 
+			mt-4 
+		}
+		button { 
+			bg-[#059669] 
+			text-[#ffffff] 
+			px-4 
+			py-2 
+			rounded 
+			hover:bg-[#047857] 
+			active:bg-[#065f46] 
+			cursor-pointer
+		}
+		.reset-btn { bg-[#dc2626] hover:bg-[#b91c1c] active:bg-[#991b1b] }
+		.warning { text-[#fbbf24] bg-[#451a03] p-4 rounded border-l-4 border-[#f59e0b] }
+	</style>
+
+	<script>
+		-- Get references to all demo elements
+		local fadeBox = gurt.select('#fade-box')
+		local colorBox = gurt.select('#color-box')
+		local scaleBox = gurt.select('#scale-box')
+		local rotateBox = gurt.select('#rotate-box')
+		local moveBox = gurt.select('#move-box')
+		local comboBox = gurt.select('#combo-box')
+		
+		trace.log('Tween animation demo started!')
+		
+		-- Fade Animation
+		gurt.select('#fade-btn'):on('click', function()
+			fadeBox:createTween():to('opacity', 0):duration(1.0):easing('out'):transition('linear'):play()
+		end)
+		
+		gurt.select('#fade-restore-btn'):on('click', function()
+			fadeBox:createTween():to('opacity', 1):duration(0.5):easing('in'):transition('linear'):play()
+		end)
+		
+		-- Color Animation
+		gurt.select('#color-btn'):on('click', function()
+			colorBox:createTween():to('backgroundColor', '#ff0000'):duration(1.0):easing('inout'):transition('quad'):play()
+		end)
+		
+		gurt.select('#color-restore-btn'):on('click', function()
+			colorBox:createTween():to('backgroundColor', '#3b82f6'):duration(1.0):easing('inout'):transition('quad'):play()
+		end)
+		
+		-- Scale Animation
+		gurt.select('#scale-btn'):on('click', function()
+			scaleBox:createTween():to('scale', 1.5):duration(1.0):easing('out'):transition('cubic'):play()
+		end)
+		
+		gurt.select('#scale-restore-btn'):on('click', function()
+			scaleBox:createTween():to('scale', 1.0):duration(0.8):easing('in'):transition('cubic'):play()
+		end)
+		
+		-- Rotation Animation
+		gurt.select('#rotate-btn'):on('click', function()
+			rotateBox:createTween():to('rotation', 360):duration(2.0):easing('inout'):transition('sine'):play()
+		end)
+		
+		gurt.select('#rotate-restore-btn'):on('click', function()
+			rotateBox:createTween():to('rotation', 0):duration(1.0):easing('out'):transition('sine'):play()
+		end)
+		
+		-- Movement Animation
+		gurt.select('#move-btn'):on('click', function()
+			moveBox:createTween():to('x', 200):duration(1.5):easing('out'):transition('elastic'):play()
+		end)
+		
+		gurt.select('#move-restore-btn'):on('click', function()
+			moveBox:createTween():to('x', 0):duration(1.0):easing('in'):transition('elastic'):play()
+		end)
+		
+		-- Complex Parallel Animation
+		gurt.select('#combo-btn'):on('click', function()
+			local tween = comboBox:createTween()
+			tween:parallel()
+			tween:to('scale', 1.3):duration(1.0):easing('out'):transition('back')
+			tween:to('rotation', 180):duration(1.0):easing('out'):transition('sine')
+			tween:to('backgroundColor', '#10b981'):duration(1.0):easing('out'):transition('linear')
+			tween:play()
+		end)
+		
+		-- Complex Chain Animation
+		gurt.select('#chain-btn'):on('click', function()
+			local tween = comboBox:createTween()
+			tween:chain()
+			tween:to('x', 150):duration(0.8):easing('out'):transition('bounce')
+			tween:to('y', -50):duration(0.8):easing('out'):transition('bounce')
+			tween:to('x', 0):duration(0.8):easing('out'):transition('bounce')
+			tween:to('y', 0):duration(0.8):easing('out'):transition('bounce')
+			tween:play()
+		end)
+		
+		-- Reset all animations
+		gurt.select('#reset-all-btn'):on('click', function()
+			-- Reset all properties to default
+			fadeBox:createTween():to('opacity', 1):duration(0.3):play()
+			colorBox:createTween():to('backgroundColor', '#3b82f6'):duration(0.3):play()
+			scaleBox:createTween():to('scale', 1.0):duration(0.3):play()
+			rotateBox:createTween():to('rotation', 0):duration(0.3):play()
+			moveBox:createTween():to('x', 0):duration(0.3):play()
+			
+			local combo_tween = comboBox:createTween()
+			combo_tween:parallel()
+			combo_tween:to('scale', 1.0):duration(0.3)
+			combo_tween:to('rotation', 0):duration(0.3)
+			combo_tween:to('backgroundColor', '#3b82f6'):duration(0.3)
+			combo_tween:to('x', 0):duration(0.3)
+			combo_tween:to('y', 0):duration(0.3)
+			combo_tween:play()
+		end)
+		
+		-- Callback example
+		gurt.select('#callback-btn'):on('click', function()
+			fadeBox:createTween():to('opacity', 0.3):duration(1.0):easing('inout'):callback(function()
+				trace.log('Fade animation completed!')
+			end):play()
+		end)
+		
+		-- Loops example
+		gurt.select('#steps-btn'):on('click', function()
+			  scaleBox:createTween():loops(3)
+				  :to('scale', 2.0):duration(0.5)
+				  :to('scale', 1.0):duration(0.5)
+				  :callback(function()
+					  print('Animation completed!')
+				  end):play()
+		end)
+	</script>
+</head>
+
+<body>
+	<h1>🎬 Lua Tween Animation Demo</h1>
+	
+	<div style="warning">
+		<p><strong>Note:</strong> This demo showcases the Lua Tween API for smooth animations. Each box demonstrates different animation properties and easing functions.</p>
+	</div>
+
+	<h2>Fade Animation</h2>
+	<div style="container">
+		<div id="fade-box" style="demo-box">Fade Me</div>
+		<div style="control-panel">
+			<button id="fade-btn">Fade Out</button>
+			<button id="fade-restore-btn">Fade In</button>
+			<button id="callback-btn">Fade with Callback</button>
+		</div>
+	</div>
+
+	<h2>Color Animation</h2>
+	<div style="container">
+		<div id="color-box" style="demo-box">Change Color</div>
+		<div style="control-panel">
+			<button id="color-btn">To Red</button>
+			<button id="color-restore-btn">To Blue</button>
+		</div>
+	</div>
+
+	<h2>Scale Animation</h2>
+	<div style="container">
+		<div id="scale-box" style="demo-box">Scale Me</div>
+		<div style="control-panel">
+			<button id="scale-btn">Scale Up</button>
+			<button id="scale-restore-btn">Scale Down</button>
+			<button id="steps-btn">Pulse (Loop)</button>
+		</div>
+	</div>
+
+	<h2>Rotation Animation</h2>
+	<div style="container">
+		<div id="rotate-box" style="demo-box">Spin Me</div>
+		<div style="control-panel">
+			<button id="rotate-btn">Rotate 360°</button>
+			<button id="rotate-restore-btn">Reset Rotation</button>
+		</div>
+	</div>
+
+	<h2>Movement Animation</h2>
+	<div style="container">
+		<div id="move-box" style="demo-box">Move Me</div>
+		<div style="control-panel">
+			<button id="move-btn">Move Right</button>
+			<button id="move-restore-btn">Move Back</button>
+		</div>
+	</div>
+
+	<h2>Complex Animations</h2>
+	<div style="container">
+		<div id="combo-box" style="demo-box">Complex</div>
+		<div style="control-panel">
+			<button id="combo-btn">Parallel Animation</button>
+			<button id="chain-btn">Chain Animation</button>
+		</div>
+	</div>
+
+	<div style="control-panel mt-8">
+		<button id="reset-all-btn" style="reset-btn">🔄 Reset All Animations</button>
+	</div>
+
+	<div style="container mt-8">
+		<h2>Available Tween Methods:</h2>
+		<ul style="list-disc pl-6 text-[#d1d5db]">
+			<li><strong>element:createTween()</strong> - Create a new tween for the element</li>
+			<li><strong>tween:to(property, target_value, duration, easing)</strong> - Animate to a target value</li>
+			<li><strong>tween:from(property, start_value, duration, easing)</strong> - Animate from a start value</li>
+			<li><strong>tween:parallel()</strong> - Set tween to run animations in parallel</li>
+			<li><strong>tween:chain()</strong> - Set tween to run animations in sequence</li>
+			<li><strong>tween:steps(count)</strong> - Set number of loops</li>
+			<li><strong>tween:callback(function)</strong> - Execute function when tween completes</li>
+			<li><strong>tween:play()</strong> - Start the tween animation</li>
+			<li><strong>tween:stop()</strong> - Stop the tween animation</li>
+			<li><strong>tween:pause()</strong> - Pause the tween animation</li>
+			<li><strong>tween:resume()</strong> - Resume the tween animation</li>
+		</ul>
+		
+		<h2 style="mt-4">Supported Properties:</h2>
+		<ul style="list-disc pl-6 text-[#d1d5db]">
+			<li><strong>opacity</strong> - Element transparency (0-1)</li>
+			<li><strong>backgroundColor</strong> - Background color (hex/color names)</li>
+			<li><strong>color/textColor</strong> - Text color (hex/color names)</li>
+			<li><strong>width/height</strong> - Element dimensions (pixels)</li>
+			<li><strong>x/y</strong> - Position coordinates (pixels)</li>
+			<li><strong>scale</strong> - Element scale factor</li>
+			<li><strong>rotation</strong> - Rotation angle (degrees)</li>
+		</ul>
+		
+		<h2 style="mt-4">Easing Functions:</h2>
+		<ul style="list-disc pl-6 text-[#d1d5db]">
+			<li><strong>easeIn</strong> - Slow start, fast end</li>
+			<li><strong>easeOut</strong> - Fast start, slow end</li>
+			<li><strong>easeInOut</strong> - Slow start and end, fast middle</li>
+			<li><strong>easeOutIn</strong> - Fast start and end, slow middle</li>
+		</ul>
+	</div>
+</body>

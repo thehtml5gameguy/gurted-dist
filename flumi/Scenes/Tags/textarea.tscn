@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://kfm80txc5t8m"]
+
+[ext_resource type="Script" uid="uid://bmcx7mr4nye6a" path="res://Scripts/Tags/textarea.gd" id="1_textarea"]
+[ext_resource type="Theme" uid="uid://bn6rbmdy60lhr" path="res://Scenes/Styles/BrowserText.tres" id="2_theme"]
+[ext_resource type="Script" uid="uid://c5xpoyqcg1p8k" path="res://Scripts/Engine/ResizableTextEdit.gd" id="3_kbdk1"]
+
+[node name="textarea" type="Control"]
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+script = ExtResource("1_textarea")
+
+[node name="TextEdit" type="TextEdit" parent="."]
+layout_mode = 1
+offset_right = 341.0
+offset_bottom = 128.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("2_theme")
+placeholder_text = "Enter text here..."
+context_menu_enabled = false
+emoji_menu_enabled = false
+middle_mouse_paste_enabled = false
+wrap_mode = 1
+caret_blink = true
+script = ExtResource("3_kbdk1")

@@ -1,0 +1,118 @@
+[gd_scene load_steps=9 format=3 uid="uid://dq4q0exy5aeey"]
+
+[ext_resource type="Script" uid="uid://be6fpnhb4p57v" path="res://Scripts/Browser/DownloadDialog.gd" id="1_3v2kl"]
+[ext_resource type="Theme" uid="uid://bn6rbmdy60lhr" path="res://Scenes/Styles/BrowserText.tres" id="2_0jrl0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c7s3a"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+bg_color = Color(0.105882, 0.105882, 0.105882, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v0gbf"]
+bg_color = Color(0.205117, 0.205117, 0.205117, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t7gjp"]
+draw_center = false
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s5iik"]
+bg_color = Color(0.34452, 0.55695, 0.888021, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0jrl0"]
+bg_color = Color(0.247059, 0.466667, 0.807843, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cuj6o"]
+bg_color = Color(0.247059, 0.466667, 0.807843, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[node name="PopupPanel" type="PopupPanel"]
+initial_position = 1
+size = Vector2i(293, 140)
+visible = true
+wrap_controls = false
+max_size = Vector2i(293, 140)
+theme_override_styles/panel = SubResource("StyleBoxFlat_c7s3a")
+script = ExtResource("1_3v2kl")
+
+[node name="VBox" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(240, 110)
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 278.0
+offset_bottom = 858.0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="FilenameLabel" type="Label" parent="VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "File: example.png"
+autowrap_mode = 3
+
+[node name="URLLabel" type="Label" parent="VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "From: example.com"
+autowrap_mode = 3
+
+[node name="HSeparator" type="HSeparator" parent="VBox"]
+custom_minimum_size = Vector2(10, 20)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="CancelButton" type="Button" parent="VBox/HBoxContainer"]
+custom_minimum_size = Vector2(80, 35)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_0jrl0")
+theme_override_styles/hover = SubResource("StyleBoxFlat_v0gbf")
+theme_override_styles/normal = SubResource("StyleBoxFlat_t7gjp")
+text = "Deny"
+
+[node name="OkButton" type="Button" parent="VBox/HBoxContainer"]
+custom_minimum_size = Vector2(80, 35)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_0jrl0")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/hover = SubResource("StyleBoxFlat_s5iik")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_0jrl0")
+theme_override_styles/normal = SubResource("StyleBoxFlat_cuj6o")
+text = "Accept"
+
+[node name="FileDialog" type="FileDialog" parent="."]
+access = 2
+use_native_dialog = true
+
+[connection signal="pressed" from="VBox/HBoxContainer/CancelButton" to="." method="_on_file_dialog_cancelled"]
+[connection signal="pressed" from="VBox/HBoxContainer/OkButton" to="." method="_on_download_confirmed"]
+[connection signal="canceled" from="FileDialog" to="." method="_on_file_dialog_cancelled"]
+[connection signal="file_selected" from="FileDialog" to="." method="_on_save_location_selected"]

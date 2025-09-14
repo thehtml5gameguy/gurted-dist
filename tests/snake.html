@@ -1,0 +1,237 @@
+<head>
+	<title>Snake Game - Canvas Demo</title>
+	<icon src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Lua-Logo.svg/256px-Lua-Logo.svg.png">
+	<meta name="theme-color" content="#22c55e">
+	<meta name="description" content="Classic Snake game built with GURT Lua API and Canvas">
+
+	<style>
+		body { bg-[#1f2937] p-6 }
+		h1 { text-[#22c55e] text-3xl font-bold text-center }
+		.container { bg-[#374151] p-6 rounded-lg shadow-lg max-w-2xl mx-auto }
+		.game-info { bg-[#4b5563] p-4 rounded-lg mb-4 text-white }
+		.score { text-[#fbbf24] text-2xl font-bold }
+		.controls { bg-[#6b7280] p-4 rounded-lg text-[#f3f4f6] }
+		.game-over { bg-[#ef4444] text-white p-4 rounded-lg text-center font-bold }
+		.button { bg-[#22c55e] text-white px-4 py-2 rounded hover:bg-[#16a34a] cursor-pointer }
+	</style>
+
+	<script>
+		-- Game constants
+		local CANVAS_WIDTH = 400
+		local CANVAS_HEIGHT = 400
+		local GRID_SIZE = 20
+		local GRID_WIDTH = CANVAS_WIDTH / GRID_SIZE
+		local GRID_HEIGHT = CANVAS_HEIGHT / GRID_SIZE
+
+		-- Game state
+		local snake = {{x = 10, y = 10}}
+		local direction = {x = 1, y = 0}
+		local food = {x = 15, y = 15}
+		local score = 0
+		local gameRunning = false
+		local gameInterval = nil
+
+		-- Get DOM elements
+		local canvas = gurt.select('#game-canvas')
+		local ctx = canvas:withContext('2d')
+		local scoreDisplay = gurt.select('#score')
+		local gameOverDisplay = gurt.select('#game-over')
+		local startButton = gurt.select('#start-button')
+
+		gameOverDisplay:hide()
+
+		-- Check if position is occupied by snake
+		local function isSnakePosition(x, y)
+			for i = 1, #snake do
+				if snake[i].x == x and snake[i].y == y then
+					return true
+				end
+			end
+			return false
+		end
+		
+		-- Generate random food position
+		local function generateFood()
+			repeat
+				food.x = math.random(0, GRID_WIDTH - 1)
+				food.y = math.random(0, GRID_HEIGHT - 1)
+			until not isSnakePosition(food.x, food.y)
+		end
+		
+		-- Initialize game
+		local function initGame()
+			snake = {{x = 10, y = 10}}
+			direction = {x = 1, y = 0}
+			food = {x = 15, y = 15}
+			score = 0
+			gameRunning = true
+			gameOverDisplay.text = ''
+			gameOverDisplay:hide()
+			scoreDisplay.text = 'Score: 0'
+			generateFood()
+		end
+		
+		local function gameOver()
+			gameRunning = false
+			clearInterval(gameInterval)
+			gameOverDisplay.text = 'Game Over! Final Score: ' .. score
+			gameOverDisplay:show()
+		end
+
+		local function moveSnake()
+			if not gameRunning then return end
+
+			-- Calculate new head position
+			local head = snake[1]
+			local newHead = {
+				x = head.x + direction.x,
+				y = head.y + direction.y
+			}
+
+			-- Check wall collision
+			if newHead.x < 0 or newHead.x >= GRID_WIDTH or 
+			   newHead.y < 0 or newHead.y >= GRID_HEIGHT then
+				gameOver()
+				return
+			end
+
+			-- Check self collision
+			if isSnakePosition(newHead.x, newHead.y) then
+				gameOver()
+				return
+			end
+
+			-- Add new head
+			table.insert(snake, 1, newHead)
+
+			-- Check food collision
+			if newHead.x == food.x and newHead.y == food.y then
+				score = score + 10
+				scoreDisplay.text = 'Score: ' .. score
+				generateFood()
+			else
+				-- Remove tail if no food eaten
+				table.remove(snake, #snake)
+			end
+		end
+		
+		-- Render game
+		local function render()
+			-- Clear canvas
+			ctx:fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT, '#1f2937')
+
+			-- Draw grid lines
+			for i = 0, GRID_WIDTH do
+				local x = i * GRID_SIZE
+				ctx:strokeRect(x, 0, 1, CANVAS_HEIGHT, '#374151', 1)
+			end
+			for i = 0, GRID_HEIGHT do
+				local y = i * GRID_SIZE
+				ctx:strokeRect(0, y, CANVAS_WIDTH, 1, '#374151', 1)
+			end
+
+			-- Draw snake
+			for i = 1, #snake do
+				local segment = snake[i]
+				local x = segment.x * GRID_SIZE
+				local y = segment.y * GRID_SIZE
+				
+				-- Head is brighter green
+				local color = i == 1 and '#22c55e' or '#16a34a'
+				ctx:fillRect(x, y, GRID_SIZE - 2, GRID_SIZE - 2, color)
+			end
+
+			-- Draw food
+			local foodX = food.x * GRID_SIZE
+			local foodY = food.y * GRID_SIZE
+			ctx:fillRect(foodX, foodY, GRID_SIZE - 2, GRID_SIZE - 2, '#ef4444')
+		end
+
+		-- Game loop
+		local function gameLoop()
+			if gameRunning then
+				moveSnake()
+				render()
+			end
+		end
+
+		-- Start game
+		local function startGame()
+			if gameInterval then
+				clearInterval(gameInterval)
+			end
+			
+			initGame()
+			render()
+			gameInterval = setInterval(gameLoop, 150)
+		end
+
+		-- Handle keyboard input
+		gurt.body:on('keypress', function(event)
+			if not gameRunning then return end
+			
+			local key = event.keycode
+			
+			-- Arrow keys or WASD
+			if key == 37 or key == 65 then -- Left / A
+				if direction.x ~= 1 then
+					direction = {x = -1, y = 0}
+				end
+			elseif key == 38 or key == 87 then -- Up / W
+				if direction.y ~= 1 then
+					direction = {x = 0, y = -1}
+				end
+			elseif key == 39 or key == 68 then -- Right / D
+				if direction.x ~= -1 then
+					direction = {x = 1, y = 0}
+				end
+			elseif key == 40 or key == 83 then -- Down / S
+				if direction.y ~= -1 then
+					direction = {x = 0, y = 1}
+				end
+			end
+		end)
+
+		-- Start button handler
+		startButton:on('click', function()
+			startGame()
+		end)
+
+		-- Initialize random seed and render initial state
+		math.randomseed(Time.now())
+		render()
+
+		trace.log('Snake game initialized!')
+	</script>
+</head>
+
+<body>
+	<h1>🐍 Snake Game</h1>
+	
+	<div style="container">
+		<div style="game-info">
+			<div style="w-full flex justify-between items-center">
+				<div id="score" style="score">Score: 0</div>
+				<button id="start-button" style="button">Start Game</button>
+			</div>
+		</div>
+
+		<div style="text-center mb-4">
+			<canvas id="game-canvas" width="400" height="400" style="border border-[#6b7280] rounded-lg bg-[#1f2937]"></canvas>
+		</div>
+
+		<div id="game-over" style="game-over mb-4">Test</div>
+
+		<div style="controls">
+			<h3 style="text-[#f9fafb] font-semibold mb-2">Controls:</h3>
+			<p style="text-sm">Use <strong>Arrow Keys</strong> or <strong>WASD</strong> to control the snake</p>
+			<ul style="text-sm mt-2 space-y-1">
+				<li>🔼 Up: Arrow Up or W</li>
+				<li>🔽 Down: Arrow Down or S</li> 
+				<li>◀️ Left: Arrow Left or A</li>
+				<li>▶️ Right: Arrow Right or D</li>
+			</ul>
+			<p style="text-xs text-[#d1d5db] mt-3">Eat the red food to grow and increase your score!</p>
+		</div>
+	</div>
+</body>

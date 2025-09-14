@@ -1,0 +1,54 @@
+<head>
+	<title>Login</title>
+	<icon src="https://cdn-icons-png.flaticon.com/512/295/295128.png">
+	<meta name="theme-color" content="#1b1b1b">
+	<meta name="description" content="Login to your account">
+
+	<font name="roboto" src="https://fonts.gstatic.com/s/roboto/v48/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3KUBGEe.woff2" />
+
+	<style>
+		body {
+			bg-[#171616] font-sans text-white
+		}
+
+		.login-card {
+			bg-[#262626] p-8 rounded-lg shadow-lg max-w-md mx-auto my-auto h-full
+		}
+
+		h1 {
+			text-3xl font-bold text-center mb-6
+		}
+
+		input {
+			text-xs w-full p-3 border border-gray-600 rounded-md bg-[#374151] text-white mb-4 placeholder:text-[#999999] outline-none active:border-red-500
+		}
+
+		button {
+			bg-[#dc2626] text-white font-medium p-3 rounded-lg w-full cursor-pointer transition-colors hover:bg-[#b91c1c] active:bg-[#991b1b]
+		}
+
+		a {
+			text-[#ef4444] hover:text-[#dc2626] cursor-pointer
+		}
+
+		#log-output {
+			text-[#fca5a5] p-4 rounded-md mt-4 font-mono max-h-40
+		}
+	</style>
+	
+	<script src="script.lua" />
+</head>
+
+<body>
+	<div style="login-card">
+		<h1>Login</h1>
+		<form id="login-form" style="mx-auto">
+			<input id="username" type="text" placeholder="Username" required="true" />
+			<input id="password" type="password" placeholder="Password" required="true" />
+			<button type="submit" id="submit">Log In</button>
+		</form>
+		<p style="text-center mt-4 text-[#999999] text-sm">Don't have an account? <a href="/signup.html">Register here</a></p>
+		
+		<p id="log-output" style="min-h-24"></p>
+	</div>
+</body>

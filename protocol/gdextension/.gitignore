@@ -1,0 +1,25 @@
+# Rust
+/target/
+Cargo.lock
+
+# Build outputs
+/bin/
+/addon/
+
+# SCons
+.sconf_temp/
+.sconsign.dblite
+config.log
+
+# OS specific
+.DS_Store
+Thumbs.db
+*.tmp
+*.temp
+
+# Editor specific
+*.swp
+*.swo
+*~
+.vscode/
+.idea/

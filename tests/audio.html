@@ -1,0 +1,133 @@
+<head>
+	<title>Audio Tag Demo - HTML5 Audio Testing</title>
+	<icon src="https://picsum.photos/32/32?random=audio">
+	<meta name="theme-color" content="#10b981">
+	<meta name="description" content="Testing HTML5 audio functionality">
+	<style>
+		body { bg-[#f0f9ff] p-8 font-family-system }
+		h1 { text-[#10b981] text-4xl font-bold text-center mb-8 }
+		h2 { text-[#059669] text-2xl font-semibold mb-4 }
+		h3 { text-[#047857] text-xl font-semibold mb-3 }
+		.section { bg-white p-6 rounded-xl shadow-lg mb-6 }
+		.audio-demo { mb-4 p-4 bg-[#f0fdf4] border border-[#bbf7d0] rounded-lg }
+		.code-block { bg-[#1e293b] text-[#e2e8f0] p-3 rounded font-mono text-sm mb-3 }
+		.description { text-[#475569] mb-3 }
+		.btn { bg-[#10b981] text-white px-4 py-2 rounded hover:bg-[#059669] active:bg-[#047857] cursor-pointer }
+		.control-group { flex gap-4 items-center mb-3 }
+	</style>
+	<script>
+		print('hi')
+		local programmaticAudio = nil
+		local controlledAudio = gurt.select("#controlled-audio")
+		local status = gurt.select("#programmatic-status")
+
+		gurt.select("#play-btn"):on("click", function()
+			controlledAudio:play()
+		end)
+
+		gurt.select("#pause-btn"):on("click", function()
+			controlledAudio:pause()
+		end)
+
+		gurt.select("#vol-low-btn"):on("click", function()
+			controlledAudio.volume = 0.3
+		end)
+		
+		local test = setTimeout(function()
+			print('removed')
+			programmaticAudio:play()
+		end, 3000)
+		
+		gurt.select("#vol-high-btn"):on("click", function()
+			controlledAudio.volume = 0.7
+		end)
+
+		gurt.select("#toggle-loop-btn"):on("click", function()
+			controlledAudio.loop = false
+		end)
+
+		gurt.select("#create-audio-btn"):on("click", function()
+			programmaticAudio = Audio.new("http://commondatastorage.googleapis.com/codeskulptor-assets/Evillaugh.ogg")
+			
+			programmaticAudio.volume = 0.3
+		end)
+		
+		gurt.select("#play-prog-btn"):on("click", function()
+			programmaticAudio:play()
+		end)
+
+		gurt.select("#pause-prog-btn"):on("click", function()
+			programmaticAudio:pause()
+		end)
+	</script>
+</head>
+
+<body>
+	<h1>🎵 HTML5 Audio Tag Demo</h1>
+
+	<!-- Basic Audio Elements -->
+	<div style="section">
+		<h2>📀 Basic Audio Elements</h2>
+		
+		<div style="audio-demo">
+			<h3>Audio with Controls</h3>
+			<div style="description">Standard audio element with visible controls</div>
+			<div style="code-block">&lt;audio src="http://commondatastorage.googleapis.com/codeskulptor-assets/Evillaugh.ogg" controls&gt;&lt;/audio&gt;</div>
+			<audio src="http://commondatastorage.googleapis.com/codeskulptor-assets/Evillaugh.ogg" controls="true"></audio>
+		</div>
+
+		<div style="audio-demo">
+			<h3>Audio with Loop</h3>
+			<div style="description">Audio element that loops automatically</div>
+			<div style="code-block">&lt;audio src="http://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3" controls loop&gt;&lt;/audio&gt;</div>
+			<audio src="http://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3" controls="true" loop="true"></audio>
+		</div>
+
+		<div style="audio-demo">
+			<h3>Audio with Mute</h3>
+			<div style="description">Audio element that starts muted</div>
+			<div style="code-block">&lt;audio src="https://www.kozco.com/tech/LRMonoPhase4.wav" controls muted&gt;&lt;/audio&gt;</div>
+			<audio src="https://www.kozco.com/tech/LRMonoPhase4.wav" controls="true" muted="true"></audio>
+		</div>
+	</div>
+
+	<!-- Lua Audio Control -->
+	<div style="section">
+		<h2>🎮 Lua Audio Control</h2>
+
+		<div style="audio-demo">
+			<h3>DOM Audio Control</h3>
+			<div style="description">Control audio elements via Lua scripting</div>
+			<audio id="controlled-audio" src="http://commondatastorage.googleapis.com/codeskulptor-assets/Evillaugh.ogg" controls="true"></audio>
+			<div style="control-group">
+				<button id="play-btn" style="btn">▶️ Play</button>
+				<button id="pause-btn" style="btn">⏸️ Pause</button>
+				<button id="vol-low-btn" style="btn">🔉 Vol 30%</button>
+				<button id="vol-high-btn" style="btn">🔊 Vol 70%</button>
+				<button id="toggle-loop-btn" style="btn">🔁 Toggle Loop</button>
+			</div>
+			<div style="code-block">
+local audio = gurt.select("#controlled-audio")
+audio.play()
+audio.volume = 0.5
+audio.loop = true
+			</div>
+		</div>
+
+		<div style="audio-demo">
+			<h3>Programmatic Audio</h3>
+			<div style="description">Create audio instances with Audio.new()</div>
+			<div style="control-group">
+				<button id="create-audio-btn" style="btn">🎵 Create Audio</button>
+				<button id="play-prog-btn" style="btn">▶️ Play</button>
+				<button id="pause-prog-btn" style="btn">⏸️ Pause</button>
+			</div>
+			<div id="programmatic-status" style="text-[#059669] font-semibold"></div>
+			<div style="code-block">
+local audio = Audio.new("http://commondatastorage.googleapis.com/codeskulptor-assets/Evillaugh.ogg")
+audio.volume = 0.3
+audio.play()
+			</div>
+		</div>
+	</div>
+</body>

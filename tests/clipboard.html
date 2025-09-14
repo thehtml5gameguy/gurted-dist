@@ -1,0 +1,40 @@
+<head>
+	<title>Clipboard API Demo</title>
+	<icon src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Lua-Logo.svg/256px-Lua-Logo.svg.png">
+	<meta name="theme-color" content="#059669">
+	<meta name="description" content="Demonstrating Network fetching and Clipboard operations">
+
+	<style>
+		body { bg-[#f0fdf4] p-6 }
+		h1 { text-[#059669] text-3xl font-bold text-center }
+		h2 { text-[#047857] text-xl font-semibold }
+		.container { bg-[#ffffff] p-6 rounded-lg shadow-lg max-w-4xl mx-auto }
+		.button-group { flex gap-3 justify-center items-center flex-wrap }
+		.clipboard-btn { bg-[#10b981] text-white hover:bg-[#059669] p-4 }
+		.copy-url-btn { bg-[#8b5cf6] text-white hover:bg-[#7c3aed] }
+	</style>
+
+	<postprocess preset="chrome" />
+	
+	<script>
+		trace.log('Script started!')
+		
+		local copyBtn = gurt.select('#copy-text-btn')
+
+		copyBtn:on('click', function()
+			trace.log('Copy button clicked!')
+			Clipboard.write('Hello from GURT!')
+		end)
+	</script>
+</head>
+
+<body>
+	<h1>Clipboard API</h1>
+	
+	<div style="container mt-6">
+		<h2>Clipboard Operations</h2>
+		<div style="button-group mb-6">
+			<button id="copy-text-btn" style="action-button clipboard-btn">📋 Copy Text</button>
+		</div>
+	</div>
+</body>

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5rpke43iqfkt"]
+
+[ext_resource type="Script" uid="uid://dgakysfyq773t" path="res://Scripts/Tags/img.gd" id="1_clm6l"]
+
+[node name="TextureRect" type="TextureRect"]
+size_flags_horizontal = 0
+size_flags_vertical = 0
+expand_mode = 2
+stretch_mode = 2
+script = ExtResource("1_clm6l")

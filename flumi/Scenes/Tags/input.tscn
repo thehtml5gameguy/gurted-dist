@@ -1,0 +1,141 @@
+[gd_scene load_steps=16 format=3 uid="uid://c7yay102a3b4c"]
+
+[ext_resource type="Script" uid="uid://kv6ebscarj2e" path="res://Scripts/Tags/input.gd" id="1_input"]
+[ext_resource type="Theme" uid="uid://bn6rbmdy60lhr" path="res://Scenes/Styles/BrowserText.tres" id="2_theme"]
+[ext_resource type="PackedScene" uid="uid://b6c1twaog7hui" path="res://addons/DatePicker/DateButton.tscn" id="3_a88g6"]
+[ext_resource type="Texture2D" uid="uid://bxskuj6mjctt0" path="res://Assets/Icons/chevron-down_dark.svg" id="4_unki5"]
+[ext_resource type="Texture2D" uid="uid://couf8n1thmgqk" path="res://Assets/Icons/chevron-down_grayscale.svg" id="5_unki5"]
+[ext_resource type="Texture2D" uid="uid://cmdipq88xmc4a" path="res://Assets/Icons/chevron-up_dark.svg" id="6_3wmat"]
+[ext_resource type="Texture2D" uid="uid://bbtfmtb4xxrpi" path="res://Assets/Icons/chevron-up_grayscale.svg" id="7_3wmat"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_06us3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xxc4c"]
+content_margin_left = 5.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+expand_margin_right = 28.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pi5h7"]
+content_margin_left = 5.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+expand_margin_right = 28.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pi5h7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xxc4c"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_unki5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3wmat"]
+
+[sub_resource type="Theme" id="Theme_poopw"]
+LineEdit/colors/caret_color = Color(0, 0, 0, 1)
+LineEdit/colors/font_color = Color(0, 0, 0, 1)
+LineEdit/colors/font_placeholder_color = Color(0, 0, 0, 0.6)
+LineEdit/styles/focus = SubResource("StyleBoxFlat_xxc4c")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_pi5h7")
+LineEdit/styles/read_only = null
+SpinBox/colors/font_color = Color(0, 0, 0, 1)
+SpinBox/colors/font_placeholder_color = Color(0, 0, 0, 0.6)
+SpinBox/icons/down = ExtResource("4_unki5")
+SpinBox/icons/down_hover = ExtResource("5_unki5")
+SpinBox/icons/down_pressed = ExtResource("5_unki5")
+SpinBox/icons/up = ExtResource("6_3wmat")
+SpinBox/icons/up_hover = ExtResource("7_3wmat")
+SpinBox/icons/up_pressed = ExtResource("7_3wmat")
+SpinBox/styles/down_background_hovered = SubResource("StyleBoxEmpty_pi5h7")
+SpinBox/styles/down_background_pressed = SubResource("StyleBoxEmpty_xxc4c")
+SpinBox/styles/up_background_hovered = SubResource("StyleBoxEmpty_unki5")
+SpinBox/styles/up_background_pressed = SubResource("StyleBoxEmpty_3wmat")
+
+[node name="VBoxContainer" type="VBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_input")
+
+[node name="LineEdit" type="LineEdit" parent="."]
+visible = false
+layout_mode = 2
+theme = ExtResource("2_theme")
+placeholder_text = "Enter text..."
+caret_blink = true
+
+[node name="CheckBox" type="CheckBox" parent="."]
+visible = false
+layout_mode = 2
+theme = ExtResource("2_theme")
+flat = true
+
+[node name="RadioButton" type="CheckBox" parent="."]
+visible = false
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_constants/icon_max_width = 24
+button_group = SubResource("ButtonGroup_06us3")
+flat = true
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="."]
+visible = false
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+toggle_mode = false
+
+[node name="DateButton" parent="." instance=ExtResource("3_a88g6")]
+visible = false
+layout_mode = 2
+
+[node name="HSlider" type="HSlider" parent="."]
+visible = false
+layout_mode = 2
+theme = ExtResource("2_theme")
+value = 50.0
+
+[node name="SpinBox" type="SpinBox" parent="."]
+layout_mode = 2
+theme = SubResource("Theme_poopw")
+min_value = -99999.0
+max_value = 99999.0
+
+[node name="FileContainer" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="FileButton" type="Button" parent="FileContainer"]
+custom_minimum_size = Vector2(100, 32)
+layout_mode = 2
+theme = ExtResource("2_theme")
+text = "Choose File"
+
+[node name="FileLabel" type="Label" parent="FileContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "No file chosen"
+vertical_alignment = 1
+
+[node name="FileDialog" type="FileDialog" parent="FileContainer"]
+title = "Open a File"
+size = Vector2i(800, 600)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+use_native_dialog = true

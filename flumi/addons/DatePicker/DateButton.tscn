@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://b6c1twaog7hui"]
+
+[ext_resource type="Texture2D" uid="uid://mol3s1ujp0k2" path="res://Assets/Icons/calendar_16x16.svg" id="1_ef33s"]
+[ext_resource type="Script" uid="uid://do548vwv7m0rq" path="res://addons/DatePicker/DateButton.gd" id="1_sskq5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ef33s"]
+
+[node name="DateButton" type="Button"]
+offset_right = 115.0
+offset_bottom = 34.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ef33s")
+action_mode = 0
+text = "3/13/2025"
+icon = ExtResource("1_ef33s")
+script = ExtResource("1_sskq5")

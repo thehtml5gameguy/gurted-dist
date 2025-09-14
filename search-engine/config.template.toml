@@ -1,0 +1,51 @@
+[database]
+url = "postgres://..."
+max_connections = 5
+
+[server]
+address = "127.0.0.1"
+port = 4879
+cert_path = "certs/t.crt"
+key_path = "certs/t.key"
+
+[search]
+index_path = "./search_indexes"
+crawl_interval_hours = 2
+max_pages_per_domain = 1000
+crawler_timeout_seconds = 30
+crawler_user_agent = "RingleBot/1.0"
+max_concurrent_crawls = 5
+content_size_limit_mb = 10
+index_rebuild_interval_hours = 48
+search_results_per_page = 20
+max_search_results = 1000
+
+allowed_extensions = [
+    "html", "htm", "txt", "md", "json", "xml", "rss", "atom"
+]
+
+blocked_extensions = [
+    "exe", "zip", "rar", "tar", "gz", "7z", "iso", "dmg",
+    "pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx",
+    "jpg", "jpeg", "png", "gif", "bmp", "svg", "webp",
+    "mp3", "mp4", "avi", "mov", "wmv", "flv", "webm",
+    "css", "js", "woff", "woff2", "ttf", "eot"
+]
+
+[crawler]
+clanker_txt = true
+crawl_delay_ms = 1000
+max_redirects = 5
+follow_external_links = false
+max_depth = 10
+
+request_headers = [
+    ["Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"],
+    ["Accept-Language", "en-US,en;q=0.5"],
+    ["Accept-Encoding", "gzip, deflate"],
+    ["DNT", "1"],
+]
+
+[logging]
+level = "info"
+format = "compact"

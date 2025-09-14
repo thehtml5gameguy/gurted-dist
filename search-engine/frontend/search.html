@@ -1,0 +1,96 @@
+<head>
+    <title>Gurted Search Engine</title>
+    <meta name="description" content="Search across all registered GURT domains">
+    <meta name="theme-color" content="#000000">
+    <icon src="https://cdn-icons-png.flaticon.com/512/295/295128.png">
+
+        <style>
+            body {
+                font-sans bg-[#000000] text-[#ffffff] min-h-screen flex flex-col items-center p-8
+            }
+
+            .search-container {
+                max-w-2xl w-full flex flex-col gap-8
+            }
+
+            .logo {
+                text-center text-5xl font-bold text-[#dc2626] mb-8
+            }
+
+            .search-box {
+                flex flex-col gap-4
+            }
+
+            .search-input {
+                w-[600px] p-3 text-base bg-[#1a1a1a] border-2 border-[#333333] rounded-lg text-[#ffffff] outline-none active:border-[#dc2626]
+            }
+
+            .search-btn {
+                bg-[#1a1a1a] text-[#ffffff] px-4 py-2 rounded text-sm border border-[#333333] cursor-pointer hover:border-[#dc2626] hover:shadow-sm
+            }
+
+            .results {
+                w-full flex flex-col gap-4 mt-8
+            }
+
+            .result-item {
+                p-4 cursor-pointer hover:bg-[#0a0a0a] rounded
+            }
+
+            .result-header {
+                inline-flex gap-2 mb-2
+            }
+
+            .result-icon {
+                w-6 h-6 min-w-6 min-h-6 rounded border border-[#333333] bg-[#1a1a1a] object-cover mt-1
+            }
+
+            .result-content {
+                flex-1 min-w-0
+            }
+
+            .result-title {
+                text-xl font-normal text-[#dc2626] mb-1 hover:underline
+            }
+
+            .result-url {
+                text-[#4ade80] text-sm mb-2
+            }
+
+            .result-preview {
+                text-[#cccccc] text-sm leading-relaxed
+            }
+
+            .stats {
+                text-left text-[#999999] text-sm mt-4 ml-1
+            }
+
+            .loading {
+                text-center text-[#999999] mt-8
+            }
+        </style>
+
+        <script src="search.lua" />
+</head>
+
+<body>
+    <div style="search-container">
+        <h1 style="logo">Ringle</h1>
+
+        <div style="w-full flex flex-col gap-4 items-center justify-center content-center">
+            <input type="text" id="searchQuery" style="search-input" placeholder="Search across the Gurted..." />
+            <div style="inline-flex gap-2 items-center justify-center">
+                <button id="searchButton" style="search-btn">Search</button>
+                <button id="luckyButton" style="search-btn">I'm feeling lucky</button>
+            </div>
+        </div>
+
+        <div id="loading" style="loading hidden">
+            Searching...
+        </div>
+
+        <div id="results" style="results"></div>
+
+        <div id="stats" style="stats"></div>
+    </div>
+</body>

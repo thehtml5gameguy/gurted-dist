@@ -1,0 +1,506 @@
+[gd_scene load_steps=14 format=3 uid="uid://bxw4mmab7h8pk"]
+
+[ext_resource type="Script" uid="uid://bcew7v6hqhjox" path="res://Scripts/Browser/help.gd" id="1_help"]
+[ext_resource type="Theme" uid="uid://bn6rbmdy60lhr" path="res://Scenes/Styles/BrowserText.tres" id="2_theme"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_main"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.105882, 0.105882, 0.105882, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sidebar"]
+content_margin_left = 15.0
+content_margin_top = 25.0
+content_margin_right = 15.0
+content_margin_bottom = 25.0
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
+corner_radius_top_left = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_focus"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tab_selected_hover"]
+content_margin_left = 15.0
+content_margin_top = 10.0
+content_margin_right = 15.0
+content_margin_bottom = 10.0
+bg_color = Color(0.3, 0.55, 0.9, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tab_pressed"]
+content_margin_left = 15.0
+content_margin_top = 10.0
+content_margin_right = 15.0
+content_margin_bottom = 10.0
+bg_color = Color(0.168627, 0.168627, 0.168627, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tab_selected"]
+content_margin_left = 15.0
+content_margin_top = 10.0
+content_margin_right = 15.0
+content_margin_bottom = 10.0
+bg_color = Color(0.247059, 0.466667, 0.807843, 1)
+draw_center = false
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_tabs"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tab_hover"]
+content_margin_left = 15.0
+content_margin_top = 10.0
+content_margin_right = 15.0
+content_margin_bottom = 10.0
+bg_color = Color(0.168627, 0.168627, 0.168627, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tab_normal"]
+content_margin_left = 15.0
+content_margin_top = 10.0
+content_margin_right = 15.0
+content_margin_bottom = 10.0
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_content"]
+content_margin_left = 25.0
+content_margin_top = 25.0
+content_margin_right = 25.0
+content_margin_bottom = 25.0
+bg_color = Color(0.127451, 0.127451, 0.127451, 1)
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_section"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+bg_color = Color(0.0980392, 0.0980392, 0.0980392, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[node name="PopupPanel" type="PopupPanel"]
+initial_position = 1
+size = Vector2i(900, 700)
+visible = true
+theme_override_styles/panel = SubResource("StyleBoxFlat_main")
+script = ExtResource("1_help")
+
+[node name="HSplitContainer" type="HSplitContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+split_offset = 250
+dragger_visibility = 2
+
+[node name="Sidebar" type="PanelContainer" parent="HSplitContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_sidebar")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/Sidebar"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Title" type="Label" parent="HSplitContainer/Sidebar/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "Help"
+
+[node name="HSeparator" type="HSeparator" parent="HSplitContainer/Sidebar/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="TabShortcuts" type="Button" parent="HSplitContainer/Sidebar/VBoxContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
+theme_override_styles/hover = SubResource("StyleBoxFlat_tab_selected_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_tab_pressed")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tab_selected")
+toggle_mode = true
+button_pressed = true
+button_group = SubResource("ButtonGroup_tabs")
+text = "Shortcuts"
+flat = true
+alignment = 0
+
+[node name="TabBrowser" type="Button" parent="HSplitContainer/Sidebar/VBoxContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
+theme_override_styles/hover = SubResource("StyleBoxFlat_tab_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_tab_pressed")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tab_normal")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_tabs")
+text = "Browser Info"
+flat = true
+alignment = 0
+
+[node name="TabProtocol" type="Button" parent="HSplitContainer/Sidebar/VBoxContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
+theme_override_styles/hover = SubResource("StyleBoxFlat_tab_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_tab_pressed")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tab_normal")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_tabs")
+text = "GURT Protocol"
+flat = true
+alignment = 0
+
+[node name="TabScripting" type="Button" parent="HSplitContainer/Sidebar/VBoxContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
+theme_override_styles/hover = SubResource("StyleBoxFlat_tab_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_tab_pressed")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tab_normal")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_tabs")
+text = "Lua Scripting"
+flat = true
+alignment = 0
+
+[node name="Content" type="PanelContainer" parent="HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_content")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/Content"]
+layout_mode = 2
+
+[node name="ContentStack" type="VBoxContainer" parent="HSplitContainer/Content/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="ShortcutsPanel" type="VBoxContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ShortcutsTitle" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ShortcutsPanel"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "Keyboard Shortcuts"
+
+[node name="NavigationSection" type="PanelContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ShortcutsPanel"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_section")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ShortcutsPanel/NavigationSection"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ShortcutsPanel/NavigationSection/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Navigation"
+
+[node name="GridContainer" type="GridContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ShortcutsPanel/NavigationSection/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Label1" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ShortcutsPanel/NavigationSection/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+text = "Ctrl+T"
+
+[node name="Description1" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ShortcutsPanel/NavigationSection/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Open new tab"
+
+[node name="Label2" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ShortcutsPanel/NavigationSection/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+text = "Ctrl+W"
+
+[node name="Description2" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ShortcutsPanel/NavigationSection/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Close current tab"
+
+[node name="Label3" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ShortcutsPanel/NavigationSection/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+text = "Ctrl+Tab"
+
+[node name="Description3" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ShortcutsPanel/NavigationSection/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Switch to next tab"
+
+[node name="Label4" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ShortcutsPanel/NavigationSection/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+text = "Ctrl+Shift+Tab"
+
+[node name="Description4" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ShortcutsPanel/NavigationSection/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Switch to previous tab"
+
+[node name="Label5" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ShortcutsPanel/NavigationSection/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+text = "Ctrl+L"
+
+[node name="Description5" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ShortcutsPanel/NavigationSection/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Focus address bar"
+
+[node name="Label6" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ShortcutsPanel/NavigationSection/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+text = "Ctrl+R"
+
+[node name="Description6" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ShortcutsPanel/NavigationSection/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Refresh tab"
+
+[node name="WindowSection" type="PanelContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ShortcutsPanel"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_section")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ShortcutsPanel/WindowSection"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ShortcutsPanel/WindowSection/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Windows"
+
+[node name="GridContainer" type="GridContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ShortcutsPanel/WindowSection/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Label1" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ShortcutsPanel/WindowSection/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+text = "Ctrl+N"
+
+[node name="Description1" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ShortcutsPanel/WindowSection/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Open new window"
+
+[node name="Label2" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ShortcutsPanel/WindowSection/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+text = "Ctrl+Shift+N"
+
+[node name="Description2" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ShortcutsPanel/WindowSection/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Open incognito window (disabled)"
+
+[node name="MenuSection" type="PanelContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ShortcutsPanel"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_section")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ShortcutsPanel/MenuSection"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ShortcutsPanel/MenuSection/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Menus"
+
+[node name="GridContainer" type="GridContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ShortcutsPanel/MenuSection/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Label1" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ShortcutsPanel/MenuSection/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+text = "Ctrl+H"
+
+[node name="Description1" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ShortcutsPanel/MenuSection/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Open history"
+
+[node name="Label2" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ShortcutsPanel/MenuSection/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+text = "Ctrl+J"
+
+[node name="Description2" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ShortcutsPanel/MenuSection/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Open downloads"
+
+[node name="BrowserPanel" type="VBoxContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="BrowserTitle" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/BrowserPanel"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "About Flumi Browser"
+
+[node name="OverviewSection" type="PanelContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack/BrowserPanel"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_section")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack/BrowserPanel/OverviewSection"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="FlumiBrand" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/BrowserPanel/OverviewSection/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "Flumi"
+
+[node name="DescriptionLabel" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/BrowserPanel/OverviewSection/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Flumi is the official browser for the Gurted ecosystem, built using the Godot game engine. It provides a complete web browsing experience for gurt:// URLs with custom HTML/CSS rendering, Lua scripting support, and integration with the Gurted DNS system."
+autowrap_mode = 3
+
+[node name="ProtocolPanel" type="VBoxContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ProtocolTitle" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ProtocolPanel"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "GURT Protocol"
+
+[node name="ProtocolSection" type="PanelContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ProtocolPanel"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_section")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ProtocolPanel/ProtocolSection"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="ProtocolBrand" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ProtocolPanel/ProtocolSection/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "gurt://"
+
+[node name="DescriptionLabel" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ProtocolPanel/ProtocolSection/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "GURT is a content delivery protocol similar to HTTPS. It's the core of how Gurted applications communicate, featuring a custom DNS system and custom approach to web content. Every GURT connection, including the DNS lookups, is encrypted under TLS - meaning your Internet Service Provider cannot view sites you visit, or the content you send!"
+autowrap_mode = 3
+
+[node name="ScriptingPanel" type="VBoxContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ScriptingTitle" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ScriptingPanel"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "Lua Scripting"
+
+[node name="LuaSection" type="PanelContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ScriptingPanel"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_section")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ScriptingPanel/LuaSection"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="LuaBrand" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ScriptingPanel/LuaSection/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "Luau Integration"
+
+[node name="DescriptionLabel" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/ScriptingPanel/LuaSection/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Flumi uses Luau (Lua) for client-side scripting, providing dynamic content manipulation and interactive experiences within gurt:// pages. Similar to how HTTP web browsers user JavaScript."
+autowrap_mode = 3

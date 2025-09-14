@@ -1,0 +1,231 @@
+	<title>Network & JSON API Demo</title>
+	<icon src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Lua-Logo.svg/256px-Lua-Logo.svg.png">
+	<meta name="theme-color" content="#0891b2">
+	<meta name="description" content="Demonstrating Network fetch() and JSON APIs">
+
+	<style>
+		body { bg-[#ecfdf5] p-6 }
+		h1 { text-[#0891b2] text-3xl font-bold text-center }
+		h2 { text-[#0f766e] text-xl font-semibold }
+		.container { bg-[#ffffff] p-6 rounded-lg shadow-lg max-w-4xl mx-auto }
+		.button-group { flex gap-3 justify-center items-center flex-wrap }
+		.fetch-button { px-4 py-2 rounded-lg font-medium cursor-pointer transition-colors bg-[#059669] text-white hover:bg-[#047857] }
+		.json-button { px-4 py-2 rounded-lg font-medium cursor-pointer transition-colors bg-[#7c3aed] text-white hover:bg-[#6d28d9] }
+		.clear-button { px-4 py-2 rounded-lg font-medium cursor-pointer transition-colors bg-[#ef4444] text-white hover:bg-[#dc2626] }
+		.response-area { bg-[#f1f5f9] p-4 rounded-lg min-h-32 font-mono text-sm max-h-96 overflow-auto }
+		.info-box { bg-[#dbeafe] border border-[#3b82f6] p-4 rounded-lg }
+		.input-area { bg-[#f9fafb] p-4 rounded-lg border }
+	</style>
+
+	<script>
+		-- Get UI elements
+		local responseArea = gurt.select('#response-area')
+		local fetchGetBtn = gurt.select('#fetch-get-btn')
+		local fetchPostBtn = gurt.select('#fetch-post-btn')
+		local jsonEncodeBtn = gurt.select('#json-encode-btn')
+		local jsonDecodeBtn = gurt.select('#json-decode-btn')
+		local clearLogBtn = gurt.select('#clear-log-btn')
+		local urlInput = gurt.select('#url-input')
+		local jsonInput = gurt.select('#json-input')
+
+		trace.log('Network & JSON API demo script started.')
+
+		local logMessages = {}
+
+		-- Function to add message to log
+		local function addLog(message)
+			table.insert(logMessages, Time.format(Time.now(), '%H:%M:%S') .. ' - ' .. message)
+			if #logMessages > 50 then
+				table.remove(logMessages, 1)
+			end
+			responseArea.text = table.concat(logMessages, '\\n')
+		end
+
+		-- Initialize with default values
+		urlInput.text = 'https://jsonplaceholder.typicode.com/posts/1'
+		jsonInput.text = JSON.stringify({
+			name = 'Alice Johnson',
+			age = 28,
+			hobbies = {'reading', 'coding', 'gaming'},
+			active = true,
+			score = 95.5
+		})
+
+		-- GET Request Test
+		fetchGetBtn:on('click', function()
+			local url = urlInput.text
+			addLog('Making GET request to: ' .. url)
+			
+			local response = fetch(url)
+			
+			addLog('Response Status: ' .. response.status .. ' ' .. response.statusText)
+			addLog('Response Headers: ' .. JSON.stringify(response.headers))
+			
+			if response:ok() then
+				local responseText = response:text()
+				addLog('Response Body: ' .. responseText:sub(1, 200) .. (responseText:len() > 200 and '...' or ''))
+				
+				-- Try to parse as JSON
+				local jsonData = response:json()
+				if jsonData then
+					addLog('Parsed JSON successfully')
+				end
+			else
+				addLog('Request failed with status: ' .. response.status)
+			end
+		end)
+
+		-- POST Request Test
+		fetchPostBtn:on('click', function()
+			local url = 'https://jsonplaceholder.typicode.com/posts'
+			local postData = {
+				title = 'Test Post from GURT',
+				body = 'This is a test post created using the GURT Network API',
+				userId = 1
+			}
+			
+			addLog('Making POST request to: ' .. url)
+			addLog('POST Data: ' .. JSON.stringify(postData))
+			
+			local response = fetch(url, {
+				method = 'POST',
+				headers = {
+					['Content-Type'] = 'application/json'
+				},
+				body = JSON.stringify(postData)
+			})
+			
+			addLog('Response Status: ' .. response.status .. ' ' .. response.statusText)
+			
+			if response:ok() then
+				local responseText = response:text()
+				addLog('Created Resource: ' .. responseText)
+			else
+				addLog('POST request failed with status: ' .. response.status)
+			end
+		end)
+
+		-- JSON Encode Test
+		jsonEncodeBtn:on('click', function()
+			local inputText = jsonInput.text
+			addLog('Encoding text to JSON: ' .. inputText:sub(1, 100) .. (inputText:len() > 100 and '...' or ''))
+			
+			-- Try to parse the input as Lua data first
+			local success, data = pcall(function()
+				-- Simple data structure for demo
+				return {
+					message = inputText,
+					timestamp = Time.now(),
+					random = math.random(1, 100),
+					nested = {
+						array = {1, 2, 3},
+						bool = true
+					}
+				}
+			end)
+			
+			if success then
+				local jsonString = JSON.stringify(data)
+				addLog('JSON Encoded: ' .. jsonString)
+			else
+				addLog('Error creating test data for encoding')
+			end
+		end)
+
+		-- JSON Decode Test  
+		jsonDecodeBtn:on('click', function()
+			local jsonText = jsonInput.text
+			addLog('Decoding JSON: ' .. jsonText:sub(1, 100) .. (jsonText:len() > 100 and '...' or ''))
+			
+			local data, error = JSON.parse(jsonText)
+			
+			if data then
+				addLog('JSON Decoded successfully!')
+				addLog('Data type: ' .. type(data))
+				if type(data) == 'table' then
+					local keys = {}
+					for k, v in pairs(data) do
+						table.insert(keys, k .. ':' .. type(v))
+					end
+					addLog('Keys: ' .. table.concat(keys, ', '))
+				end
+				addLog('Stringified back: ' .. JSON.stringify(data))
+			else
+				addLog('JSON Decode Error: ' .. (error or 'Unknown error'))
+			end
+		end)
+
+		-- Clear log button
+		clearLogBtn:on('click', function()
+			logMessages = {}
+			responseArea.text = 'Log cleared.'
+			addLog('Network & JSON API demo ready')
+		end)
+
+		-- Initialize
+		addLog('Network & JSON API demo ready')
+		addLog('Try the buttons above to test network requests and JSON operations!')
+	</script>
+</head>
+
+<body>
+	<h1>🌐 Network & JSON API Demo</h1>
+	
+	<div style="container mt-6">
+		<div style="info-box mb-6">
+			<h3 style="text-[#1e40af] font-semibold mb-2">API Examples:</h3>
+			<p><strong>Network:</strong> <code>fetch(url, {method: "POST", headers: {...}, body: "..."})</code></p>
+			<p><strong>JSON:</strong> <code>JSON.stringify(data)</code> and <code>JSON.parse(jsonString)</code></p>
+		</div>
+
+		<h2>Input Controls</h2>
+		<div style="input-area mb-6">
+			<div style="flex flex-col gap-3">
+				<div>
+					<label style="block text-sm font-medium mb-1">Test URL:</label>
+					<input id="url-input" type="text" style="w-full p-2 border border-gray-300 rounded-md" placeholder="Enter API URL..." />
+				</div>
+				<div>
+					<label style="block text-sm font-medium mb-1">JSON Data:</label>
+					<textarea id="json-input" style="w-full p-2 border border-gray-300 rounded-md" rows="3" placeholder="Enter JSON data..."></textarea>
+				</div>
+			</div>
+		</div>
+
+		<h2>Network Tests</h2>
+		<div style="button-group mb-6">
+			<button id="fetch-get-btn" style="fetch-button">🔍 GET Request</button>
+			<button id="fetch-post-btn" style="fetch-button">📤 POST Request</button>
+		</div>
+
+		<h2>JSON Tests</h2>
+		<div style="button-group mb-6">
+			<button id="json-encode-btn" style="json-button">📝 JSON Encode</button>
+			<button id="json-decode-btn" style="json-button">📖 JSON Decode</button>
+		</div>
+
+		<div style="button-group mb-6">
+			<button id="clear-log-btn" style="clear-button">🧹 Clear Log</button>
+		</div>
+
+		<h2>Response Log</h2>
+		<div style="response-area mb-6">
+			<pre id="response-area">Initializing...</pre>
+		</div>
+
+		<div style="bg-[#f0f9ff] p-4 rounded-lg">
+			<h3 style="text-[#0369a1] font-semibold mb-2">Network API Features:</h3>
+			<ul style="text-[#075985] space-y-1 text-sm">
+				<li><strong>fetch(url, options):</strong> Makes HTTP requests with support for all methods</li>
+				<li><strong>Response methods:</strong> text(), json(), ok() for processing responses</li>
+				<li><strong>Headers & Body:</strong> Full control over request headers and body content</li>
+				<li><strong>Status & StatusText:</strong> Access to HTTP response status information</li>
+			</ul>
+			<h3 style="text-[#0369a1] font-semibold mt-4 mb-2">JSON API Features:</h3>
+			<ul style="text-[#075985] space-y-1 text-sm">
+				<li><strong>JSON.stringify():</strong> Alias for encode (browser compatibility)</li>
+				<li><strong>JSON.parse():</strong> Alias for decode (browser compatibility)</li>
+			</ul>
+		</div>
+	</div>
+</body>

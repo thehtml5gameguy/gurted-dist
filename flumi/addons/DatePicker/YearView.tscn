@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=3 uid="uid://n5ra5w5aupx7"]
+
+[ext_resource type="Script" uid="uid://c8nfr825g08sy" path="res://addons/DatePicker/YearView.gd" id="1_hiiks"]
+[ext_resource type="ButtonGroup" uid="uid://bqxxq56yxl44h" path="res://addons/DatePicker/CalendarGroup.tres" id="2_2qddy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iofl3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kdl71"]
+content_margin_left = 8.0
+bg_color = Color(0.168627, 0.168627, 0.168627, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pressed"]
+content_margin_left = 8.0
+bg_color = Color(0.247059, 0.466667, 0.807843, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wpifq"]
+content_margin_left = 8.0
+bg_color = Color(0.105882, 0.105882, 0.105882, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="YearView" type="HBoxContainer"]
+script = ExtResource("1_hiiks")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(234, 240)
+layout_mode = 2
+
+[node name="YearContainer" type="VBoxContainer" parent="ScrollContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(234, 240)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Button" type="Button" parent="ScrollContainer/YearContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(34, 5)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_iofl3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_kdl71")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_pressed")
+theme_override_styles/normal = SubResource("StyleBoxFlat_wpifq")
+toggle_mode = true
+button_group = ExtResource("2_2qddy")
+text = "2025"
+alignment = 0

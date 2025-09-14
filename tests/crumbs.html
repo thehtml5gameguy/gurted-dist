@@ -1,0 +1,223 @@
+<head>
+	<title>Crumbs API Test</title>
+	<style>
+		.test-section { bg-[#f8fafc] p-4 rounded mb-4 border border-[#e2e8f0] }
+		.test-button { bg-[#3b82f6] text-white px-4 py-2 rounded mr-2 mb-2 cursor-pointer hover:bg-[#2563eb] }
+		.success { text-[#059669] font-bold }
+		.error { text-[#dc2626] font-bold }
+		.crumb-item { bg-[#e0e7ef] text-[#22223b] rounded p-2 mb-2 border-l-4 border-[#3b82f6] }
+		.expired { bg-[#fef2f2] border-[#dc2626] text-[#991b1b] }
+		#log { bg-[#1f2937] text-[#f9fafb] p-3 rounded text-sm font-mono max-h-[300px] overflow-y-auto }
+	</style>
+	<script>
+		local log = gurt.select("#log")
+		local crumbsList = gurt.select("#crumbs-list")
+		
+		local function log_msg(msg, type)
+			type = type or "info"
+			local color = type == "success" and "#10b981" or (type == "error" and "#ef4444" or "#6b7280")
+			log.text = log.text .. "[" .. Time.format(Time.now(), '%H:%M:%S') .. "] " .. msg .. "\\n"
+		end
+		
+		local function clear_log()
+			log.text = ""
+		end
+		
+		local function refresh_crumbs_display()
+			local all_crumbs = gurt.crumbs.getAll()
+			crumbsList.text = ""
+			
+			local count = 0
+			for name, crumb in pairs(all_crumbs) do
+				count = count + 1
+				local expiry_text = ""
+				if crumb.expiry then
+					local remaining = crumb.expiry - (Time.now() / 1000)
+					if remaining > 0 then
+						expiry_text = " (expires in " .. math.floor(remaining) .. "s)"
+					else
+						expiry_text = " (EXPIRED)"
+					end
+				else
+					expiry_text = " (permanent)"
+				end
+				
+				local newDiv = gurt.create("div", { 
+					class = "crumb-item", 
+					text = name .. " = " .. crumb.value .. expiry_text 
+				})
+				crumbsList:append(newDiv)
+			end
+			
+			if count == 0 then
+				local emptyDiv = gurt.create("div", { 
+					class = "crumb-item", 
+					text = "No crumbs stored" 
+				})
+				crumbsList:append(emptyDiv)
+			end
+			
+			log_msg("Refreshed display: " .. count .. " crumbs found")
+		end
+		
+		-- Test: Set a permanent crumb
+		gurt.select("#btn-set-permanent"):on("click", function()
+			gurt.crumbs.set({
+				name = "username",
+				value = "gurted_user",
+			})
+			log_msg("Set permanent crumb: username = gurted_user", "success")
+			refresh_crumbs_display()
+		end)
+		
+		-- Test: Set a temporary crumb (10 seconds)
+		gurt.select("#btn-set-temp"):on("click", function()
+			gurt.crumbs.set({
+				name = "session_token",
+				value = "abc123def456",
+				lifetime = 10
+			})
+			log_msg("Set temporary crumb: session_token (expires in 10s)", "success")
+			refresh_crumbs_display()
+		end)
+		
+		-- Test: Set a very short-lived crumb (3 seconds)
+		gurt.select("#btn-set-short"):on("click", function()
+			gurt.crumbs.set({
+				name = "temp_data",
+				value = "will_expire_soon",
+				lifetime = 3
+			})
+			log_msg("Set short-lived crumb: temp_data (expires in 3s)", "success")
+			refresh_crumbs_display()
+		end)
+		
+		-- Test: Get a specific crumb
+		gurt.select("#btn-get-username"):on("click", function()
+			local value = gurt.crumbs.get("username")
+			if value then
+				log_msg("Retrieved username: " .. value, "success")
+			else
+				log_msg("Username crumb not found", "error")
+			end
+		end)
+		
+		-- Test: Get non-existent crumb
+		gurt.select("#btn-get-nonexistent"):on("click", function()
+			local value = gurt.crumbs.get("nonexistent")
+			if value then
+				log_msg("Unexpected: found nonexistent crumb: " .. value, "error")
+			else
+				log_msg("Correctly returned nil for nonexistent crumb", "success")
+			end
+		end)
+		
+		-- Test: Delete a crumb
+		gurt.select("#btn-delete-session"):on("click", function()
+			local existed = gurt.crumbs.delete("session_token")
+			if existed then
+				log_msg("Deleted session_token crumb", "success")
+			else
+				log_msg("session_token crumb was not found", "error")
+			end
+			refresh_crumbs_display()
+		end)
+		
+		-- Test: Try to delete non-existent crumb
+		gurt.select("#btn-delete-nonexistent"):on("click", function()
+			local existed = gurt.crumbs.delete("nonexistent")
+			if existed then
+				log_msg("Unexpected: deleted nonexistent crumb", "error")
+			else
+				log_msg("Correctly returned false for nonexistent crumb deletion", "success")
+			end
+		end)
+		
+		-- Test: Set multiple crumbs at once
+		gurt.select("#btn-set-multiple"):on("click", function()
+			gurt.crumbs.set({ name = "theme", value = "dark" })
+			gurt.crumbs.set({ name = "language", value = "en" })
+			gurt.crumbs.set({ name = "notifications", value = "enabled" })
+			log_msg("Set multiple crumbs: theme, language, notifications", "success")
+			refresh_crumbs_display()
+		end)
+		
+		-- Test: Clear all crumbs
+		gurt.select("#btn-clear-all"):on("click", function()
+			local all_crumbs = gurt.crumbs.getAll()
+			local count = 0
+			for name, _ in pairs(all_crumbs) do
+				gurt.crumbs.delete(name)
+				count = count + 1
+			end
+			log_msg("Cleared " .. count .. " crumbs", "success")
+			refresh_crumbs_display()
+		end)
+		
+		-- Test: Auto-refresh every 2 seconds to show expiry
+		setInterval(function()
+			refresh_crumbs_display()
+		end, 2000)
+		
+		-- Clear log button
+		gurt.select("#btn-clear-log"):on("click", function()
+			clear_log()
+		end)
+		
+		-- Initialize display
+		log_msg("Crumbs API Test initialized")
+		refresh_crumbs_display()
+	</script>
+</head>
+<body>
+	<h1>Crumbs API Test Suite</h1>
+	
+	<div class="test-section">
+		<h2>Set Crumbs</h2>
+		<p>Test setting crumbs with different lifetimes</p>
+		<button id="btn-set-permanent" class="test-button">Set Permanent Crumb</button>
+		<button id="btn-set-temp" class="test-button">Set 10s Temporary Crumb</button>
+		<button id="btn-set-short" class="test-button">Set 3s Short-lived Crumb</button>
+		<button id="btn-set-multiple" class="test-button">Set Multiple Crumbs</button>
+	</div>
+	
+	<div class="test-section">
+		<h2>Get Crumbs</h2>
+		<p>Test retrieving existing and non-existent crumbs</p>
+		<button id="btn-get-username" class="test-button">Get 'username' Crumb</button>
+		<button id="btn-get-nonexistent" class="test-button">Get Non-existent Crumb</button>
+	</div>
+	
+	<div class="test-section">
+		<h2>Delete Crumbs</h2>
+		<p>Test deleting crumbs and handling non-existent deletions</p>
+		<button id="btn-delete-session" class="test-button">Delete 'session_token'</button>
+		<button id="btn-delete-nonexistent" class="test-button">Delete Non-existent</button>
+		<button id="btn-clear-all" class="test-button">Clear All Crumbs</button>
+	</div>
+	
+	<div class="test-section">
+		<h2>Current Crumbs (Auto-refreshing)</h2>
+		<p>All stored crumbs (updates every 2 seconds to show expiry)</p>
+		<div id="crumbs-list"></div>
+	</div>
+	
+	<div class="test-section">
+		<h2>Test Log</h2>
+		<button id="btn-clear-log" class="test-button">Clear Log</button>
+		<pre id="log"></pre>
+	</div>
+	
+	<div style="mt-6 p-4 bg-[#fef3c7] rounded">
+		<h3>Test Instructions:</h3>
+		<ol style="ml-4">
+			<li>Click "Set Permanent Crumb" to create a persistent cookie</li>
+			<li>Click "Set 10s Temporary Crumb" and watch it expire in the display</li>
+			<li>Click "Set 3s Short-lived Crumb" for quick expiry testing</li>
+			<li>Use "Get" buttons to test retrieval</li>
+			<li>Use "Delete" buttons to test removal</li>
+			<li>Refresh the page to verify persistence across sessions</li>
+			<li>Check user://gurt_crumbs.json file to see the storage format</li>
+		</ol>
+	</div>
+</body>

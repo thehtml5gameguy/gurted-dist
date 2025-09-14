@@ -1,0 +1,159 @@
+<head>
+	<title>Download API Demo</title>
+	<icon src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Lua-Logo.svg/256px-Lua-Logo.svg.png">
+	<meta name="theme-color" content="#8b5cf6">
+	<meta name="description" content="Demonstrating Download API functionality">
+
+	<style>
+		body { bg-[#faf5ff] p-6 }
+		h1 { text-[#8b5cf6] text-3xl font-bold text-center }
+		h2 { text-[#7c3aed] text-xl font-semibold }
+		h3 { text-[#6d28d9] text-lg font-semibold }
+		.container { bg-[#ffffff] p-6 rounded-lg shadow-lg max-w-4xl mx-auto }
+		.button-group { flex gap-3 justify-center items-center flex-wrap }
+		.download-button { px-4 py-2 rounded-lg font-medium cursor-pointer transition-colors bg-[#8b5cf6] text-white hover:bg-[#7c3aed] }
+		.special-button { px-4 py-2 rounded-lg font-medium cursor-pointer transition-colors bg-[#ef4444] text-white hover:bg-[#dc2626] }
+		.clear-button { px-4 py-2 rounded-lg font-medium cursor-pointer transition-colors bg-[#6b7280] text-white hover:bg-[#4b5563] }
+		.log-area { bg-[#f1f5f9] p-4 rounded-lg min-h-32 font-mono text-sm max-h-96 overflow-auto }
+		.info-box { bg-[#ede9fe] border border-[#8b5cf6] p-4 rounded-lg }
+		.test-section { bg-[#f9fafb] p-4 rounded-lg border mb-4 }
+		.code-block { bg-[#1e293b] text-[#e2e8f0] p-3 rounded font-mono text-sm mb-3 }
+	</style>
+
+	<script>
+		local logArea = gurt.select('#log-area')
+		local clearLogBtn = gurt.select('#clear-log-btn')
+		local downloadImageBtn = gurt.select('#download-image')
+		local downloadShitBtn = gurt.select('#download-shit')
+		local downloadTextBtn = gurt.select('#download-text')
+		local downloadJsonBtn = gurt.select('#download-json')
+
+		trace.log('Download API demo script started.')
+
+		local logMessages = {}
+
+		-- Function to add message to log
+		local function addLog(message)
+			table.insert(logMessages, Time.format(Time.now(), '%H:%M:%S') .. ' - ' .. message)
+			if #logMessages > 50 then
+				table.remove(logMessages, 1)
+			end
+			logArea.text = table.concat(logMessages, '\\n')
+		end
+
+		-- Download Image Test
+		downloadImageBtn:on('click', function()
+			local downloadId = gurt.download("https://httpbin.org/image/png", "test-image.png")
+			addLog("🖼️ Started image download: " .. downloadId)
+			addLog("URL: https://httpbin.org/image/png")
+			addLog("Filename: test-image.png")
+		end)
+
+		-- Download Text File Test
+		downloadTextBtn:on('click', function()
+			local downloadId = gurt.download("https://httpbin.org/robots.txt", "robots.txt")
+			addLog("📄 Started text download: " .. downloadId)
+			addLog("URL: https://httpbin.org/robots.txt")
+			addLog("Filename: robots.txt")
+		end)
+
+		-- Download JSON Test
+		downloadJsonBtn:on('click', function()
+			local downloadId = gurt.download("https://httpbin.org/json", "sample-data.json")
+			addLog("📊 Started JSON download: " .. downloadId)
+			addLog("URL: https://httpbin.org/json")
+			addLog("Filename: sample-data.json")
+		end)
+
+		-- Download Large File Test (Ubuntu ISO)
+		downloadShitBtn:on('click', function()
+			local downloadId = gurt.download("https://releases.ubuntu.com/24.04.3/ubuntu-24.04.3-desktop-amd64.iso", "linux.iso")
+			addLog("💿 Started large file download: " .. downloadId)
+			addLog("URL: https://releases.ubuntu.com/24.04.3/ubuntu-24.04.3-desktop-amd64.iso")
+			addLog("Filename: linux.iso")
+			addLog("⚠️  Warning: This is a large file (~5GB)!")
+		end)
+
+		-- Clear log button
+		clearLogBtn:on('click', function()
+			logMessages = {}
+			logArea.text = 'Log cleared.'
+			addLog('Download API demo ready')
+		end)
+
+		-- Initialize
+		addLog('Download API demo ready')
+		addLog('Click the buttons above to test different download scenarios!')
+	</script>
+</head>
+
+<body>
+	<h1>📥 Download API Demo</h1>
+	
+	<div style="container mt-6">
+		<div style="info-box mb-6">
+			<h3 style="text-[#5b21b6] font-semibold mb-2">Download API Usage:</h3>
+			<p><code>local downloadId = gurt.download(url, filename)</code></p>
+			<p>Returns a unique download ID that can be used to track the download progress.</p>
+		</div>
+
+		<div style="test-section">
+			<h3>Download API Test</h3>
+			<p>Click the buttons below to test the download functionality:</p>
+			<div style="button-group mb-4">
+				<button id="download-image" style="download-button">🖼️ Download Test Image</button>
+				<button id="download-text" style="download-button">📄 Download Text File</button>
+				<button id="download-json" style="download-button">📊 Download JSON Data</button>
+			</div>
+			<div style="button-group mb-4">
+				<button id="download-shit" style="special-button">💿 Download Shit (Ubuntu ISO)</button>
+			</div>
+			
+			<div style="code-block">
+gurt.select("#download-image"):on("click", function()
+	local downloadId = gurt.download("https://httpbin.org/image/png", "test-image.png")
+	print("Started download:", downloadId)
+end)
+
+gurt.select("#download-text"):on("click", function()
+	local downloadId = gurt.download("https://httpbin.org/robots.txt", "robots.txt")
+	print("Started text download:", downloadId)
+end)
+
+gurt.select("#download-json"):on("click", function()
+	local downloadId = gurt.download("https://httpbin.org/json", "sample-data.json")
+	print("Started JSON download:", downloadId)
+end)
+
+gurt.select("#download-shit"):on("click", function()
+	local downloadId = gurt.download("https://releases.ubuntu.com/24.04.3/ubuntu-24.04.3-desktop-amd64.iso", "linux.iso")
+end)
+			</div>
+		</div>
+
+		<h2>Download Log</h2>
+		<div style="button-group mb-3">
+			<button id="clear-log-btn" style="clear-button">🧹 Clear Log</button>
+		</div>
+		<div style="log-area mb-6">
+			<pre id="log-area">Initializing...</pre>
+		</div>
+
+		<div style="bg-[#f0f9ff] p-4 rounded-lg">
+			<h3 style="text-[#0369a1] font-semibold mb-2">Download API Features:</h3>
+			<ul style="text-[#075985] space-y-1 text-sm">
+				<li><strong>gurt.download(url, filename):</strong> Initiates a download from the given URL</li>
+				<li><strong>Return Value:</strong> Returns a unique download ID for tracking</li>
+				<li><strong>File Types:</strong> Supports any file type (images, text, binary, etc.)</li>
+				<li><strong>Large Files:</strong> Can handle large downloads like OS images</li>
+			</ul>
+			<h3 style="text-[#0369a1] font-semibold mt-4 mb-2">Test Cases:</h3>
+			<ul style="text-[#075985] space-y-1 text-sm">
+				<li><strong>Image Download:</strong> PNG image from httpbin.org</li>
+				<li><strong>Text Download:</strong> robots.txt file</li>
+				<li><strong>JSON Download:</strong> Sample JSON data</li>
+				<li><strong>Large File:</strong> Ubuntu 24.04.3 ISO (~5GB) - Use with caution!</li>
+			</ul>
+		</div>
+	</div>
+</body>

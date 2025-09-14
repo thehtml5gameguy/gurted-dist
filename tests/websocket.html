@@ -1,0 +1,190 @@
+<head>
+	<title>WebSocket API Demo</title>
+	<icon src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Lua-Logo.svg/256px-Lua-Logo.svg.png">
+	<meta name="theme-color" content="#059669">
+	<meta name="description" content="Demonstrating WebSocket real-time communication API">
+
+	<style>
+		body { bg-[#f0fdf4] p-6 }
+		h1 { text-[#059669] text-3xl font-bold text-center }
+		h2 { text-[#047857] text-xl font-semibold }
+		.container { bg-[#ffffff] p-6 rounded-lg shadow-lg max-w-4xl mx-auto }
+		.button-group { flex gap-3 justify-center items-center flex-wrap }
+		.ws-button { px-4 py-2 rounded-lg font-medium cursor-pointer transition-colors bg-[#10b981] text-white hover:bg-[#059669] }
+		.send-button { px-4 py-2 rounded-lg font-medium cursor-pointer transition-colors bg-[#3b82f6] text-white hover:bg-[#2563eb] }
+		.disconnect-button { px-4 py-2 rounded-lg font-medium cursor-pointer transition-colors bg-[#ef4444] text-white hover:bg-[#dc2626] }
+		.clear-button { px-4 py-2 rounded-lg font-medium cursor-pointer transition-colors bg-[#6b7280] text-white hover:bg-[#4b5563] }
+		.log-area { bg-[#f1f5f9] p-4 rounded-lg min-h-32 font-mono text-sm max-h-96 overflow-auto }
+		.info-box { bg-[#dbeafe] border border-[#3b82f6] p-4 rounded-lg }
+		.input-area { bg-[#f9fafb] p-4 rounded-lg border }
+		.status-connected { text-[#059669] font-bold }
+		.status-disconnected { text-[#ef4444] font-bold }
+		.status-connecting { text-[#f59e0b] font-bold }
+	</style>
+
+	<script>
+		local logArea = gurt.select('#log-area')
+		local statusDisplay = gurt.select('#status-display')
+		local connectBtn = gurt.select('#connect-btn')
+		local disconnectBtn = gurt.select('#disconnect-btn')
+		local sendBtn = gurt.select('#send-btn')
+		local clearLogBtn = gurt.select('#clear-log-btn')
+		local urlInput = gurt.select('#url-input')
+		local messageInput = gurt.select('#message-input')
+
+		trace.log('WebSocket API demo script started.')
+
+		local logMessages = {}
+		local socket = nil
+		local connected = false
+
+		local function addLog(message)
+			table.insert(logMessages, Time.format(Time.now(), '%H:%M:%S') .. ' - ' .. message)
+			if #logMessages > 50 then
+				table.remove(logMessages, 1)
+			end
+			logArea.text = table.concat(logMessages, '\\n')
+		end
+
+		local function updateStatus(status, color)
+			statusDisplay.text = 'Status: ' .. status
+			statusDisplay.style = 'status-' .. color
+		end
+
+		urlInput.text = 'wss://echo.websocket.org'
+		messageInput.text = 'Hello from Gurted!'
+
+		connectBtn:on('click', function()
+			local url = urlInput.text
+			addLog('Attempting to connect to: ' .. url)
+			updateStatus('Connecting...', 'connecting')
+			
+			socket = WebSocket:new(url)
+			
+			socket:on('open', function()
+				addLog('✅ Connected to WebSocket server!')
+				updateStatus('Connected', 'connected')
+				connected = true
+				socket:send('Hello from the Gurted web!')
+			end)
+
+			socket:on('message', function(event)
+				addLog('📨 Received: ' .. event.data)
+			end)
+
+			socket:on('close', function()
+				addLog('❌ Connection closed')
+				updateStatus('Disconnected', 'disconnected')
+				connected = false
+			end)
+
+			socket:on('error', function(event)
+				addLog('🚨 Error: ' .. (event.message or 'Unknown error'))
+				updateStatus('Error', 'disconnected')
+				connected = false
+			end)
+		end)
+
+		disconnectBtn:on('click', function()
+			if socket and connected then
+				addLog('Disconnecting from WebSocket...')
+				socket:close()
+			else
+				addLog('No active connection to disconnect')
+			end
+		end)
+
+		sendBtn:on('click', function()
+			if socket and connected then
+				local message = messageInput.text
+				if message and message ~= '' then
+					socket:send(message)
+					addLog('📤 Sent: ' .. message)
+				else
+					addLog('❌ Cannot send empty message')
+				end
+			else
+				addLog('❌ Not connected to WebSocket server')
+			end
+		end)
+
+		clearLogBtn:on('click', function()
+			logMessages = {}
+			logArea.text = 'Log cleared.'
+			addLog('WebSocket API demo ready')
+		end)
+
+		updateStatus('Disconnected', 'disconnected')
+		addLog('WebSocket API demo ready')
+		addLog('Enter a WebSocket URL and click Connect to start!')
+	</script>
+</head>
+
+<body>
+	<h1>🔌 WebSocket API Demo</h1>
+	
+	<div style="container mt-6">
+		<div style="info-box mb-6">
+			<h3 style="text-[#1e40af] font-semibold mb-2">WebSocket API Usage:</h3>
+			<p><code>local socket = WebSocket:new(url)</code></p>
+			<p><code>socket:on('open', function() ... end)</code></p>
+			<p><code>socket:on('message', function(event) print(event.data) end)</code></p>
+			<p><code>socket:send('Hello Server!')</code></p>
+			<p><code>socket:close()</code></p>
+		</div>
+
+		<h2>Connection</h2>
+		<div style="input-area mb-6">
+			<div style="flex flex-col gap-3">
+				<div>
+					<label style="block text-sm font-medium mb-1">WebSocket URL:</label>
+					<input id="url-input" type="text" style="w-full p-2 border border-gray-300 rounded-md" placeholder="ws://echo.websocket.org" />
+				</div>
+				<div id="status-display" style="status-disconnected">Status: Disconnected</div>
+				<div style="flex gap-2">
+					<button id="connect-btn" style="ws-button">🔗 Connect</button>
+					<button id="disconnect-btn" style="disconnect-button">❌ Disconnect</button>
+				</div>
+			</div>
+		</div>
+
+		<h2>Send Messages</h2>
+		<div style="input-area mb-6">
+			<div style="flex flex-col gap-3">
+				<div>
+					<label style="block text-sm font-medium mb-1">Message:</label>
+					<input id="message-input" type="text" style="w-full p-2 border border-gray-300 rounded-md" placeholder="Type your message..." />
+				</div>
+				<div style="flex gap-2">
+					<button id="send-btn" style="send-button">📤 Send Message</button>
+					<span style="text-sm text-gray-600">Or press Enter to send</span>
+				</div>
+			</div>
+		</div>
+
+		<h2>Event Log</h2>
+		<div style="button-group mb-3">
+			<button id="clear-log-btn" style="clear-button">🧹 Clear Log</button>
+		</div>
+		<div style="log-area mb-6">
+			<pre id="log-area">Initializing...</pre>
+		</div>
+
+		<div style="bg-[#f0f9ff] p-4 rounded-lg">
+			<h3 style="text-[#0369a1] font-semibold mb-2">WebSocket Events:</h3>
+			<ul style="text-[#075985] space-y-1 text-sm">
+				<li><strong>open:</strong> Fired when connection is established</li>
+				<li><strong>message:</strong> Fired when a message is received (event.data contains the message)</li>
+				<li><strong>close:</strong> Fired when connection is closed</li>
+				<li><strong>error:</strong> Fired when an error occurs (event.message contains error info)</li>
+			</ul>
+			<h3 style="text-[#0369a1] font-semibold mt-4 mb-2">WebSocket Methods:</h3>
+			<ul style="text-[#075985] space-y-1 text-sm">
+				<li><strong>WebSocket:new(url):</strong> Creates and connects to WebSocket server</li>
+				<li><strong>socket:send(message):</strong> Sends a text message to the server</li>
+				<li><strong>socket:close():</strong> Closes the connection</li>
+				<li><strong>socket:on(event, callback):</strong> Registers event handlers</li>
+			</ul>
+		</div>
+	</div>
+</body>

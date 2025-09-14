@@ -1,0 +1,132 @@
+<head>
+	<title>Transform CSS Demo - Scale & Rotation</title>
+	<icon src="https://picsum.photos/32/32?random=1">
+	<meta name="theme-color" content="#8b5cf6">
+	<meta name="description" content="Testing scale and rotation CSS utilities">
+	<style>
+		body { bg-[#f8fafc] p-8 }
+		h1 { text-[#8b5cf6] text-4xl font-bold text-center mb-8 }
+		h2 { text-[#7c3aed] text-2xl font-semibold mb-4 }
+		.demo-grid { flex flex-wrap gap-6 justify-center }
+		.demo-item { bg-white p-6 rounded-xl shadow-lg text-center }
+		.demo-box { w-[100px] h-[100px] bg-[#3b82f6] text-white text-xl font-bold rounded-lg flex items-center justify-center mb-4 mx-auto }
+		.code-block { bg-[#1e293b] text-[#e2e8f0] p-3 rounded font-mono text-sm }
+		.description { text-[#64748b] text-sm mb-3 }
+	</style>
+</head>
+
+<body>
+	<h1>🔄 Scale & Rotation CSS Demonstration</h1>
+	
+	<div style="demo-grid">
+		<!-- Normal (no transform) -->
+		<div style="demo-item">
+			<h2>Normal</h2>
+			<div style="description">No transform applied</div>
+			<div style="demo-box">Box</div>
+			<div style="code-block">No transform</div>
+		</div>
+
+		<!-- Scale 50% -->
+		<div style="demo-item">
+			<h2>Scale 50%</h2>
+			<div style="description">Scaled to 50% size</div>
+			<div style="demo-box scale-50">Box</div>
+			<div style="code-block">scale-50</div>
+		</div>
+
+		<!-- Scale 150% -->
+		<div style="demo-item">
+			<h2>Scale 150%</h2>
+			<div style="description">Scaled to 150% size</div>
+			<div style="demo-box scale-150">Box</div>
+			<div style="code-block">scale-150</div>
+		</div>
+
+		<!-- Scale X-axis only -->
+		<div style="demo-item">
+			<h2>Scale X 75%</h2>
+			<div style="description">X-axis scaled to 75%</div>
+			<div style="demo-box scale-x-75">Box</div>
+			<div style="code-block">scale-x-75</div>
+		</div>
+
+		<!-- Scale Y-axis only -->
+		<div style="demo-item">
+			<h2>Scale Y 125%</h2>
+			<div style="description">Y-axis scaled to 125%</div>
+			<div style="demo-box scale-y-125">Box</div>
+			<div style="code-block">scale-y-125</div>
+		</div>
+
+		<!-- Custom scale with bracket notation -->
+		<div style="demo-item">
+			<h2>Custom Scale</h2>
+			<div style="description">Custom scale value 1.7</div>
+			<div style="demo-box scale-[170]">Box</div>
+			<div style="code-block">scale-[170]</div>
+		</div>
+
+		<!-- Rotate 45 degrees -->
+		<div style="demo-item">
+			<h2>Rotate 45°</h2>
+			<div style="description">Rotated 45 degrees</div>
+			<div style="demo-box rotate-45">Box</div>
+			<div style="code-block">rotate-45</div>
+		</div>
+
+		<!-- Rotate 90 degrees -->
+		<div style="demo-item">
+			<h2>Rotate 90°</h2>
+			<div style="description">Rotated 90 degrees</div>
+			<div style="demo-box rotate-90">Box</div>
+			<div style="code-block">rotate-90</div>
+		</div>
+
+		<!-- Custom rotation with bracket notation -->
+		<div style="demo-item">
+			<h2>Custom Rotate</h2>
+			<div style="description">Custom rotation 30deg</div>
+			<div style="demo-box rotate-[30deg]">Box</div>
+			<div style="code-block">rotate-[30deg]</div>
+		</div>
+
+		<!-- Combined scale and rotation -->
+		<div style="demo-item">
+			<h2>Scale + Rotate</h2>
+			<div style="description">Scale 125% and rotate 45°</div>
+			<div style="demo-box scale-125 rotate-45">Box</div>
+			<div style="code-block">scale-125 rotate-45</div>
+		</div>
+
+		<!-- Rotation in radians -->
+		<div style="demo-item">
+			<h2>Radians</h2>
+			<div style="description">Rotation using radians</div>
+			<div style="demo-box rotate-[1.57rad]">Box</div>
+			<div style="code-block">rotate-[1.57rad]</div>
+		</div>
+
+		<!-- Hover effects with transforms -->
+		<div style="demo-item">
+			<h2>Hover Effect</h2>
+			<div style="description">Hover to see scale effect</div>
+			<div style="demo-box hover:scale-110 transition hover:rotate-45">Box</div>
+			<div style="code-block">hover:scale-110</div>
+		</div>
+	</div>
+	
+	<button style="hover:scale-110 transition">Button</button>
+	
+	<div style="bg-white p-6 rounded-xl shadow-lg mt-8 max-w-4xl mx-auto">
+		<h2>📝 Transform Utility Reference</h2>
+		<div style="text-[#475569]">
+			<p><strong>Scale utilities:</strong> scale-{value}, scale-x-{value}, scale-y-{value}</p>
+			<p><strong>Named values:</strong> 0, 50, 75, 90, 95, 100, 105, 110, 125, 150, 200</p>
+			<p><strong>Custom values:</strong> scale-[{number}] where number is percentage (100 = 1.0)</p>
+			<p><strong>Rotation utilities:</strong> rotate-{degrees}, rotate-x-{degrees}, rotate-y-{degrees}</p>
+			<p><strong>Named degrees:</strong> 0, 1, 2, 3, 6, 12, 45, 90, 180, 270</p>
+			<p><strong>Custom rotations:</strong> rotate-[{value}deg], rotate-[{value}rad], rotate-[{value}turn]</p>
+		</div>
+	</div>
+</body>

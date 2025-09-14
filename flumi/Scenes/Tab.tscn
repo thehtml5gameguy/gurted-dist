@@ -1,0 +1,174 @@
+[gd_scene load_steps=14 format=3 uid="uid://sqhcxhcre081"]
+
+[ext_resource type="Script" uid="uid://crpnnfqm3k5xv" path="res://Scripts/Browser/Tab.gd" id="1_q3baj"]
+[ext_resource type="Texture2D" uid="uid://gq8g7t4s3ryg" path="res://Assets/Icons/x.svg" id="2_pisds"]
+[ext_resource type="StyleBox" uid="uid://fd1nftmqox32" path="res://Scenes/Styles/TabHoverDefault.tres" id="3_kjcxk"]
+[ext_resource type="Texture2D" uid="uid://c7u7a1u1v04bx" path="res://Scenes/Styles/TabGradientDefault.tres" id="3_q3baj"]
+[ext_resource type="Texture2D" uid="uid://dglkjumm1q4lo" path="res://Assets/Icons/23x23-empty.svg" id="5_ib6pj"]
+[ext_resource type="Texture2D" uid="uid://bqpx2lgo0yecb" path="res://Assets/Icons/globe.svg" id="6_ib6pj"]
+[ext_resource type="StyleBox" uid="uid://dn8exdnk8tjce" path="res://Scenes/Styles/CloseButtonHover.tres" id="6_pisds"]
+[ext_resource type="StyleBox" uid="uid://dn6r16retee3l" path="res://Scenes/Styles/CloseButtonNormal.tres" id="7_1ohlo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6bp64"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1ohlo"]
+content_margin_left = 8.0
+content_margin_right = 8.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_344ge"]
+
+[sub_resource type="Animation" id="Animation_ib6pj"]
+resource_name = "appear"
+length = 0.3
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:custom_minimum_size:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 350, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.3)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Button:size:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 350, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.3)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Button/GradientTexture:position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(-64, -0.25, 0, 0.25, 0, 278, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.3)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Button/CloseButton:position:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(-34, -0.25, 0, 0.25, 0, 319, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.3)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Button/Icon:position:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(-23, -0.25, 0, 0.25, 0, 8, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.3)
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Button:clip_contents")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_170sd"]
+_data = {
+&"appear": SubResource("Animation_ib6pj")
+}
+
+[node name="Tab1" type="Control"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 350.0
+offset_bottom = 50.0
+script = ExtResource("1_q3baj")
+
+[node name="Button" type="Button" parent="."]
+unique_name_in_owner = true
+z_index = -2
+clip_contents = true
+layout_mode = 1
+offset_right = 350.0
+offset_bottom = 50.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/h_separation = 8
+theme_override_constants/icon_max_width = 23
+theme_override_styles/focus = SubResource("StyleBoxEmpty_6bp64")
+theme_override_styles/hover = ExtResource("3_kjcxk")
+theme_override_styles/pressed = ExtResource("3_kjcxk")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_1ohlo")
+action_mode = 0
+text = "New Tab"
+icon = ExtResource("5_ib6pj")
+alignment = 0
+text_overrun_behavior = 3
+
+[node name="GradientTexture" type="TextureRect" parent="Button"]
+unique_name_in_owner = true
+z_index = 1
+layout_mode = 0
+offset_left = 252.25
+offset_top = 0.995
+offset_right = 316.25
+offset_bottom = 48.995
+texture = ExtResource("3_q3baj")
+
+[node name="Icon" type="TextureRect" parent="Button"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 10.03
+offset_top = 13.0
+offset_right = 33.03
+offset_bottom = 36.0
+texture = ExtResource("6_ib6pj")
+expand_mode = 1
+
+[node name="CloseButton" type="Button" parent="Button"]
+unique_name_in_owner = true
+z_index = 2
+custom_minimum_size = Vector2(34, 34)
+layout_mode = 0
+offset_left = 315.39
+offset_top = 12.0
+offset_right = 349.39
+offset_bottom = 46.0
+scale = Vector2(0.75, 0.75)
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_344ge")
+theme_override_styles/hover = ExtResource("6_pisds")
+theme_override_styles/pressed = ExtResource("7_1ohlo")
+theme_override_styles/normal = ExtResource("7_1ohlo")
+icon = ExtResource("2_pisds")
+icon_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_170sd")
+}
+speed_scale = 2.0
+
+[connection signal="mouse_entered" from="Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="Button" to="." method="_on_button_mouse_exited"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Button/CloseButton" to="." method="_on_close_button_pressed"]

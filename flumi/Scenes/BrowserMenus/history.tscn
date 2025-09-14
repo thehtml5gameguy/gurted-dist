@@ -1,0 +1,308 @@
+[gd_scene load_steps=15 format=3 uid="uid://cn24pafwdpb1q"]
+
+[ext_resource type="Script" uid="uid://ektopbvnhfga" path="res://Scripts/Browser/history.gd" id="1_yn8i4"]
+[ext_resource type="PackedScene" uid="uid://3smiker6ni50" path="res://Scenes/BrowserMenus/history_entry.tscn" id="2_a5287"]
+[ext_resource type="Texture2D" uid="uid://gq8g7t4s3ryg" path="res://Assets/Icons/x.svg" id="2_ijpe2"]
+[ext_resource type="Theme" uid="uid://bn6rbmdy60lhr" path="res://Scenes/Styles/BrowserText.tres" id="3_yoadi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yoadi"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+bg_color = Color(0.105882, 0.105882, 0.105882, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8gbba"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8gbba"]
+bg_color = Color(0.168627, 0.168627, 0.168627, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+expand_margin_left = 40.0
+
+[sub_resource type="Theme" id="Theme_ijpe2"]
+LineEdit/styles/focus = SubResource("StyleBoxEmpty_8gbba")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_8gbba")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a5287"]
+content_margin_left = 10.0
+bg_color = Color(0.219501, 0.219501, 0.219501, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ijpe2"]
+content_margin_left = 15.0
+content_margin_top = 5.0
+content_margin_right = 15.0
+content_margin_bottom = 5.0
+bg_color = Color(0.105882, 0.105882, 0.105882, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yn8i4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a8gu8"]
+bg_color = Color(0.169245, 0.169245, 0.169245, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.247059, 0.466667, 0.807843, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_31fx5"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.247059, 0.466667, 0.807843, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yn8i4"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 5.0
+bg_color = Color(0.154876, 0.154876, 0.154876, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[node name="PopupPanel" type="PopupPanel"]
+initial_position = 1
+size = Vector2i(760, 710)
+visible = true
+theme_override_styles/panel = SubResource("StyleBoxFlat_yoadi")
+script = ExtResource("1_yn8i4")
+
+[node name="Main" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(600, 0)
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 745.0
+offset_bottom = 695.0
+size_flags_horizontal = 4
+theme_override_constants/separation = 15
+
+[node name="LineEdit" type="LineEdit" parent="Main"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_ijpe2")
+theme_override_styles/normal = SubResource("StyleBoxFlat_a5287")
+placeholder_text = "Search history..."
+caret_blink = true
+
+[node name="DeleteMenu" type="PanelContainer" parent="Main"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ijpe2")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Main/DeleteMenu"]
+layout_mode = 2
+
+[node name="CancelButton" type="Button" parent="Main/DeleteMenu/HBoxContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yn8i4")
+icon = ExtResource("2_ijpe2")
+flat = true
+icon_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Main/DeleteMenu/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "1 selected"
+fit_content = true
+vertical_alignment = 1
+
+[node name="DeleteButton" type="Button" parent="Main/DeleteMenu/HBoxContainer"]
+custom_minimum_size = Vector2(80, 35)
+layout_mode = 2
+size_flags_horizontal = 10
+mouse_default_cursor_shape = 2
+theme = ExtResource("3_yoadi")
+theme_override_colors/font_color = Color(0.781065, 0.858202, 0.977018, 1)
+theme_override_styles/hover = SubResource("StyleBoxFlat_a8gu8")
+theme_override_styles/normal = SubResource("StyleBoxFlat_31fx5")
+text = "Delete"
+
+[node name="PanelContainer2" type="PanelContainer" parent="Main"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_yn8i4")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Main/PanelContainer2"]
+custom_minimum_size = Vector2(700, 500)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HistoryEntryContainer" type="VBoxContainer" parent="Main/PanelContainer2/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HistoryEntry" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry2" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry3" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry4" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry5" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry6" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry7" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry8" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry9" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry10" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry11" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry12" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry13" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry14" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry15" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry16" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry17" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry18" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry19" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry20" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry21" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry22" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry23" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry24" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry25" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry26" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry27" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry28" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry29" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry30" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry31" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry32" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry33" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry34" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry35" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry36" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry37" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry38" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry39" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry40" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry41" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry42" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry43" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry44" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry45" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry46" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry47" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry48" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2
+
+[node name="HistoryEntry49" parent="Main/PanelContainer2/ScrollContainer/HistoryEntryContainer" instance=ExtResource("2_a5287")]
+layout_mode = 2

@@ -1,0 +1,72 @@
+<head>
+	<title>Object-Fit CSS Demo</title>
+	<icon src="https://picsum.photos/32/32?random=1">
+	<meta name="theme-color" content="#0ea5e9">
+	<meta name="description" content="Demonstrating object-fit CSS properties for images">
+	<style>
+		body { bg-[#f1f5f9] p-8 }
+		h1 { text-[#0ea5e9] text-4xl font-bold text-center mb-8 }
+		h2 { text-[#0369a1] text-2xl font-semibold mb-4 }
+		.demo-grid { flex flex-wrap gap-6 justify-center }
+		.demo-item { bg-white p-6 rounded-xl shadow-lg }
+		.image-container { w-[300px] h-[200px] border-2 border-[#cbd5e1] rounded-lg overflow-hidden mb-4 }
+		.code-block { bg-[#1e293b] text-[#e2e8f0] p-3 rounded font-mono text-sm }
+		.description { text-[#475569] text-sm mb-2 }
+	</style>
+</head>
+
+<body>
+	<h1>🖼️ Object-Fit CSS Demonstration</h1>
+	
+	<div style="demo-grid">
+		<!-- Object-fit: none (STRETCH_KEEP) -->
+		<div style="demo-item">
+			<h2>object-none</h2>
+			<div style="description">Image keeps original size, may overflow container</div>
+			<div style="image-container">
+				<img src="https://picsum.photos/400/700?random=1" style="w-full h-full object-none" />
+			</div>
+			<div style="code-block">object-none</div>
+		</div>
+
+		<!-- Object-fit: fill (STRETCH_SCALE) -->
+		<div style="demo-item">
+			<h2>object-fill</h2>
+			<div style="description">Image fills container, may distort aspect ratio</div>
+			<div style="image-container">
+				<img src="https://picsum.photos/500/600?random=2" style="w-full h-full object-fill" />
+			</div>
+			<div style="code-block">object-fill</div>
+		</div>
+
+		<!-- Object-fit: contain (STRETCH_KEEP_ASPECT) -->
+		<div style="demo-item">
+			<h2>object-contain</h2>
+			<div style="description">Image fits inside container while preserving aspect ratio</div>
+			<div style="image-container">
+				<img src="https://picsum.photos/700/600?random=3" style="w-full h-full object-contain" />
+			</div>
+			<div style="code-block">object-contain</div>
+		</div>
+
+		<!-- Object-fit: cover (STRETCH_KEEP_ASPECT_COVERED) -->
+		<div style="demo-item">
+			<h2>object-cover</h2>
+			<div style="description">Image covers entire container while preserving aspect ratio</div>
+			<div style="image-container">
+				<img src="https://picsum.photos/200/300?random=4" style="w-full h-full object-cover" />
+			</div>
+			<div style="code-block">object-cover</div>
+		</div>
+	</div>
+
+	<div style="bg-white p-6 rounded-xl shadow-lg mt-8 max-w-4xl mx-auto">
+		<h2>📝 Object-fit Property Mapping</h2>
+		<div style="text-[#475569]">
+			<p><strong>object-none:</strong> Godot's STRETCH_KEEP - Image keeps original dimensions</p>
+			<p><strong>object-fill:</strong> Godot's STRETCH_SCALE - Image stretches to fill container</p>
+			<p><strong>object-contain:</strong> Godot's STRETCH_KEEP_ASPECT - Image fits inside with preserved aspect ratio</p>
+			<p><strong>object-cover:</strong> Godot's STRETCH_KEEP_ASPECT_COVERED - Image covers container with preserved aspect ratio</p>
+		</div>
+	</div>
+</body>

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://lyg7t5edfneu"]
+
+[ext_resource type="Script" uid="uid://ckks1ccehq6al" path="res://Scripts/Tags/div.gd" id="1_div"]
+
+[node name="div" type="VBoxContainer"]
+offset_right = 1920.0
+script = ExtResource("1_div")

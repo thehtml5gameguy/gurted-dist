@@ -1,0 +1,295 @@
+<head>
+	<title>My cool web</title>
+	<icon
+		src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png">
+
+		<meta name="theme-color" content="#000000">
+		<meta name="description" content="My cool web">
+
+		<font name="roboto"
+			src="https://fonts.gstatic.com/s/roboto/v48/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3KUBGEe.woff2" />
+
+		<style>
+			h1 {
+				text-[#ff0000] font-italic hover:text-[#00ff00]
+			}
+
+			button {
+				hover:bg-[#FF6B35] hover:text-[#FFFFFF] active:bg-[#CC5429] active:text-[#F0F0F0]
+			}
+		</style>
+</head>
+
+<body>
+	<h1>Header 1</h1>
+	<h2>Header 2</h2>
+	<h3>Header 3</h3>
+	<h4>Header 4</h4>
+	<h5>Header 5</h5>
+	<h6>Header 6</h6>
+
+	<separator />
+
+	<p>Normal font</p>
+	<p style="font-mono">Mono font</p>
+	<p style="font-sans">Sans font</p>
+	<p style="font-roboto">Custom font - Roboto</p>
+
+	<p>Hey there! this is a test</p>
+	<b>This is bold</b>
+	<i>This is italic <mark>actually, and it's pretty <u>cool</u></mark></i>
+	<u>This is underline</u>
+	<small>this is small</small>
+	<mark>this is marked</mark>
+	<code>this is code<span> THIS IS A SPAN AND SHOULDNT BE ANY DIFFERENT</span></code>
+
+	<p>
+		<a href="https://youtube.com">Hello gang</a>
+	</p>
+
+	<pre>
+Text in a pre element
+is displayed in a fixed-width
+font, and it preserves
+both      spaces and
+line breaks
+	</pre>
+
+	<p style="text-center w-32 h-32">
+		So
+	</p>
+
+	<div>
+		<button style="rounded-lg px-4 py-2 cursor-pointer">Create Report</button>
+		<button style="rounded-lg px-4 py-2 bg-[#3b82f6] hover:bg-[#2563eb] active:bg-[#1e40af] cursor-pointer">Invite User</button>
+		<button style="rounded-lg px-4 py-2 bg-[#facc15] text-[#000] hover:bg-[#eab308] active:bg-[#ca8a04] cursor-pointer">Upgrade Plan</button>
+	</div>
+	<button disabled="true">Disabled Button</button>
+	<button>Normal Button</button>
+
+	<separator direction="horizontal" />
+
+	<!-- Test CSS Properties -->
+	<h2 style="text-center mt-6">🧪 CSS Properties Test</h2>
+	<div style="flex flex-col gap-2 justify-center items-center mt-2 mx-auto">
+		<div style="bg-[#ef4444] text-white p-4 rounded-lg opacity-75 z-10 cursor-pointer">
+			<p>Opacity 75% with cursor pointer and z-index 10 - Text should show pointer cursor, not I-beam</p>
+		</div>
+		<div style="bg-[#10b981] text-white p-4 rounded-lg opacity-50 z-20 cursor-text">
+			<p>Opacity 50% with cursor text and z-index 20 - Text should show I-beam cursor</p>
+		</div>
+		<div style="bg-[#8b5cf6] text-white p-4 rounded-lg opacity-[0.25] z-[999] cursor-default">
+			<p>Custom opacity 0.25 with cursor default and z-index 999 - Text should show arrow cursor</p>
+		</div>
+		<div style="bg-[#f59e0b] text-white p-2 rounded cursor-move">
+			<p>Cursor move - Text should show move cursor</p>
+		</div>
+		<div style="bg-[#06b6d4] text-white p-2 rounded cursor-crosshair">
+			<p>Cursor crosshair - Text should show crosshair cursor</p>
+		</div>
+		<div style="bg-[#84cc16] text-white p-2 rounded cursor-help">
+			<p>Cursor help - Text should show help cursor</p>
+		</div>
+		<div style="bg-[#ec4899] text-white p-2 rounded cursor-not-allowed">
+			<p>Cursor not-allowed - Text should show forbidden cursor</p>
+		</div>
+	</div>
+
+	<separator direction="horizontal" />
+
+	<!-- Test cursor inheritance -->
+	<h2 style="text-center mt-6">🖱️ Cursor Inheritance Test</h2>
+	<div style="cursor-pointer bg-[#1e293b] p-4 rounded-lg">
+		<p>This paragraph is inside a div with cursor-pointer.</p>
+		<p>Both paragraphs should show pointer cursor instead of default I-beam.</p>
+		<div style="bg-[#334155] p-2 rounded mt-2">
+			<p>This nested paragraph should also inherit the pointer cursor.</p>
+		</div>
+	</div>
+
+	<!-- Border examples -->
+	<div style="border p-2 mb-2">border</div>
+	<div style="border-2 p-2 mb-2">border-2</div>
+	<div style="border-4 p-2 mb-2">border-4</div>
+	<div style="border-2 border-red-500 p-2 mb-2">border-2 border-red-500</div>
+	<div style="border p-2 mb-2">border-solid</div>
+	<div style="border border-dashed p-2 mb-2">border-dashed</div>
+	<div style="border border-dotted p-2 mb-2">border-dotted</div>
+	<div style="border-none p-2 mb-2">border-none</div>
+	<div style="border-t p-2 mb-2">border-t</div>
+	<div style="border-r p-2 mb-2">border-r</div>
+	<div style="border-b p-2 mb-2">border-b</div>
+	<div style="border-l p-2 mb-2">border-l</div>
+	<div style="border-t-4 p-2 mb-2">border-t-4</div>
+	<div style="border-b-2 p-2 mb-2">border-b-2</div>
+	<div style="border-l-6 p-2 mb-2">border-l-6</div>
+	<div style="border-t-3 border-green-500 p-2 mb-2">border-t-3 border-green-500</div>
+	<div style="border border-white p-2 mb-2">border-white</div>
+	<div style="border border-black p-2 mb-2">border-black</div>
+	<div style="border border-transparent p-2 mb-2">border-transparent</div>
+	<div style="border border-gray-400 p-2 mb-2">border-gray-400</div>
+	<div style="border border-slate-700 p-2 mb-2">border-slate-700</div>
+	<div style="border border-red-500 p-2 mb-2">border-red-500</div>
+	<div style="border border-green-600 p-2 mb-2">border-green-600</div>
+	<div style="border border-blue-400 p-2 mb-2">border-blue-400</div>
+	<div style="border border-yellow-300 p-2 mb-2">border-yellow-300</div>
+
+	<select style="text-center max-w-5 max-h-32">
+		<option value="test1">Test 1</option>
+		<option value="test2" selected="true">Test 2</option>
+		<option value="test3">Test 3</option>
+		<option value="test4" disabled="true">Test 4</option>
+		<option value="test5">Test 5</option>
+	</select>
+
+	<textarea />
+	<textarea cols="30" />
+	<textarea rows="2" />
+	<textarea maxlength="20" />
+	<textarea readonly="true">le skibidi le toilet</textarea>
+	<textarea disabled="true" value="DISABLED" />
+	<textarea placeholder="this is a placeholder..." />
+
+	<!-- action, method, and type=submit are for when we implement Lua -->
+	<form action="/submit" method="POST">
+		<span>Name:</span>
+		<input type="text" placeholder="First name" value="John" maxlength="20" minlength="3" />
+		<span>Email regex:</span>
+		<input type="text" placeholder="Last name" value="Doe" pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$" />
+		<span>Smart:</span>
+		<input type="checkbox" />
+		<input type="checkbox" value="true" />
+
+		<p>favorite food</p>
+		<input type="radio" group="food" />
+		<span>Pizza</span>
+		<input type="radio" group="food" />
+		<span>Berry</span>
+		<input type="radio" group="food" />
+		<span>Gary</span>
+
+		<h2>Color</h2>
+		<input type="color" value="#ff0000" />
+		<h2>Date</h2>
+		<input type="date" value="2018-07-22" />
+
+		<h2>Range Slider</h2>
+		<input style="max-w-2 max-h-2" type="range" min="0" max="100" step="5" value="50" />
+
+		<h2>Number Input</h2>
+		<input type="number" min="1" max="10" step="0.5" value="5" placeholder="Enter number" />
+
+		<h2>File Upload</h2>
+		<input type="file" accept=".txt,.pdf,image/*" />
+	</form>
+	<separator direction="horizontal" />
+
+	<ol>
+		<li>hello gang</li>
+		<li>this</li>
+		<li>is</li>
+	</ol>
+
+	<ol type="zero-lead">
+		<li>hello gang</li>
+		<li>this</li>
+		<li>is</li>
+		<li>a test</li>
+	</ol>
+
+	<ol type="lower-alpha">
+		<li>hello gang</li>
+		<li>this</li>
+		<li>is</li>
+		<li>a test</li>
+	</ol>
+
+	<ol type="upper-alpha">
+		<li>hello gang</li>
+		<li>this</li>
+		<li>is</li>
+		<li>a test</li>
+	</ol>
+
+
+	<ol type="lower-roman">
+		<li>hello gang</li>
+		<li>this</li>
+		<li>is</li>
+		<li>a test</li>
+	</ol>
+
+	<ol type="upper-roman">
+		<li>hello gang</li>
+		<li>this</li>
+		<li>is</li>
+		<li>a test</li>
+	</ol>
+
+	<ul>
+		<li>hello gang</li>
+		<li>this</li>
+		<li>is</li>
+		<li>a test</li>
+	</ul>
+
+	<ul type="circle">
+		<li>hello gang</li>
+		<li>this</li>
+		<li>is</li>
+		<li>a test</li>
+	</ul>
+	<ul type="none">
+		<li>hello gang</li>
+		<li>this</li>
+		<li>is</li>
+		<li>a test</li>
+	</ul>
+	<ul type="square">
+		<li>hello gang</li>
+		<li>this</li>
+		<li>is</li>
+		<li>a test</li>
+	</ul>
+	<img style="text-center max-w-24 max-h-24"
+		src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMNUPIKabszX0Js_c0kfa4cz_JQYKfGTuBUA&s" />
+	<separator direction="vertical" />
+
+	<!-- FLEXBOX EXAMPLES -->
+	<h2>Flex Row (gap, justify-between, items-center)</h2>
+	<div style=\"flex flex-row gap-4 justify-between items-center w-64 h-16 bg-[#f0f0f0]\">
+		<span style=\"bg-[#ffaaaa] w-16 h-8 flex items-center justify-center\">A</span>
+		<span style=\"bg-[#aaffaa] w-16 h-8 flex items-center justify-center\">B</span>
+		<span style=\"bg-[#aaaaff] w-16 h-8 flex items-center justify-center\">C</span>
+	</div>
+
+	<h2>Flex Column (gap, items-center, content-center)</h2>
+	<div style=\"flex flex-col gap-2 items-center content-center h-32 w-32 bg-[#e0e0e0]\">
+		<span style=\"bg-[#ffaaaa] w-16 h-6 flex items-center justify-center\">1</span>
+		<span style=\"bg-[#aaffaa] w-16 h-6 flex items-center justify-center\">2</span>
+		<span style=\"bg-[#aaaaff] w-16 h-6 flex items-center justify-center\">3</span>
+	</div>
+
+	<h2>Flex Wrap (row, wrap, gap)</h2>
+	<div style=\"flex flex-row flex-wrap gap-2 w-40 bg-[#f8f8f8]\">
+		<span style=\"bg-[#ffaaaa] w-16 h-6 flex items-center justify-center\">X</span>
+		<span style=\"bg-[#aaffaa] w-16 h-6 flex items-center justify-center\">Y</span>
+		<span style=\"bg-[#aaaaff] w-16 h-6 flex items-center justify-center\">Z</span>
+		<span style=\"bg-[#ffffaa] w-16 h-6 flex items-center justify-center\">W</span>
+	</div>
+
+	<h2>Flex Grow/Shrink/Basis</h2>
+	<div style=\"flex flex-row gap-2 w-64 bg-[#f0f0f0]\">
+		<span style=\"bg-[#ffaaaa] flex-grow-1 h-8 flex items-center justify-center\">Grow 1</span>
+		<span style=\"bg-[#aaffaa] flex-grow-2 h-8 flex items-center justify-center\">Grow 2</span>
+		<span style=\"bg-[#aaaaff] flex-shrink-0 w-8 h-8 flex items-center justify-center\">No Shrink</span>
+	</div>
+
+	<h2>Align Self</h2>
+	<div style=\"flex flex-row h-24 bg-[#f0f0f0] items-stretch gap-2 w-64\">
+		<span style=\"bg-[#ffaaaa] w-12 h-8 self-start flex items-center justify-center\">Start</span>
+		<span style=\"bg-[#aaffaa] w-12 h-8 self-center flex items-center justify-center\">Center</span>
+		<span style=\"bg-[#aaaaff] w-12 h-8 self-end flex items-center justify-center\">End</span>
+		<span style=\"bg-[#ffffaa] w-12 h-8 self-stretch flex items-center justify-center\">Stretch</span>
+	</div>
+</body>

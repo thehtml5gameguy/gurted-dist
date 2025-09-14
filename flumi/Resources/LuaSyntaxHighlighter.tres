@@ -1,0 +1,17 @@
+[gd_resource type="SyntaxHighlighter" script_class="LuaSyntaxHighlighter" load_steps=2 format=3 uid="uid://d0aeuvwp0545i"]
+
+[ext_resource type="Script" uid="uid://qicpfnrmje1v" path="res://Scripts/Browser/LuaSyntaxHighlighter.gd" id="1_5xwa7"]
+
+
+[resource]
+script = ExtResource("1_5xwa7")
+font_color = Color(1, 1, 1, 1)
+keyword_color = Color(1, 0.584314, 0.772549, 1)
+gurt_globals_color = Color(0.584314, 1, 0.635294, 1)
+function_color = Color(0.584314, 0.839216, 1, 1)
+member_color = Color(1, 1, 0.584314, 1)
+number_color = Color(0.772549, 0.584314, 1, 1)
+string_color = Color(1, 0.772549, 0.584314, 1)
+comment_color = Color(0.490196, 0.54902, 0.545098, 1)
+symbol_color = Color(0.470588, 0.87451, 0.827451, 1)
+metadata/_custom_type_script = "uid://qicpfnrmje1v"

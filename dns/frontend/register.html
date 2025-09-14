@@ -1,0 +1,133 @@
+<head>
+	<title>Register Domain</title>
+	<icon src="https://cdn-icons-png.flaticon.com/512/295/295128.png">
+	<meta name="theme-color" content="#0891b2">
+	<meta name="description" content="Register a new domain">
+
+	<style>
+		body {
+			bg-[#171616] font-sans text-white
+		}
+
+		h1 {
+			text-[#ef4444] text-3xl font-bold text-center
+		}
+
+		h2 {
+			text-[#dc2626] text-xl font-semibold
+		}
+
+		h3 {
+			text-[#fca5a5] text-lg font-medium
+		}
+
+		.container {
+			bg-[#262626] p-6 rounded-lg shadow-lg max-w-6xl
+		}
+
+		.primary-btn {
+			p-3 rounded-lg font-medium cursor-pointer transition-colors bg-[#dc2626] text-white
+		}
+
+		.success-btn {
+			p-3 rounded-lg font-medium cursor-pointer transition-colors bg-[#ef4444] text-white
+		}
+
+		.secondary-btn {
+			p-3 rounded-lg font-medium cursor-pointer transition-colors bg-[#525252] text-white w-32 h-12
+		}
+
+		.warning-btn {
+			p-3 rounded-lg font-medium cursor-pointer transition-colors bg-[#dc2626] text-white
+		}
+
+		.form-group {
+			flex flex-col gap-2 mb-4 w-full
+		}
+
+		.form-input {
+			w-64 p-3 border border-gray-600 rounded-md bg-[#374151] text-white active:border-red-500
+		}
+
+		.card {
+			bg-[#262626] p-6 rounded-lg shadow border border-gray-700
+		}
+
+		.stats-card {
+			bg-[#1f1f1f] p-4 rounded-lg border border-[#dc2626]
+		}
+
+		.error-text {
+			text-[#fca5a5] text-sm
+		}
+
+		.tld-selector {
+			flex flex-wrap gap-2
+		}
+
+		.tld-option {
+			px-3 py-1 rounded border border-gray-600 cursor-pointer bg-[#374151] text-white w-12 h-12
+		}
+
+		.tld-selected {
+			bg-[#dc2626] text-white
+		}
+
+		.invite-code-display {
+			bg-[#374151] p-3 rounded font-mono text-center mb-2 text-white
+		}
+	</style>
+
+	<script src="register.lua" />
+</head>
+
+<body>
+	<div style="container mt-6">
+		<div style="stats-card mb-6">
+			<div style="flex justify-between items-center w-full">
+				<p id="user-info" style="text-white text-lg font-semibold">Loading...</p>
+				<div style="flex gap-2">
+					<button id="dashboard-btn" style="secondary-btn">Dashboard</button>
+					<button id="logout-btn" style="secondary-btn">Logout</button>
+				</div>
+			</div>
+		</div>
+
+		<div style="card mb-6">
+			<h2 id="remaining" style="mb-4">Register New Domain</h2>
+			<div style="form-group">
+				<p>Domain Name:</p>
+				<input id="domain-name" type="text" style="form-input" placeholder="myawesome" />
+			</div>
+			<div style="form-group">
+				<p>Select TLD:</p>
+				<div id="tld-selector" style="tld-selector">
+					<p id="tld-loading">Loading TLDs...</p>
+				</div>
+			</div>
+			<p style="text-[#6b7280] text-sm mb-4">Note: After registration is approved, you can add DNS records (A, AAAA, CNAME, TXT) to configure where your domain points.</p>
+			<div id="domain-error" style="error-text hidden mb-2"></div>
+			<button id="submit-domain-btn" style="success-btn">Submit for Approval</button>
+		</div>
+
+		<div style="card mb-6">
+			<h2>Invite System</h2>
+			<p style="text-[#6b7280] mb-4">Create invite codes to share with friends, or redeem codes to get more domain registrations.</p>
+
+			<p id="invite-code-display" style="invite-code-display mt-2">Placeholder</p>
+
+			<div style="flex flex-col gap-4 items-center justify-center mx-auto">
+				<h3>Create Invite</h3>
+				<button id="create-invite-btn" style="warning-btn">Generate Invite Code</button>
+			</div>
+			<div style="flex flex-col gap-4 mx-auto">
+				<h3 style="text-center">Redeem Invite</h3>
+				<div style="flex gap-2">
+					<input id="invite-code-input" type="text" style="form-input" placeholder="Enter invite code" />
+					<button id="redeem-invite-btn" style="primary-btn">Redeem</button>
+				</div>
+				<div id="redeem-error" style="error-text hidden mt-2"></div>
+			</div>
+		</div>
+	</div>
+</body>

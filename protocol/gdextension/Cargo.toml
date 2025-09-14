@@ -1,0 +1,26 @@
+[package]
+name = "gurt-godot"
+version = "0.1.0"
+edition = "2021"
+authors = ["FaceDev"]
+license = "MIT"
+repository = "https://github.com/outpoot/gurted"
+description = "GURT protocol GDExtension for Godot"
+
+[lib]
+name = "gurt_godot"
+crate-type = ["cdylib"]
+
+[dependencies]
+gurtlib = { path = "../library" }
+
+godot = { version = "0.1", features = ["experimental-threads"] }
+
+tokio = { version = "1.0", features = ["rt"] }
+url = "2.5"
+serde_json = "1.0"
+
+[profile.release]
+opt-level = 3
+lto = false   # or "thin"
+codegen-units = 16

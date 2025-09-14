@@ -1,0 +1,184 @@
+<head>
+	<title>Button getAttribute/setAttribute Demo</title>
+	<icon src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Lua-Logo.svg/256px-Lua-Logo.svg.png">
+	<meta name="theme-color" content="#3b82f6">
+	<meta name="description" content="Demonstrating getAttribute and setAttribute with button controls">
+
+	<style>
+		body { bg-[#f8fafc] p-6 }
+		h1 { text-[#3b82f6] text-3xl font-bold text-center }
+		h2 { text-[#1e40af] text-xl font-semibold }
+		.container { bg-[#ffffff] p-6 rounded-lg shadow-lg max-w-4xl mx-auto }
+		.button-group { flex gap-3 justify-center items-center flex-wrap }
+		.control-button { px-4 py-2 rounded-lg font-medium cursor-pointer transition-colors }
+		.enable-btn { bg-[#10b981] text-white hover:bg-[#059669] }
+		.disable-btn { bg-[#ef4444] text-white hover:bg-[#dc2626] }
+		.toggle-btn { bg-[#8b5cf6] text-white hover:bg-[#7c3aed] }
+		.status-btn { bg-[#6b7280] text-white hover:bg-[#4b5563] }
+		.demo-buttons { bg-[#f1f5f9] p-4 rounded-lg }
+		.status-display { bg-[#e0e7ff] p-3 rounded-md text-[#3730a3] font-mono }
+		.info-box { bg-[#fef3c7] border border-[#f59e0b] p-4 rounded-lg }
+		.target-button { bg-[#3b82f6] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#2563eb] }
+		.target-button[disabled] { bg-[#9ca3af] text-[#6b7280] cursor-not-allowed }
+	</style>
+
+	<script>
+		local targetButton = gurt.select('#target-button')
+		local enableBtn = gurt.select('#enable-btn')
+		local disableBtn = gurt.select('#disable-btn')
+		local toggleBtn = gurt.select('#toggle-btn')
+		local statusBtn = gurt.select('#status-btn')
+		local statusDisplay = gurt.select('#status-display')
+		local infoBox = gurt.select('#info-box')
+		local clickCounter = gurt.select('#click-counter')
+
+		trace.log('Button attribute demo script started.')
+
+		local clickCount = 0
+
+		-- Function to update the status display
+		local function updateStatus()
+			local disabled = targetButton:getAttribute('disabled')
+			local type = targetButton:getAttribute('type')
+			local style = targetButton:getAttribute('style')
+			local id = targetButton:getAttribute('id')
+			local dataValue = targetButton:getAttribute('data-value')
+			
+			local status = 'Status: ' .. (disabled and 'DISABLED' or 'ENABLED') .. '\\n'
+			status = status .. 'Type: ' .. (type or 'button') .. '\\n'
+			status = status .. 'ID: ' .. (id or 'none') .. '\\n'
+			status = status .. 'Data Value: ' .. (dataValue or 'none') .. '\\n'
+			status = status .. 'Click Count: ' .. clickCount
+			
+			statusDisplay.text = status
+			
+			-- Update info box with current state
+			if disabled then
+				infoBox.text = '🔒 Target button is currently DISABLED. It cannot be clicked and appears grayed out.'
+			else
+				infoBox.text = '✅ Target button is currently ENABLED. Click it to see the counter increase!'
+			end
+		end
+
+		-- Target button click handler
+		targetButton:on('click', function()
+			clickCount = clickCount + 1
+			clickCounter.text = 'Button clicked ' .. clickCount .. ' times!'
+			trace.log('Target button clicked! Count:', clickCount)
+			updateStatus()
+		end)
+
+		-- Enable button functionality
+		enableBtn:on('click', function()
+			targetButton:setAttribute('disabled', '') -- Remove disabled attribute
+			targetButton:setAttribute('data-value', 'enabled')
+			trace.log('Target button enabled via setAttribute')
+			updateStatus()
+		end)
+
+		-- Disable button functionality
+		disableBtn:on('click', function()
+			targetButton:setAttribute('disabled', 'true')
+			targetButton:setAttribute('data-value', 'disabled')
+			trace.log('Target button disabled via setAttribute')
+			updateStatus()
+		end)
+
+		-- Toggle button functionality
+		toggleBtn:on('click', function()
+			local currentlyDisabled = targetButton:getAttribute('disabled')
+			
+			if currentlyDisabled then
+				-- Currently disabled, so enable it
+				targetButton:setAttribute('disabled', '')
+				targetButton:setAttribute('data-value', 'toggled-enabled')
+				trace.log('Target button toggled to enabled state')
+			else
+				-- Currently enabled, so disable it
+				targetButton:setAttribute('disabled', 'true')
+				targetButton:setAttribute('data-value', 'toggled-disabled')
+				trace.log('Target button toggled to disabled state')
+			end
+			
+			updateStatus()
+		end)
+
+		-- Status check button
+		statusBtn:on('click', function()
+			local disabled = targetButton:getAttribute('disabled')
+			local type = targetButton:getAttribute('type')
+			local dataValue = targetButton:getAttribute('data-value')
+			
+			trace.log('=== BUTTON STATUS CHECK ===')
+			trace.log('Disabled attribute:', disabled or 'not set')
+			trace.log('Type attribute:', type or 'not set')
+			trace.log('Data-value attribute:', dataValue or 'not set')
+			trace.log('Click count:', clickCount)
+			trace.log('===========================')
+			
+			-- Demonstrate style setAttribute
+			local randomColors = {'bg-red-500', 'bg-green-500', 'bg-purple-500', 'bg-orange-500', 'bg-pink-500'}
+			local randomColor = randomColors[math.random(1, #randomColors)]
+			
+			if not disabled then
+				targetButton:setAttribute('style', 'target-button ' .. randomColor .. ' text-white px-6 py-3 rounded-lg font-semibold hover:opacity-75')
+				
+				setTimeout(function()
+					targetButton:setAttribute('style', 'target-button bg-[#3b82f6] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#2563eb]')
+				end, 1000)
+			end
+		end)
+
+		-- Initialize status display
+		updateStatus()
+
+		-- Set initial attributes to demonstrate the methods
+		targetButton:setAttribute('type', 'button')
+		targetButton:setAttribute('data-value', 'initial')
+		
+		-- Update status after setting initial attributes
+		setTimeout(function()
+			updateStatus()
+		end, 100)
+	</script>
+</head>
+
+<body>
+	<h1>🔘 Button getAttribute & setAttribute Demo</h1>
+	
+	<div style="container mt-6">
+		<div style="info-box mb-6">
+			<p id="info-box">✅ Target button is currently ENABLED. Click it to see the counter increase!</p>
+		</div>
+
+		<h2>Target Button</h2>
+		<div style="demo-buttons mb-6 text-center">
+			<button id="target-button" style="target-button">🎯 Click Me!</button>
+			<p id="click-counter" style="mt-3 text-lg font-semibold text-[#374151]">Button clicked 0 times!</p>
+		</div>
+
+		<h2>Control Buttons</h2>
+		<div style="button-group mb-6">
+			<button id="enable-btn" style="control-button enable-btn">🟢 Enable Button</button>
+			<button id="disable-btn" style="control-button disable-btn">🔴 Disable Button</button>
+			<button id="toggle-btn" style="control-button toggle-btn">🔄 Toggle State</button>
+			<button id="status-btn" style="control-button status-btn">📊 Check Status</button>
+		</div>
+
+		<h2>Current Attributes</h2>
+		<div style="status-display mb-6">
+			<pre id="status-display">Loading status...</pre>
+		</div>
+
+		<div style="bg-[#e0f2fe] p-4 rounded-lg">
+			<h3 style="text-[#0277bd] font-semibold mb-2">How It Works:</h3>
+			<ul style="text-[#01579b] space-y-1">
+				<li><strong>Enable:</strong> Uses <code>setAttribute('disabled', '')</code> to remove the disabled attribute</li>
+				<li><strong>Disable:</strong> Uses <code>setAttribute('disabled', 'true')</code> to add the disabled attribute</li>
+				<li><strong>Toggle:</strong> Uses <code>getAttribute('disabled')</code> to check current state, then toggles it</li>
+				<li><strong>Status:</strong> Uses <code>getAttribute()</code> to read multiple attributes and displays them</li>
+				<li><strong>Bonus:</strong> Also demonstrates setting custom data attributes and style changes</li>
+			</ul>
+		</div>
+	</div>
+</body>

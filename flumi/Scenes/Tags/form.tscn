@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bw8h5k6j2m3n4"]
+
+[ext_resource type="Script" uid="uid://cn2iolk6biupv" path="res://Scripts/Tags/form.gd" id="1_form"]
+
+[node name="Form" type="VBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme_override_constants/separation = 22
+script = ExtResource("1_form")

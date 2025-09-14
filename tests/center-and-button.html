@@ -1,0 +1,120 @@
+<head>
+	<title>Task Manager</title>
+	<icon src="https://cdn-icons-png.flaticon.com/512/126/126472.png">
+
+	<meta name="theme-color" content="#1e1e2f">
+	<meta name="description" content="Manage your tasks easily.">
+
+	<style>
+		h1 { text-[#4ade80] text-3xl font-bold }
+		p { text-[#94a3b8] text-lg }
+		input { border border-[#cbd5e1] px-2 py-1 rounded }
+	</style>
+
+	<script src="logic.lua" />
+</head>
+
+<body>
+	<h1 style="text-center">📝 My Task Manager</h1>
+	<p style="text-center mb-4">Keep track of your to-do list</p>
+
+	<!-- Task List -->
+	<div style="flex flex-col gap-2 w-80 mx-auto bg-[#f8fafc] p-4 rounded">
+		<span style="flex justify-between items-center bg-[#e2e8f0] px-2 py-1 rounded">
+			<span>✅ Finish homework</span>
+			<button style="bg-[#4ade80] text-[#ffffff] hover:bg-[#22c55e]">Delete</button>
+		</span>
+		<span style="flex justify-between items-center bg-[#e2e8f0] px-2 py-1 rounded">
+			<span>✍️ Write blog post</span>
+			<button style="bg-[#4ade80] text-[#ffffff] hover:bg-[#22c55e]">Delete</button>
+		</span>
+		<span style="flex justify-between items-center bg-[#e2e8f0] px-2 py-1 rounded">
+			<span>💪 Gym workout</span>
+			<button style="bg-[#4ade80] text-[#ffffff] hover:bg-[#22c55e]">Delete</button>
+		</span>
+	</div>
+
+	<separator direction="horizontal" />
+
+	<!-- Add New Task -->
+	<h2 style="text-center mt-4">Add a New Task</h2>
+	<form action="/add-task" method="POST" style="flex flex-col gap-2 w-80 mx-auto">
+		<input type="text" placeholder="Enter task..." minlength="3" required="true" />
+		<input type="date" />
+		<button type="submit" style="bg-[#4ade80] text-[#ffffff] hover:bg-[#22c55e]">Add Task</button>
+	</form>
+
+	<separator direction="horizontal" />
+
+	<h2 style="text-center">Task Categories</h2>
+	<div style="flex flex-row gap-2 justify-center items-center w-full">
+		<span style="bg-[#fef3c7] px-4 py-2 rounded">📚 Study</span>
+		<span style="bg-[#d1fae5] px-4 py-2 rounded">💼 Work</span>
+		<span style="bg-[#e0e7ff] px-4 py-2 rounded">🏋️ Health</span>
+	</div>
+
+<form>
+  <input type=\"password\" placeholder=\"your password...\" />
+  <button type=\"submit\" style=\"bg-[#4CAF50] rounded-lg text-[#FFFFFF]\">Submit</button>
+  <button style=\"bg-[#2196F3] rounded-xl text-[#FFFFFF]\">Blue Button</button>
+  <button style=\"bg-[#FF5722] rounded-full text-[#FFFFFF]\">Orange Pill</button>
+  <button style=\"bg-[#9C27B0] rounded-[20px] text-[#FFFFFF]\">Purple Custom</button>
+  <button style=\"bg-[#FFD700] rounded text-[#000000] hover:bg-[#FFA500] hover:text-[#FFFFFF]\">Hover Test</button>
+</form>
+
+<h2>Button Style Tests</h2>
+
+<button>Normal, no-styling button.</button>
+
+<h3>Corner Radius Variants</h3>
+<button style=\"bg-[#E74C3C] text-[#FFFFFF] rounded-none\">No Radius</button>
+<button style=\"bg-[#E74C3C] text-[#FFFFFF] rounded-sm\">Small (2px)</button>
+<button style=\"bg-[#E74C3C] text-[#FFFFFF] rounded\">Default (4px)</button>
+<button style=\"bg-[#E74C3C] text-[#FFFFFF] rounded-md\">Medium (6px)</button>
+<button style=\"bg-[#E74C3C] text-[#FFFFFF] rounded-lg\">Large (8px)</button>
+<button style=\"bg-[#E74C3C] text-[#FFFFFF] rounded-xl\">Extra Large (12px)</button>
+<button style=\"bg-[#E74C3C] text-[#FFFFFF] rounded-2xl\">2XL (16px)</button>
+<button style=\"bg-[#E74C3C] text-[#FFFFFF] rounded-3xl\">3XL (24px)</button>
+<button style=\"bg-[#E74C3C] text-[#FFFFFF] rounded-full\">Full (Pill)</button>
+<button style=\"bg-[#E74C3C] text-[#FFFFFF] rounded-[30px]\">Custom 30px</button>
+
+<h3>Color Combinations</h3>
+<button style=\"bg-[#FF6B6B] text-[#FFFFFF] rounded-lg\">Red Background</button>
+<button style=\"bg-[#4ECDC4] text-[#2C3E50] rounded-lg\">Teal & Dark Text</button>
+<button style=\"bg-[#45B7D1] text-[#FFFFFF] rounded-lg\">Sky Blue</button>
+<button style=\"bg-[#96CEB4] text-[#2C3E50] rounded-lg\">Mint Green</button>
+<button style=\"bg-[#FFEAA7] text-[#2D3436] rounded-lg\">Yellow Cream</button>
+<button style=\"bg-[#DDA0DD] text-[#FFFFFF] rounded-lg\">Plum Purple</button>
+<button style=\"bg-[#98D8C8] text-[#2C3E50] rounded-lg\">Seafoam</button>
+
+<h3>Hover Effects</h3>
+<button style=\"bg-[#3498DB] text-[#FFFFFF] rounded-lg hover:bg-[#2980B9] hover:text-[#F8F9FA]\">Blue Hover</button>
+<button style=\"bg-[#E67E22] text-[#FFFFFF] rounded-xl hover:bg-[#D35400] hover:text-[#ECF0F1]\">Orange Hover</button>
+<button style=\"bg-[#9B59B6] text-[#FFFFFF] rounded-full hover:bg-[#8E44AD] hover:text-[#F4F4F4]\">Purple Pill Hover</button>
+<button style=\"bg-[#1ABC9C] text-[#FFFFFF] rounded-2xl hover:bg-[#16A085]\">Turquoise Hover</button>
+
+<h3>Advanced Hover Combinations</h3>
+<button style=\"bg-[#34495E] text-[#ECF0F1] rounded hover:bg-[#E74C3C] hover:text-[#FFFFFF]\">Dark to Red</button>
+<button style=\"bg-[#F39C12] text-[#2C3E50] rounded-lg hover:bg-[#27AE60] hover:text-[#FFFFFF]\">Gold to Green</button>
+<button style=\"bg-[#FFFFFF] text-[#2C3E50] rounded-xl hover:bg-[#2C3E50] hover:text-[#FFFFFF]\">Light to Dark</button>
+
+<h3>Text Color Focus</h3>
+<button style=\"text-[#E74C3C] rounded-lg\">Red Text Only</button>
+<button style=\"text-[#27AE60] rounded-lg\">Green Text Only</button>
+<button style=\"text-[#3498DB] rounded-lg\">Blue Text Only</button>
+<button style=\"text-[#9B59B6] rounded-full\">Purple Text Pill</button>
+
+<h3>Mixed Styles</h3>
+<button style=\"bg-[#FF7675] text-[#FFFFFF] rounded-[15px] hover:bg-[#FD79A8] hover:text-[#2D3436]\">Custom Mix 1</button>
+<button style=\"bg-[#6C5CE7] text-[#DDD] rounded-3xl hover:bg-[#A29BFE] hover:text-[#2D3436]\">Custom Mix 2</button>
+<button style=\"bg-[#00B894] text-[#FFFFFF] rounded-[25px] hover:bg-[#00CEC9] hover:text-[#2D3436]\">Custom Mix 3</button>
+<button style=\"bg-[#0000ff] text-[#FFFFFF] rounded-[25px] hover:bg-[#ff0000] hover:text-[#2D3436]\">Blue normal, red hover</button>
+
+<h3>Active State Tests</h3>
+<button style=\"bg-[#3498DB] text-[#FFFFFF] rounded-lg hover:bg-[#2980B9] active:bg-[#1F618D] active:text-[#F8F9FA]\">Blue with Active</button>
+<button style=\"bg-[#E74C3C] text-[#FFFFFF] rounded-xl hover:bg-[#C0392B] active:bg-[#A93226] active:text-[#ECF0F1]\">Red with Active</button>
+<button style=\"bg-[#27AE60] text-[#FFFFFF] rounded-full hover:bg-[#229954] active:bg-[#1E8449] active:text-[#D5DBDB]\">Green Pill Active</button>
+<button style=\"bg-[#F39C12] text-[#2C3E50] rounded hover:bg-[#E67E22] hover:text-[#FFFFFF] active:bg-[#D35400] active:text-[#F7F9FC]\">Gold Multi-State</button>
+<button style=\"bg-[#9B59B6] text-[#FFFFFF] rounded-2xl active:bg-[#7D3C98] active:text-[#E8DAEF]\">Purple Active Only</button>
+
+</body>

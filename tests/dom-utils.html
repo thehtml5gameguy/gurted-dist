@@ -1,0 +1,70 @@
+<head>
+	<title>DOM Utilities Test</title>
+	<style>
+		.test-item { bg-[#e0e7ef] text-[#22223b] rounded p-2 mb-2 }
+		.highlight { bg-[#ffd700] }
+	</style>
+	<script>
+		local log = gurt.select("#log")
+		local function log_msg(msg)
+			log.text = log.text .. msg .. "\\n"
+		end
+
+		local parent = gurt.select("#parent")
+		local child1 = gurt.select("#child1")
+		local child2 = gurt.select("#child2")
+		local child3 = gurt.select("#child3")
+		print(log)
+		-- Show DOM property usage
+		log.text = ""
+		log_msg("parent of child2: " .. table.tostring(child2.parent))
+		log_msg("nextSibling of child2: " .. table.tostring(child2.nextSibling))
+		log_msg("previousSibling of child2: " .. table.tostring(child2.previousSibling))
+		log_msg("firstChild of parent: " .. table.tostring(parent.firstChild))
+		log_msg("lastChild of parent: " .. table.tostring(parent.lastChild))
+
+		-- Insert Before
+		gurt.select("#btn-insert-before"):on("click", function()
+			local newDiv = gurt.create("div", { style = "test-item highlight", text = "Inserted Before Child 2" })
+			parent:insertBefore(newDiv, child2)
+			log_msg("Inserted before child2: " .. newDiv._element_id)
+		end)
+
+		-- Insert After
+		gurt.select("#btn-insert-after"):on("click", function()
+			local newDiv = gurt.create("div", { style = "test-item highlight", text = "Inserted After Child 2" })
+			parent:insertAfter(newDiv, child2)
+			log_msg("Inserted after child2: " .. newDiv._element_id)
+		end)
+
+		-- Replace
+		gurt.select("#btn-replace"):on("click", function()
+			local newDiv = gurt.create("div", { style = "test-item highlight", text = "Replacement for Child 2" })
+			parent:replace(newDiv, child2)
+			log_msg("Replaced child2 with: " .. newDiv._element_id)
+		end)
+
+		-- Clone
+		gurt.select("#btn-clone"):on("click", function()
+			local clone = child3:clone(true)
+			parent:append(clone)
+			log_msg("Cloned child3: " .. clone._element_id)
+		end)
+</script>
+</head>
+<body>
+	<h1>DOM Utilities Demo</h1>
+	<div id="parent" style="bg-[#f8fafc] p-4 rounded flex flex-col gap-2">
+		<div class="test-item">Non-interactible</div>
+		<div id="child1" class="test-item">Child 1</div>
+		<div id="child2" class="test-item">Child 2</div>
+		<div id="child3" class="test-item">Child 3</div>
+	</div>
+	<div style="flex gap-2 mt-4">
+		<button id="btn-insert-before">Insert Before Child 2</button>
+		<button id="btn-insert-after">Insert After Child 2</button>
+		<button id="btn-replace">Replace Child 2</button>
+		<button id="btn-clone">Clone Child 3</button>
+	</div>
+	<p id="log" style="mt-4 text-[#444] text-sm">Test</p>
+</body>

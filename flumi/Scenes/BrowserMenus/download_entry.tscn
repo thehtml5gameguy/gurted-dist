@@ -1,0 +1,106 @@
+[gd_scene load_steps=9 format=3 uid="uid://co3t7h2tavx10"]
+
+[ext_resource type="Script" uid="uid://c1qh0fqvvh8tq" path="res://Scripts/Browser/DownloadEntry.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://cbwitcygwoqdo" path="res://Assets/Icons/download.svg" id="2_download"]
+[ext_resource type="Texture2D" uid="uid://da33sld2tguf0" path="res://Assets/Icons/link-2.svg" id="3_goveu"]
+[ext_resource type="Texture2D" uid="uid://d3ottyh38w3db" path="res://Assets/Icons/folder.svg" id="4_8t7bq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8t7bq"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.202723, 0.202723, 0.202723, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8t7bq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3j0oj"]
+bg_color = Color(0.168627, 0.168627, 0.168627, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4krvm"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+
+[node name="PanelContainer" type="PanelContainer"]
+offset_right = 604.0
+offset_bottom = 24.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_8t7bq")
+script = ExtResource("1_script")
+
+[node name="DownloadEntry" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TimeLabel" type="RichTextLabel" parent="DownloadEntry"]
+custom_minimum_size = Vector2(65, 0)
+layout_mode = 2
+text = "2:00PM"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spacer" type="Control" parent="DownloadEntry"]
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+
+[node name="FileIcon" type="TextureRect" parent="DownloadEntry"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("2_download")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="FileNameLabel" type="RichTextLabel" parent="DownloadEntry"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+text = "example-file.pdf"
+vertical_alignment = 1
+
+[node name="LinkButton" type="Button" parent="DownloadEntry"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8t7bq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_3j0oj")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_4krvm")
+theme_override_styles/normal = SubResource("StyleBoxFlat_4krvm")
+icon = ExtResource("3_goveu")
+icon_alignment = 1
+
+[node name="FileButton" type="Button" parent="DownloadEntry"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8t7bq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_3j0oj")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_4krvm")
+theme_override_styles/normal = SubResource("StyleBoxFlat_4krvm")
+icon = ExtResource("4_8t7bq")
+icon_alignment = 1
+
+[node name="DomainLabel" type="RichTextLabel" parent="DownloadEntry"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_colors/default_color = Color(0.817521, 0.817521, 0.817521, 1)
+text = "example.com"
+vertical_alignment = 1
+
+[node name="SizeLabel" type="RichTextLabel" parent="DownloadEntry"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_colors/default_color = Color(0.7, 0.7, 0.7, 1)
+text = "2.5 MB"
+fit_content = true
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[connection signal="pressed" from="DownloadEntry/LinkButton" to="." method="_on_link_button_pressed"]
+[connection signal="pressed" from="DownloadEntry/FileButton" to="." method="_on_file_button_pressed"]

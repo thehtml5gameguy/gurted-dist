@@ -1,0 +1,55 @@
+<head>
+	<title>Lua List Manipulation Demo</title>
+	<icon src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Lua-Logo.svg/256px-Lua-Logo.svg.png">
+	<meta name="theme-color" content="#000080">
+	<meta name="description" content="Adding and popping list items with GURT Lua API">
+
+	<style>
+		body { bg-[#f8f9fa] p-6 }
+		h1 { text-[#2563eb] text-4xl font-bold }
+		.container { flex flex-row bg-[#ffffff] p-4 rounded-lg shadow-lg }
+		.demo-button { bg-[#3b82f6] text-white px-4 py-2 rounded hover:bg-[#2563eb] cursor-pointer }
+		ul { list-disc pl-6 }
+		li { text-[#111827] py-1 }
+	</style>
+
+	<script>
+		local add_button = gurt.select('#add-button')
+		local pop_button = gurt.select('#pop-button')
+		local list = gurt.select('#item-list')
+		local counter = 1
+
+		trace.log('List manipulation script started.')
+
+		add_button:on('click', function()
+			local new_item = gurt.create('li', {
+				text = 'Item #' .. counter
+			})
+			list:append(new_item)
+			counter = counter + 1
+		end)
+
+		pop_button:on('click', function()
+			local items = list.children
+			local last = items[#items]
+			if last then
+				last:remove()
+				counter = math.max(1, counter - 1)
+			end
+		end)
+	</script>
+</head>
+
+<body>
+	<h1 id="main-heading">List Manipulation with Lua</h1>
+
+	<div style="container">
+		<p>Use the buttons below to add or remove items from the list:</p>
+		<button id="add-button" style="demo-button inline-block mr-2">Add Item</button>
+		<button id="pop-button" style="demo-button inline-block">Pop Item</button>
+	</div>
+
+	<ul id="item-list" style="mt-4 bg-[#f3f4f6] p-4 rounded min-h-24">
+		<!-- List items will appear here -->
+	</ul>
+</body>

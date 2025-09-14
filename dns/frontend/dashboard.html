@@ -1,0 +1,115 @@
+<head>
+	<title>Domain Dashboard</title>
+	<icon src="https://cdn-icons-png.flaticon.com/512/295/295128.png">
+		<meta name="theme-color" content="#0891b2">
+		<meta name="description" content="Manage your domains and registrations">
+
+		<style>
+			body {
+				bg-[#171616] font-sans text-white
+			}
+
+			h1 {
+				text-[#ef4444] text-3xl font-bold text-center
+			}
+
+			h2 {
+				text-[#dc2626] text-xl font-semibold
+			}
+
+			h3 {
+				text-[#fca5a5] text-lg font-medium
+			}
+
+			.container {
+				bg-[#262626] p-6 rounded-lg shadow-lg max-w-6xl
+			}
+
+			.primary-btn {
+				p-3 rounded-lg font-medium cursor-pointer transition-colors bg-[#dc2626] text-white w-32 h-12
+			}
+
+			.success-btn {
+				p-3 rounded-lg font-medium cursor-pointer transition-colors bg-[#ef4444] text-white w-32 h-12
+			}
+
+			.danger-btn {
+				p-3 rounded-lg font-medium cursor-pointer transition-colors bg-[#b91c1c] text-white w-32 h-12
+			}
+
+			.secondary-btn {
+				p-3 rounded-lg font-medium cursor-pointer transition-colors bg-[#525252] text-white w-32 h-12
+			}
+
+			.warning-btn {
+				p-3 rounded-lg font-medium cursor-pointer transition-colors bg-[#dc2626] text-white w-32 h-12
+			}
+
+			.form-group {
+				flex flex-col gap-2 mb-4 w-full
+			}
+
+			.form-input {
+				w-full p-3 border border-gray-600 rounded-md bg-[#374151] text-white active:border-red-500
+			}
+
+			.card {
+				bg-[#262626] p-6 rounded-lg shadow border border-gray-700
+			}
+
+			.stats-card {
+				p-4 rounded-lg border border-[#dc2626]
+			}
+
+			.domain-item {
+				bg-[#374151] p-4 rounded-lg border border-gray-700 mb-2 flex justify-between items-center
+			}
+
+			.log-area {
+				bg-[#111827] text-white p-4 rounded-lg font-mono text-sm max-h-64 overflow-auto
+			}
+
+			.error-text {
+				text-[#fca5a5] text-sm
+			}
+
+			.tld-selector {
+				flex flex-wrap gap-2
+			}
+
+			.tld-option {
+				px-3 py-1 rounded border border-gray-600 cursor-pointer bg-[#374151] text-white w-12 h-12
+			}
+
+			.tld-selected {
+				bg-[#dc2626] text-white
+			}
+
+			.invite-code-display {
+				bg-[#374151] p-3 rounded font-mono text-center mb-2 text-white
+			}
+		</style>
+
+		<script src="dashboard.lua" />
+</head>
+
+<body>
+	<div style="container mt-6">
+		<div style="stats-card mb-6">
+			<div style="flex justify-between items-center w-full">
+				<p id="user-info" style="text-white text-lg font-semibold">Loading...</p>
+				<div style="flex gap-2">
+					<button id="new-btn" style="success-btn">New</button>
+					<button id="logout-btn" style="secondary-btn">Logout</button>
+				</div>
+			</div>
+		</div>
+
+		<div style="card mb-6">
+			<h2>My Domains</h2>
+			<div id="domains-list">
+				<p id="domains-loading">Loading domains...</p>
+			</div>
+		</div>
+	</div>
+</body>

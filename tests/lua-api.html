@@ -1,0 +1,148 @@
+<head>
+	<title>Lua API Demo</title>
+	<icon src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Lua-Logo.svg/256px-Lua-Logo.svg.png">
+	<meta name="theme-color" content="#000080">
+	<meta name="description" content="Demonstrating the GURT Lua API">
+	
+	<style>
+		body { bg-[#f8f9fa] p-6 }
+		h1 { text-[#2563eb] text-2xl font-bold }
+		.container { bg-[#ffffff] p-4 rounded-lg shadow-lg }
+		.demo-button { bg-[#3b82f6] text-white px-4 py-2 rounded hover:bg-[#2563eb] }
+		.fancy { bg-green-500 text-red-500 p-2 rounded-full mt-2 mb-2 text-2xl hover:bg-red-300 hover:text-[#2563eb] }
+	</style>
+	
+	<script>
+		local typing = gurt.select('#type')
+		local mouse = gurt.select('#mouse')
+		local btnmouse = gurt.select('#btnmouse')
+		
+		trace.log('Starting Lua script execution...')
+		
+		gurt.body:on('keypress', function(el)
+			typing.text = table.tostring(el)
+		end)
+		
+		gurt.body:on('mousemove', function(el)
+			mouse.text = table.tostring(el)
+		end)
+
+		-- Test element selection and manipulation
+		local heading = gurt.select('#main-heading')
+		heading.text = 'Welcome to the New Web!'
+		
+		local button = gurt.select('#demo-button')
+		local event_log = gurt.select('#event-log')
+		
+		button:on('mousedown', function()
+			print('Mouse down')
+		end)
+		
+		button:on('mouseup', function()
+			print('Mouse up')
+		end)
+		
+		button:on('mouseenter', function()
+			print('Mouse enter')
+		end)
+		
+		button:on('mouseexit', function()
+			print('Mouse exit')
+		end)
+		
+		button:on('mousemove', function(el)
+			btnmouse.text = table.tostring(el)
+		end)
+		
+		if button and event_log then
+			local click_count = 0
+			
+			local subscription = button:on('click', function()
+				click_count = click_count + 1
+				local new_text = 'Button clicked ' .. click_count .. ' time(s)!'
+				event_log.text = new_text
+			end)
+			
+			heading:on('focusin', function()
+				print('oh u flck')
+				subscription:unsubscribe()
+			end)
+			
+			trace.log('Event listener attached to button with subscription ID')
+		else
+			trace.log('Could not find button or event log element')
+		end
+		
+		-- DOM Manipulation Demo
+		trace.log('Testing DOM manipulation...')
+		
+		-- Create a new div with styling
+		local new_div = gurt.create('div', { style = 'bg-red-500 p-4 rounded-lg mb-4' })
+		
+		-- Create a paragraph with text
+		local new_p = gurt.create('p', { 
+			style = 'text-white font-bold text-lg', 
+			text = 'This element was created dynamically with Lua!' 
+		})
+		
+		-- Append paragraph to div
+		new_div:append(new_p)
+		
+		-- Append div to body
+		gurt.body:append(new_div)
+		
+		-- Create another element to test removal
+		local temp_element = gurt.create('div', {
+			style = 'bg-yellow-400 p-2 rounded text-black',
+			text = 'This will be removed in 3 seconds...'
+		})
+		gurt.body:append(temp_element)
+		
+		local test = setTimeout(function()
+			print('removed')
+			temp_element:remove()
+		end, 3000)
+		
+		-- clearTimeout(test)
+		
+		local addBtn = gurt.select('#add-class')
+		local removeBtn = gurt.select('#remove-class')
+		local btnTarget = gurt.select('#btnTarget')
+
+		addBtn:on('click', function()
+			btnTarget.classList:add('fancy')
+			-- btnTarget.classList:toggle('fancy')
+			print('Class added')
+		end)
+
+		removeBtn:on('click', function()
+			btnTarget.classList:remove('fancy')
+			print('Class removed')
+		end)
+	</script>
+</head>
+
+<body>
+	<h1 id="main-heading">Welcome to GURT Lua API Demo</h1>
+	
+	<div style="container">
+		<p>This page demonstrates the GURT Lua API in action.</p>
+		<div id="demo-button" style="w-40 h-40 bg-red-500 p-4 rounded-lg">Click me to see Lua in action!</div>
+	</div>
+	
+	<p id="event-log" style="mt-4 p-4 bg-[#f3f4f6] rounded min-h-24">Click the button</p>
+	
+	<p id="mouse" style="mt-4 p-4 bg-[#f3f4f6] rounded min-h-24">Move your mouse</p>
+	
+	<p id="btnmouse" style="mt-4 p-4 bg-[#f3f4f6] rounded min-h-24">Move mouse over Button</p>
+	
+	<p id="type" style="mt-4 p-4 bg-[#f3f4f6] rounded min-h-24">Type something</p>
+	
+	<div style="mt-6 flex gap-4 items-center">
+	<div style="text-lg font-semibold">Style Controls:</div>
+	<button id="add-class" style="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Add Class</button>
+	<button id="remove-class" style="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Remove Class</button>
+</div>
+	<button id="btnTarget" style="bg-gray-600">Button</button>
+
+</body>

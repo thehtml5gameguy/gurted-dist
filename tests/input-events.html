@@ -1,0 +1,273 @@
+<head>
+	<title>Input Events API Demo</title>
+	<icon src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Lua-Logo.svg/256px-Lua-Logo.svg.png">
+	<meta name="theme-color" content="#059669">
+	<meta name="description" content="Demonstrating input element events with GURT Lua API">
+
+	<style>
+		body { bg-[#f0fdf4] p-6 }
+		h1 { text-[#059669] text-3xl font-bold text-center }
+		h2 { text-[#047857] text-xl font-semibold }
+		.container { bg-[#ffffff] p-6 rounded-lg shadow-lg max-w-4xl mx-auto }
+		.form-group { flex flex-col gap-2 mb-4 }
+		.input-demo { bg-[#f8fafc] p-4 rounded-lg border }
+		.event-log { bg-[#1f2937] text-white p-4 rounded-lg font-mono text-sm max-h-64 overflow-auto }
+		.form-button { bg-[#10b981] text-white px-4 py-2 rounded hover:bg-[#059669] cursor-pointer }
+		.clear-btn { bg-[#ef4444] text-white px-4 py-2 rounded hover:bg-[#dc2626] cursor-pointer }
+	</style>
+
+	<script>
+		-- Get the event log element
+		local eventLog = gurt.select('#event-log')
+		
+		local function logEvent(elementType, eventType, data)
+			local timestamp = Time.format(Time.now(), '%H:%M:%S')
+			local message = '[' .. timestamp .. '] ' .. elementType .. ' -> ' .. eventType
+			if data then
+				message = message .. ': ' .. data
+			end
+			
+			print(message)
+		end
+
+		-- Text Input Events
+		local textInput = gurt.select('#text-input')
+		print('Text input found:', textInput)
+		if textInput then
+			textInput:on('input', function(e)
+				logEvent('Text Input', 'input', e.value)
+			end)
+			textInput:on('change', function(e)
+				logEvent('Text Input', 'change', e.value)
+			end)
+			textInput:on('focusin', function()
+				logEvent('Text Input', 'focusin', nil)
+			end)
+			textInput:on('focusout', function()
+				logEvent('Text Input', 'focusout', nil)
+			end)
+		else
+			print('Text input not found!')
+		end
+
+		-- Email Input Events
+		local emailInput = gurt.select('#email-input')
+		
+		emailInput:on('input', function(e)
+			logEvent('Email Input', 'input', e.value)
+		end)
+		emailInput:on('change', function(e)
+			logEvent('Email Input', 'change', e.value)
+		end)
+
+		-- Password Input Events
+		local passwordInput = gurt.select('#password-input')
+		passwordInput:on('input', function(e)
+			logEvent('Password Input', 'input', table.tostring(e))
+		end)
+		passwordInput:on('change', function(e)
+			logEvent('Password Input', 'change', table.tostring(e))
+		end)
+
+		-- Number Input Events
+		local numberInput = gurt.select('#number-input')
+		numberInput:on('change', function(e)
+			logEvent('Number Input', 'change', e.value)
+		end)
+
+		-- Range Input Events
+		local rangeInput = gurt.select('#range-input')
+		rangeInput:on('change', function(e)
+			logEvent('Range Input', 'change', e.value)
+		end)
+
+		-- Color Input Events
+		local colorInput = gurt.select('#color-input')
+		colorInput:on('change', function(e)
+			logEvent('Color Input', 'change', e.value)
+		end)
+
+		-- Date Input Events
+		local dateInput = gurt.select('#date-input')
+		dateInput:on('change', function(e)
+			logEvent('Date Input', 'change', e.value)
+		end)
+
+		-- File Input Events
+		local fileInput = gurt.select('#file-input')
+		fileInput:on('change', function(e)
+			if e.dataURL then
+				e.dataURL = e.dataURL:sub(1, 100)
+			end
+			if e.text then
+				e.text = e.text:sub(1, 100)
+			end
+			logEvent('File Input', 'change', table.tostring(e))
+		end)
+
+		-- Checkbox Events
+		local checkbox = gurt.select('#checkbox')
+		checkbox:on('change', function(e)
+			logEvent('Checkbox', 'change', table.tostring(e))
+		end)
+
+		-- Radio Button Events
+		local radio1 = gurt.select('#radio1')
+		local radio2 = gurt.select('#radio2')
+		local radio3 = gurt.select('#radio3')
+		
+		radio1:on('change', function(e)
+			logEvent('Radio Button 1', 'change', table.tostring(e))
+		end)
+		
+		radio2:on('change', function(e)
+			logEvent('Radio Button 2', 'change', table.tostring(e))
+		end)
+
+		radio3:on('change', function(e)
+			logEvent('Radio Button 3', 'change', table.tostring(e))
+		end)
+
+		-- Textarea Events
+		local textarea = gurt.select('#textarea')
+		
+		textarea:on('input', function(e)
+			logEvent('Textarea', 'input', e.value:sub(1, 20) .. '...')
+		end)
+		textarea:on('change', function(e)
+			logEvent('Textarea', 'change', 'Length: ' .. #e.value)
+		end)
+
+		-- Select Events
+		local selectElement = gurt.select('#select-element')
+		selectElement:on('change', function(e)
+			logEvent('Select', 'change', 'Index: ' .. table.tostring(e))
+		end)
+
+		-- Button Events
+		local submitBtn = gurt.select('#submit-btn')
+		submitBtn:on('click', function()
+			logEvent('Submit Button', 'click', nil)
+		end)
+		submitBtn:on('submit', function(e)
+			logEvent('Form', 'submit', table.tostring(e))
+		end)
+
+		-- Clear log button
+		local clearBtn = gurt.select('#clear-btn')
+		clearBtn:on('click', function()
+			eventLog.text = '--- Event Log Cleared ---\\n'
+			eventCount = 0
+		end)
+
+		-- Initial log message
+		logEvent('System', 'initialized', 'Input events demo ready')
+	</script>
+</head>
+
+<body>
+	<h1>🎛️ Input Events API Demo</h1>
+	
+	<div style="container mt-6">
+		<div style="flex flex-row gap-6">
+			<!-- Input Forms Column -->
+			<div style="flex-1">
+				<h2>Input Elements</h2>
+				
+				<form id="demo-form">
+					<div style="form-group">
+						<label>Text Input:</label>
+						<input id="text-input" key="username" type="text" placeholder="Type something..." />
+					</div>
+					
+					<div style="form-group">
+						<label>Email Input:</label>
+						<input id="email-input" key="email" type="email" placeholder="Enter email..." />
+					</div>
+					
+					<div style="form-group">
+						<label>Password Input:</label>
+						<input id="password-input" key="password" type="password" placeholder="Enter password..." />
+					</div>
+					
+					<div style="form-group">
+						<label>Number Input:</label>
+						<input id="number-input" key="score" type="number" min="0" max="100" value="50" />
+					</div>
+					
+					<div style="form-group">
+						<label>Range Input:</label>
+						<input id="range-input" key="volume" type="range" min="0" max="100" value="25" />
+					</div>
+					
+					<div style="form-group">
+						<label>Color Input:</label>
+						<input id="color-input" key="favoriteColor" type="color" value="#ff0000" />
+					</div>
+					
+					<div style="form-group">
+						<label>Date Input:</label>
+						<input id="date-input" key="birthDate" type="date" value="2024-01-01" />
+					</div>
+					
+					<div style="form-group">
+						<label>File Input:</label>
+						<input id="file-input" key="attachment" type="file" accept=".txt,.pdf,.png" />
+					</div>
+					
+					<div style="form-group">
+						<input id="checkbox" key="newsletter" type="checkbox" />
+						<p>Checkbox Option</p>
+					</div>
+					
+					<div style="form-group">
+						<input id="radio1" key="option" type="radio" group="options" value="option1" /><span>Option 1</span>
+						<input id="radio2" key="option" type="radio" group="options" value="option2" /><span>Option 2</span>
+						<input id="radio3" key="option" type="radio" group="options" value="option3" /><span>Option 3</span>
+					</div>
+					
+					<div style="form-group">
+						<label>Textarea:</label>
+						<textarea id="textarea" key="message" placeholder="Write something longer..." rows="3"></textarea>
+					</div>
+					
+					<div style="form-group">
+						<label>Select Dropdown:</label>
+						<select id="select-element" key="fruit">
+							<option value="apple">Apple</option>
+							<option value="banana" selected="true">Banana</option>
+							<option value="orange">Orange</option>
+							<option value="grape">Grape</option>
+						</select>
+					</div>
+					
+					<div style="flex gap-2">
+						<button id="submit-btn" type="submit" style="form-button">Submit Form</button>
+						<button id="clear-btn" type="button" style="clear-btn">Clear Log</button>
+					</div>
+				</form>
+			</div>
+			
+			<!-- Event Log Column -->
+			<div style="flex-1">
+				<h2>Event Log</h2>
+				<div style="event-log">
+					<pre id="event-log">Waiting for events...
+</pre>
+				</div>
+				
+				<div style="bg-[#e0f2fe] p-4 rounded-lg mt-4">
+					<h3 style="text-[#0277bd] font-semibold mb-2">Available Events:</h3>
+					<ul style="text-[#01579b] space-y-1 text-sm">
+						<li><strong>input:</strong> Fires as you type (real-time)</li>
+						<li><strong>change:</strong> Fires when value changes and element loses focus</li>
+						<li><strong>focusin:</strong> Fires when element gains focus</li>
+						<li><strong>focusout:</strong> Fires when element loses focus</li>
+						<li><strong>click:</strong> Fires when button is clicked</li>
+						<li><strong>submit:</strong> Fires when form is submitted (includes form data)</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bol1234568aa"]
+
+[ext_resource type="Script" uid="uid://bbkebg4aihve3" path="res://Scripts/Tags/ol.gd" id="1_ol"]
+
+[node name="ol" type="VBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme_override_constants/separation = 2
+script = ExtResource("1_ol")

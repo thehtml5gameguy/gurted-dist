@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://drfl5d5o2cudk"]
+
+[ext_resource type="Script" uid="uid://rol353cupbbf" path="res://Scripts/Tags/separator.gd" id="1_pu577"]
+
+[node name="Separator" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_pu577")

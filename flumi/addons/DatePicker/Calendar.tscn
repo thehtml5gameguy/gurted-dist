@@ -1,0 +1,88 @@
+[gd_scene load_steps=14 format=3 uid="uid://dgn7djiy1xhlu"]
+
+[ext_resource type="Theme" uid="uid://bn6rbmdy60lhr" path="res://Scenes/Styles/BrowserText.tres" id="1_1ddb1"]
+[ext_resource type="Script" uid="uid://bh27iqijrabku" path="res://addons/DatePicker/Calendar.gd" id="1_heut6"]
+[ext_resource type="Texture2D" uid="uid://d1jslyy8aajcn" path="res://Assets/Icons/arrow-up.svg" id="3_1ddb1"]
+[ext_resource type="Texture2D" uid="uid://df1m4j7uxi63v" path="res://Assets/Icons/chevron-down.svg" id="3_rjgii"]
+[ext_resource type="Texture2D" uid="uid://c1bqnfwurnnrc" path="res://Assets/Icons/arrow-down.svg" id="4_rjgii"]
+[ext_resource type="PackedScene" uid="uid://n5ra5w5aupx7" path="res://addons/DatePicker/YearView.tscn" id="5_qmkbm"]
+[ext_resource type="PackedScene" uid="uid://hiv2ckjbs43p" path="res://addons/DatePicker/MonthView.tscn" id="6_rjgii"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w2pln"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s0l8g"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mavvk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j0d5i"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1e668"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5m4sc"]
+
+[node name="Calendar" type="PopupPanel" node_paths=PackedStringArray("header", "next", "previous", "view_parent", "month_view", "year_view")]
+size = Vector2i(263, 308)
+visible = true
+theme = ExtResource("1_1ddb1")
+script = ExtResource("1_heut6")
+header = NodePath("VboxContainer/HeaderContainer/HeaderButton")
+next = NodePath("VboxContainer/HeaderContainer/Next")
+previous = NodePath("VboxContainer/HeaderContainer/Previous")
+view_parent = NodePath("VboxContainer/View")
+month_view = NodePath("VboxContainer/View/MonthView")
+year_view = NodePath("VboxContainer/View/YearView")
+
+[node name="VboxContainer" type="VBoxContainer" parent="."]
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 248.0
+offset_bottom = 293.0
+theme_override_constants/separation = 12
+
+[node name="HeaderContainer" type="HBoxContainer" parent="VboxContainer"]
+layout_mode = 2
+
+[node name="HeaderButton" type="Button" parent="VboxContainer/HeaderContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_default_cursor_shape = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_w2pln")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_s0l8g")
+text = "July 1980"
+icon = ExtResource("3_rjgii")
+flat = true
+alignment = 0
+icon_alignment = 2
+
+[node name="Spacer" type="Control" parent="VboxContainer/HeaderContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Previous" type="Button" parent="VboxContainer/HeaderContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_mavvk")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_j0d5i")
+icon = ExtResource("3_1ddb1")
+flat = true
+
+[node name="Next" type="Button" parent="VboxContainer/HeaderContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_1e668")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_5m4sc")
+icon = ExtResource("4_rjgii")
+flat = true
+
+[node name="View" type="Control" parent="VboxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MonthView" parent="VboxContainer/View" node_paths=PackedStringArray("calendar") instance=ExtResource("6_rjgii")]
+layout_mode = 0
+calendar = NodePath("../../..")
+
+[node name="YearView" parent="VboxContainer/View" node_paths=PackedStringArray("calendar") instance=ExtResource("5_qmkbm")]
+visible = false
+layout_mode = 0
+calendar = NodePath("../../..")

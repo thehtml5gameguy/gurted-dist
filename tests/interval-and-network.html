@@ -1,0 +1,167 @@
+<head>
+	<title>setInterval & Network Image Demo</title>
+	<icon src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Lua-Logo.svg/256px-Lua-Logo.svg.png">
+	<meta name="theme-color" content="#7c3aed">
+	<meta name="description" content="Testing setInterval/clearInterval and network image loading with binary data">
+	<style>
+		body { bg-[#f8fafc] p-6 }
+		h1 { text-[#7c3aed] text-3xl font-bold text-center }
+		h2 { text-[#6d28d9] text-xl font-semibold }
+		.container { bg-[#ffffff] p-6 rounded-lg shadow-lg max-w-4xl mx-auto }
+		.button-group { flex gap-3 justify-center items-center flex-wrap }
+		.control-button { px-4 py-2 rounded-lg font-medium cursor-pointer transition-colors bg-[#7c3aed] text-white hover:bg-[#6d28d9] }
+		.danger-button { px-4 py-2 rounded-lg font-medium cursor-pointer transition-colors bg-[#ef4444] text-white hover:bg-[#dc2626] }
+		.success-button { px-4 py-2 rounded-lg font-medium cursor-pointer transition-colors bg-[#059669] text-white hover:bg-[#047857] }
+		.log-area { bg-[#f1f5f9] p-4 rounded-lg min-h-32 font-mono text-sm max-h-96 overflow-auto }
+		.image-container { text-center p-4 border-2 border-dashed border-[#cbd5e1] rounded-lg }
+		.counter { text-[#7c3aed] text-6xl font-bold text-center p-4 }
+		.info-box { bg-[#ede9fe] border border-[#7c3aed] p-4 rounded-lg }
+	</style>
+	<script>
+		-- Get UI elements
+		local logArea = gurt.select('#log-area')
+		local counterDisplay = gurt.select('#counter')
+		local startIntervalBtn = gurt.select('#start-interval-btn')
+		local stopIntervalBtn = gurt.select('#stop-interval-btn')
+		local loadImageBtn = gurt.select('#load-image-btn')
+		local imageContainer = gurt.select('#image-container')
+		
+		trace.log('setInterval & Network Image demo script started.')
+		
+		local logMessages = {}
+		local counter = 0
+		local intervalId = nil
+		
+		-- Function to add message to log
+		local function addLog(message)
+			table.insert(logMessages, Time.format(Time.now(), '%H:%M:%S.%f'):sub(1, 12) .. ' - ' .. message)
+			if #logMessages > 30 then
+				table.remove(logMessages, 1)
+			end
+			logArea.text = table.concat(logMessages, '\\n')
+		end
+		
+		-- Update counter display
+		local function updateCounter()
+			counterDisplay.text = tostring(counter)
+		end
+		
+		-- Start interval button
+		startIntervalBtn:on('click', function()
+			if intervalId then
+				addLog('❌ Interval already running (ID: ' .. intervalId .. ')')
+				return
+			end
+			
+			counter = 0
+			updateCounter()
+			
+			intervalId = setInterval(function()
+				counter = counter + 1
+				updateCounter()
+				addLog('⏱️ Counter updated to: ' .. counter)
+			end, 500)  -- Every 500ms
+			
+			addLog('✅ Interval started (ID: ' .. intervalId .. ')')
+		end)
+		
+		-- Stop interval button
+		stopIntervalBtn:on('click', function()
+			if not intervalId then
+				addLog('❌ No interval to stop')
+				return
+			end
+			
+			clearInterval(intervalId)
+			addLog('🛑 Interval stopped (ID: ' .. intervalId .. ')')
+			intervalId = nil
+		end)
+		
+		-- Network image loading
+		loadImageBtn:on('click', function()
+			addLog('🔄 Starting random image fetch...')
+			imageContainer.text = 'Loading image...'
+			
+			-- Use a random image service that returns binary data
+			local randomImageUrl = 'https://picsum.photos/300/200?random=' .. math.floor(Time.now() * 1000)
+			
+			addLog('📡 Fetching: ' .. randomImageUrl)
+			
+			local response = fetch(randomImageUrl)
+			
+			-- Handle both success and redirect cases (302 is common for image services)
+			if response:ok() or response.status == 302 then
+				addLog('✅ Image fetch response received (Status: ' .. response.status .. ')')
+				addLog('📊 Content-Type: ' .. (response.headers['content-type'] or 'unknown'))
+				addLog('📏 Content-Length: ' .. (response.headers['content-length'] or 'unknown'))
+				
+				-- For image services, we can often use the original URL directly
+				-- since the browser/engine handles redirects automatically
+				local imageElement = gurt.create('img', {
+					src = randomImageUrl,
+					style = 'max-w-[300px] max-h-[200px] rounded-lg shadow-md'
+				})
+				
+				-- Clear container and append new image
+				imageContainer.text = ''
+				imageContainer:append(imageElement)
+				
+				addLog('🖼️ Image element created and appended')
+				addLog('💡 Note: Image service may use redirects (302), but img tag handles this')
+			else
+				addLog('❌ Image fetch failed: ' .. response.status .. ' ' .. (response.statusText or 'Unknown'))
+				imageContainer.text = 'Failed to load image'
+			end
+		end)
+		
+		-- Initialize
+		updateCounter()
+		addLog('🚀 Demo ready!')
+		addLog('💡 Click "Start Interval" to begin counter')
+		addLog('🖼️ Click "Load Random Image" to test binary data handling')
+	</script>
+</head>
+<body>
+	<h1>⏰ setInterval & 🖼️ Network Image Demo</h1>
+	
+	<div style="container mt-6">
+		<div style="info-box mb-6">
+			<h3 style="text-[#6d28d9] font-semibold mb-2">Testing Features:</h3>
+			<p><strong>Intervals:</strong> <code>setInterval(callback, delay)</code> and <code>clearInterval(id)</code></p>
+			<p><strong>Network Images:</strong> <code>fetch()</code> with binary data and dynamic <code>&lt;img&gt;</code> creation</p>
+		</div>
+		
+		<div style="counter mb-6" id="counter">0</div>
+		
+		<h2>Interval Controls</h2>
+		<div style="button-group mb-6">
+			<button id="start-interval-btn" style="control-button">▶️ Start Interval</button>
+			<button id="stop-interval-btn" style="danger-button">⏹️ Stop Interval</button>
+		</div>
+		
+		<h2>Network Image Test</h2>
+		<div style="button-group mb-6">
+			<button id="load-image-btn" style="success-button">🖼️ Load Random Image</button>
+		</div>
+		
+		<div id="image-container" style="image-container mb-6">
+			<p style="text-[#64748b]">Click "Load Random Image" to test binary data fetching</p>
+		</div>
+		
+		<h2>Activity Log</h2>
+		<div style="log-area mb-6">
+			<pre id="log-area">Initializing...</pre>
+		</div>
+		
+		<div style="bg-[#f3f4f6] p-4 rounded-lg">
+			<h3 style="text-[#374151] font-semibold mb-2">Implementation Notes:</h3>
+			<ul style="text-[#4b5563] space-y-1 text-sm">
+				<li><strong>setInterval:</strong> Creates repeating timers (one_shot = false)</li>
+				<li><strong>clearInterval:</strong> Stops and cleans up interval timers</li>
+				<li><strong>Binary Data:</strong> fetch() handles binary image data seamlessly</li>
+				<li><strong>Dynamic DOM:</strong> Images created and appended programmatically</li>
+				<li><strong>Random Images:</strong> Picsum service provides different images each time</li>
+			</ul>
+		</div>
+	</div>
+</body>

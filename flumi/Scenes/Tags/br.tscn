@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dmnpful5xhtrk"]
+
+[ext_resource type="Script" uid="uid://csd2kcqixac65" path="res://Scripts/Tags/br.gd" id="1_7hb8m"]
+
+[node name="BR" type="Control"]
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+script = ExtResource("1_7hb8m")

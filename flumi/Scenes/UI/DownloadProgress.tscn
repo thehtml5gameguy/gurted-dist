@@ -1,0 +1,85 @@
+[gd_scene load_steps=8 format=3 uid="uid://b0gfxh1n7c5yu"]
+
+[ext_resource type="Script" uid="uid://kj6oda7sey5s" path="res://Scripts/Browser/DownloadProgress.gd" id="1_1a3vh"]
+[ext_resource type="Theme" uid="uid://bn6rbmdy60lhr" path="res://Scenes/Styles/BrowserText.tres" id="2_lnt4f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lnt4f"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+bg_color = Color(0.105882, 0.105882, 0.105882, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f51et"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.184314, 0.184314, 0.184314, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v5p1v"]
+bg_color = Color(0.247059, 0.466667, 0.807843, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lnt4f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cs7kk"]
+bg_color = Color(0.15967, 0.15967, 0.15967, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[node name="DownloadProgress" type="PanelContainer"]
+custom_minimum_size = Vector2(376, 80)
+offset_right = 376.0
+offset_bottom = 81.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_lnt4f")
+script = ExtResource("1_1a3vh")
+
+[node name="HBox" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FilenameLabel" type="Label" parent="HBox/VBox"]
+layout_mode = 2
+text = "Downloading file..."
+text_overrun_behavior = 3
+
+[node name="ProgressBar" type="ProgressBar" parent="HBox/VBox"]
+layout_mode = 2
+theme = ExtResource("2_lnt4f")
+theme_override_styles/background = SubResource("StyleBoxFlat_f51et")
+theme_override_styles/fill = SubResource("StyleBoxFlat_v5p1v")
+show_percentage = false
+
+[node name="StatusLabel" type="Label" parent="HBox/VBox"]
+modulate = Color(0.7, 0.7, 0.7, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Preparing..."
+
+[node name="CancelButton" type="Button" parent="HBox"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/focus = SubResource("StyleBoxEmpty_lnt4f")
+theme_override_styles/hover = SubResource("StyleBoxFlat_cs7kk")
+text = "✕"
+
+[connection signal="pressed" from="HBox/CancelButton" to="." method="_on_cancel_pressed"]

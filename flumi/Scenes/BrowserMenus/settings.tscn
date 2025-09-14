@@ -1,0 +1,620 @@
+[gd_scene load_steps=43 format=3 uid="uid://cs7kf3xvffcwu"]
+
+[ext_resource type="Script" uid="uid://d4eh2nqg8r1ui" path="res://Scripts/Browser/settings.gd" id="1_settings"]
+[ext_resource type="Theme" uid="uid://bn6rbmdy60lhr" path="res://Scenes/Styles/BrowserText.tres" id="2_theme"]
+[ext_resource type="Texture2D" uid="uid://blskvfjswul1d" path="res://Assets/Icons/checkbox_white.svg" id="3_mdirl"]
+[ext_resource type="Texture2D" uid="uid://bs414mrvwdmcn" path="res://Assets/Icons/radio_disabled.svg" id="4_dm5ls"]
+[ext_resource type="Texture2D" uid="uid://bap17ryrkcyey" path="res://Assets/Icons/checkbox_disabled.svg" id="5_s7e1m"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_main"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.105882, 0.105882, 0.105882, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sidebar"]
+content_margin_left = 15.0
+content_margin_top = 25.0
+content_margin_right = 15.0
+content_margin_bottom = 25.0
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
+corner_radius_top_left = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vkd6r"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tab_selected_hover"]
+content_margin_left = 15.0
+content_margin_top = 10.0
+content_margin_right = 15.0
+content_margin_bottom = 10.0
+bg_color = Color(0.3, 0.55, 0.9, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tab_pressed"]
+content_margin_left = 15.0
+content_margin_top = 10.0
+content_margin_right = 15.0
+content_margin_bottom = 10.0
+bg_color = Color(0.168627, 0.168627, 0.168627, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tab_selected"]
+content_margin_left = 15.0
+content_margin_top = 10.0
+content_margin_right = 15.0
+content_margin_bottom = 10.0
+bg_color = Color(0.247059, 0.466667, 0.807843, 1)
+draw_center = false
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_tabs"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dxen3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tab_hover"]
+content_margin_left = 15.0
+content_margin_top = 10.0
+content_margin_right = 15.0
+content_margin_bottom = 10.0
+bg_color = Color(0.168627, 0.168627, 0.168627, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tab_normal"]
+content_margin_left = 15.0
+content_margin_top = 10.0
+content_margin_right = 15.0
+content_margin_bottom = 10.0
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hxjif"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3gdnt"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hpjw2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_content"]
+content_margin_left = 25.0
+content_margin_top = 25.0
+content_margin_right = 25.0
+content_margin_bottom = 25.0
+bg_color = Color(0.127451, 0.127451, 0.127451, 1)
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_section"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+bg_color = Color(0.0980392, 0.0980392, 0.0980392, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jyfhi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_34gk8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1xb48"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mf3pd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0linb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_esroy"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_mdirl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mdirl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_05lrc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jpip4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dm5ls"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s7e1m"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hcgcp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_input"]
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+content_margin_bottom = 8.0
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_hover"]
+content_margin_left = 15.0
+content_margin_top = 8.0
+content_margin_right = 15.0
+content_margin_bottom = 8.0
+bg_color = Color(0.3, 0.55, 0.9, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_pressed"]
+content_margin_left = 15.0
+content_margin_top = 8.0
+content_margin_right = 15.0
+content_margin_bottom = 8.0
+bg_color = Color(0.2, 0.4, 0.7, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button"]
+content_margin_left = 15.0
+content_margin_top = 8.0
+content_margin_right = 15.0
+content_margin_bottom = 8.0
+bg_color = Color(0.247059, 0.466667, 0.807843, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_app81"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8jbl5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vt4mc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nnk28"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yqiws"]
+
+[node name="PopupPanel" type="PopupPanel"]
+initial_position = 1
+size = Vector2i(900, 700)
+visible = true
+theme_override_styles/panel = SubResource("StyleBoxFlat_main")
+script = ExtResource("1_settings")
+
+[node name="HSplitContainer" type="HSplitContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+split_offset = 250
+dragger_visibility = 2
+
+[node name="Sidebar" type="PanelContainer" parent="HSplitContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_sidebar")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/Sidebar"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Title" type="Label" parent="HSplitContainer/Sidebar/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "Settings"
+
+[node name="HSeparator" type="HSeparator" parent="HSplitContainer/Sidebar/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="TabGeneral" type="Button" parent="HSplitContainer/Sidebar/VBoxContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vkd6r")
+theme_override_styles/hover = SubResource("StyleBoxFlat_tab_selected_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_tab_pressed")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tab_selected")
+toggle_mode = true
+button_pressed = true
+button_group = SubResource("ButtonGroup_tabs")
+text = "General"
+flat = true
+alignment = 0
+
+[node name="TabPrivacy" type="Button" parent="HSplitContainer/Sidebar/VBoxContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_dxen3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_tab_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_tab_pressed")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tab_normal")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_tabs")
+text = "Privacy"
+flat = true
+alignment = 0
+
+[node name="TabDownloads" type="Button" parent="HSplitContainer/Sidebar/VBoxContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hxjif")
+theme_override_styles/hover = SubResource("StyleBoxFlat_tab_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_tab_pressed")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tab_normal")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_tabs")
+text = "Downloads"
+flat = true
+alignment = 0
+
+[node name="TabAdvanced" type="Button" parent="HSplitContainer/Sidebar/VBoxContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3gdnt")
+theme_override_styles/hover = SubResource("StyleBoxFlat_tab_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_tab_pressed")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tab_normal")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_tabs")
+text = "Advanced"
+flat = true
+alignment = 0
+
+[node name="TabAbout" type="Button" parent="HSplitContainer/Sidebar/VBoxContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hpjw2")
+theme_override_styles/hover = SubResource("StyleBoxFlat_tab_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_tab_pressed")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tab_normal")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_tabs")
+text = "About"
+flat = true
+alignment = 0
+
+[node name="Content" type="PanelContainer" parent="HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_content")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/Content"]
+layout_mode = 2
+
+[node name="ContentStack" type="VBoxContainer" parent="HSplitContainer/Content/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="GeneralPanel" type="VBoxContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="GeneralTitle" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/GeneralPanel"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "General"
+
+[node name="StartupSection" type="PanelContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack/GeneralPanel"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_section")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack/GeneralPanel/StartupSection"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/GeneralPanel/StartupSection/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "On startup"
+
+[node name="StartupNewTab" type="CheckBox" parent="HSplitContainer/Content/ScrollContainer/ContentStack/GeneralPanel/StartupSection/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_constants/icon_max_width = 24
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jyfhi")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_34gk8")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_1xb48")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_mf3pd")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_0linb")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_esroy")
+theme_override_icons/unchecked = ExtResource("3_mdirl")
+theme_override_icons/radio_unchecked = ExtResource("4_dm5ls")
+button_pressed = true
+button_group = SubResource("ButtonGroup_mdirl")
+text = " Open the new tab page"
+flat = true
+
+[node name="StartupSpecificPage" type="CheckBox" parent="HSplitContainer/Content/ScrollContainer/ContentStack/GeneralPanel/StartupSection/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_mdirl")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_05lrc")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_jpip4")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_dm5ls")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_s7e1m")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_hcgcp")
+theme_override_icons/unchecked = ExtResource("3_mdirl")
+theme_override_icons/radio_unchecked = ExtResource("4_dm5ls")
+button_group = SubResource("ButtonGroup_mdirl")
+text = " Open a specific page"
+
+[node name="StartupURLContainer" type="HBoxContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack/GeneralPanel/StartupSection/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="URLLabel" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/GeneralPanel/StartupSection/VBoxContainer/StartupURLContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+text = "URL:"
+
+[node name="URLInput" type="LineEdit" parent="HSplitContainer/Content/ScrollContainer/ContentStack/GeneralPanel/StartupSection/VBoxContainer/StartupURLContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_input")
+placeholder_text = "https://example.com"
+
+[node name="SearchEngineSection" type="PanelContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack/GeneralPanel"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_section")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack/GeneralPanel/SearchEngineSection"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/GeneralPanel/SearchEngineSection/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Search engine"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack/GeneralPanel/SearchEngineSection/VBoxContainer"]
+layout_mode = 2
+
+[node name="SearchLabel" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/GeneralPanel/SearchEngineSection/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+text = "Default search URL:"
+
+[node name="SearchInput" type="LineEdit" parent="HSplitContainer/Content/ScrollContainer/ContentStack/GeneralPanel/SearchEngineSection/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_input")
+text = "gurt://search.web?q="
+placeholder_text = "gurt://search.web?q="
+
+[node name="PrivacyPanel" type="VBoxContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="PrivacyTitle" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/PrivacyPanel"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "Privacy and security"
+
+[node name="ClearDataSection" type="PanelContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack/PrivacyPanel"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_section")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack/PrivacyPanel/ClearDataSection"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/PrivacyPanel/ClearDataSection/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Clear browsing data"
+
+[node name="Description" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/PrivacyPanel/ClearDataSection/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Delete your browsing history, crumbs, and download history"
+autowrap_mode = 3
+
+[node name="ButtonsContainer" type="HBoxContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack/PrivacyPanel/ClearDataSection/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ClearHistoryButton" type="Button" parent="HSplitContainer/Content/ScrollContainer/ContentStack/PrivacyPanel/ClearDataSection/VBoxContainer/ButtonsContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_theme")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+text = "Clear History"
+
+[node name="ClearCookiesButton" type="Button" parent="HSplitContainer/Content/ScrollContainer/ContentStack/PrivacyPanel/ClearDataSection/VBoxContainer/ButtonsContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_theme")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+text = "Clear Crumbs"
+
+[node name="ClearDownloadsButton" type="Button" parent="HSplitContainer/Content/ScrollContainer/ContentStack/PrivacyPanel/ClearDataSection/VBoxContainer/ButtonsContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_theme")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+text = "Clear Downloads"
+
+[node name="DownloadsPanel" type="VBoxContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="DownloadsTitle" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/DownloadsPanel"]
+visible = false
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "Downloads"
+
+[node name="DownloadConfirmSection" type="PanelContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack/DownloadsPanel"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_section")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack/DownloadsPanel/DownloadConfirmSection"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/DownloadsPanel/DownloadConfirmSection/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Security"
+
+[node name="ConfirmCheckBox" type="CheckBox" parent="HSplitContainer/Content/ScrollContainer/ContentStack/DownloadsPanel/DownloadConfirmSection/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_app81")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_8jbl5")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_vt4mc")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_nnk28")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_yqiws")
+theme_override_icons/unchecked = ExtResource("5_s7e1m")
+button_pressed = true
+text = " Ask for confirmation for each download"
+
+[node name="AdvancedPanel" type="VBoxContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="AdvancedTitle" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/AdvancedPanel"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "Advanced"
+
+[node name="DNSSection" type="PanelContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack/AdvancedPanel"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_section")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack/AdvancedPanel/DNSSection"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/AdvancedPanel/DNSSection/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "DNS settings"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack/AdvancedPanel/DNSSection/VBoxContainer"]
+layout_mode = 2
+
+[node name="DNSLabel" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/AdvancedPanel/DNSSection/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+text = "DNS Server URL:"
+
+[node name="DNSInput" type="LineEdit" parent="HSplitContainer/Content/ScrollContainer/ContentStack/AdvancedPanel/DNSSection/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_input")
+text = "135.125.163.131:4878"
+placeholder_text = "135.125.163.131:4878"
+
+[node name="AboutPanel" type="VBoxContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="AboutTitle" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/AboutPanel"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "About Flumi"
+
+[node name="AboutSection" type="PanelContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack/AboutPanel"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_section")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/Content/ScrollContainer/ContentStack/AboutPanel/AboutSection"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="FlumiBrand" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/AboutPanel/AboutSection/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "Flumi"
+
+[node name="VersionLabel" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/AboutPanel/AboutSection/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 16
+text = "Version 1.0.0"
+
+[node name="DescriptionLabel" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/AboutPanel/AboutSection/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "The official browser for the GURT protocol"
+autowrap_mode = 3
+
+[node name="HSeparator" type="HSeparator" parent="HSplitContainer/Content/ScrollContainer/ContentStack/AboutPanel/AboutSection/VBoxContainer"]
+layout_mode = 2
+
+[node name="CopyrightLabel" type="Label" parent="HSplitContainer/Content/ScrollContainer/ContentStack/AboutPanel/AboutSection/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 12
+text = "© 2025 Gurted under FaceDev. All rights reserved."
